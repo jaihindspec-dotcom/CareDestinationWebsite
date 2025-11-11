@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareDestinations - Where Healing Meets Humanity</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="CareDestinations Logo">
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li class="dropdown">
+                    <a href="#speciality">Speciality <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                         <a href="#gynaecology">Gynaecology</a>
+                         <a href="#orthopaedics">Orthopaedics</a>                        
+                    </div>
+                </li>
+                
+                <li><a href="#hospitals">Hospitals</a></li>
+                <li><a href="#doctors">Doctors</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="be-a-partner.html" class="btn-partner">Be a Partner</a></li>
+            </ul>
+            <div class="nav-right-actions">
+                <div class="search-dropdown">
+                    <button class="search-btn" id="searchToggle">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="search-panel" id="searchPanel">
+                        <div class="search-tabs">
+                            <button class="search-tab active" data-tab="treatments">Treatments</button>
+                            <button class="search-tab" data-tab="hospitals">Hospitals</button>
+                            <button class="search-tab" data-tab="doctors">Doctors</button>
+                        </div>
+                        <div class="search-content">
+                            <input type="text" id="searchInput" placeholder="Search treatments..." class="search-input">
+                            <div class="search-results" id="searchResults"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="language-selector">
+                    <select id="languageSelect" class="language-dropdown">
+                        <option value="">Select Language</option>
+                        <option value="en">English</option>
+                        <option value="es">Español (Spanish)</option>
+                        <option value="fr">Français (French)</option>
+                        <option value="de">Deutsch (German)</option>
+                        <option value="it">Italiano (Italian)</option>
+                        <option value="pt">Português (Portuguese)</option>
+                        <option value="ru">Русский (Russian)</option>
+                        <option value="zh-CN">简体中文 (Chinese Simplified)</option>
+                        <option value="zh-TW">繁體中文 (Chinese Traditional)</option>
+                        <option value="ja">日本語 (Japanese)</option>
+                        <option value="ko">한국어 (Korean)</option>
+                        <option value="ar">العربية (Arabic)</option>
+                        <option value="hi">हिन्दी (Hindi)</option>
+                        <option value="bn">বাংলা (Bengali)</option>
+                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                        <option value="te">తెలుగు (Telugu)</option>
+                        <option value="mr">मराठी (Marathi)</option>
+                        <option value="ta">தமிழ் (Tamil)</option>
+                        <option value="ur">اردو (Urdu)</option>
+                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                        <option value="ml">മലയാളം (Malayalam)</option>
+                        <option value="or">ଓଡ଼ିଆ (Oriya)</option>
+                    </select>
+                    <div id="google_translate_element"></div>
+                </div>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Start Your Health Journey With Peace Of Mind Your Health Is Our Priorty </h1>
+                <form class="hero-search" id="heroSearchForm" action="treatment-details.html" method="get">
+                    <div class="search-group">
+                        <label>Specialization</label>
+                        <select id="specialization" name="specialization">
+                            <option value="">Select Specialization</option>
+                            <option>Gynaecology</option>
+                            <option>Orthopaedics</option>
+                        </select>
+                    </div>
+                    <div class="search-group">
+                        <label>Treatment</label>
+                        <select id="treatment" name="treatment">
+                            <option value="">Select Specialization First</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-search"><i class="fas fa-search"></i> Search</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Process Section -->
+    <section class="work-process">
+        <div class="container">
+            <div class="section-header">
+            <h3>WORK PROCESS</h3>
+            <h2>Let's take a look at how we operate</h2>
+            </div>
+            <div class="process-visual" style="background: url('images/globe-stethoscope-medical-tourism.jpg') center/cover no-repeat; min-height:340px; border-radius:18px; margin-bottom:32px; display:flex; align-items:center; justify-content:center;">
+            <!--
+                Replace 'images/globe-stethoscope-medical-tourism.jpg' with your actual image path.
+                This image should depict: a realistic globe with a stethoscope wrapped around it, travel routes/airplane lines from USA, UK, Africa, Middle East to a glowing/highlighted India.
+                The background should be clean, professional, and evoke hope, healing, and connection.
+            -->
+            <span style="display:none;">A globe with a stethoscope and travel routes to India, symbolizing global healthcare and medical tourism.</span>
+            </div>
+            <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <div class="step-icon">
+                <i class="fas fa-stethoscope"></i>
+                </div>
+                <h4>Making a Diagnosis</h4>
+                <p>Our experts analyze your health data to create a personalized healthcare plan for optimal well-being.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <div class="step-icon">
+                <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h4>Decision Making</h4>
+                <p>Gain clarity and confidence in your treatment plan with our expert consultation services.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <div class="step-icon">
+                <i class="fas fa-plane"></i>
+                </div>
+                <h4>Travel</h4>
+                <p>We assist with flights, accommodations, and travel insights for a seamless journey.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <div class="step-icon">
+                <i class="fas fa-heartbeat"></i>
+                </div>
+                <h4>Recovery</h4>
+                <p>Our holistic approach ensures a rejuvenating recovery journey with renewed energy.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">05</div>
+                <div class="step-icon">
+                <i class="fas fa-user-check"></i>
+                </div>
+                <h4>Post Recovery</h4>
+                <p>Receive expert support and guidance for a smooth and healthy post-recovery experience.</p>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Treatments Section -->
+    <section class="treatments" id="treatments">
+        <div class="container">
+            <div class="section-header">
+                <h3>Treatment Prices</h3>
+                <h2>Our Popular Treatments</h2>
+            </div>
+            <div class="treatment-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="gynaecology">Gynaecology</button>
+                <button class="filter-btn" data-filter="orthopaedics">Orthopaedics</button>                
+            </div>
+            <div class="treatment-grid" id="treatment-grid">
+                <!-- Treatment cards will be populated by JavaScript -->
+            </div>
+            <div class="view-all-container">
+                <button class="btn-view-all">View All</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hospitals Section -->
+    <section class="hospitals" id="hospitals">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Top Hospitals</h2>
+            </div>
+            <div class="hospital-grid">
+                <div class="hospital-card">
+                    <!--
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Patient traveling to India for medical treatment, globe with stethoscope" style="width:100%;height:auto;object-fit:cover; border-radius:8px;">
+                    -->
+                    <div class="hospital-info">
+                        <h4> Health City Vistaar - A Multi-speciality Hospital </h4>
+                        <p><i class="fas fa-map-marker-alt"></i> India, Lucknow</p>
+                        <span class="hospital-type">Multi Speciality</span>
+                        <p class="hospital-description">Health City Vistaar is a leading multi-speciality tertiary care hospital in Lucknow offering comprehensive inpatient and outpatient services. Key specialties include Cardiology, Orthopaedics, Gastroenterology, Neurosurgery, Nephrology & Renal Transplant, Oncology, Maternity & IVF, and Emergency & Trauma care. The hospital features modern operation theatres, advanced imaging, ICU & step-down care, and a dedicated international patient services desk.</p>
+                        <ul class="hospital-details">
+                            <li><strong>Address:</strong>Lucknow, Uttar Pradesh, India</li>
+                            <li><strong>No Of Bed:</strong>800</li>                                
+                            <li><strong>Facilities:</strong> ICU, NICU, Cath Lab, Advanced Imaging (CT/MRI), Operation Theatres, Physiotherapy & Rehabilitation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hospital-card">
+                    <!--<div class="hospital-image">
+                        <img src="https://via.placeholder.com/400x250/50C878/ffffff?text=Royal+Care" alt="Royal Care Hospital">
+                    </div> -->
+                    <div class="hospital-info">
+                        <h4>HealthCity Trauma Centre & Superspeciality Hospital</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> India, Lucknow</p>
+                        <span class="hospital-type">Multi Speciality</span>
+                        <p class="hospital-description">
+                            HealthCity Trauma Centre & Superspeciality Hospital is a NABH-accredited, 300+ bedded hospital in Lucknow, offering advanced trauma care and a wide range of superspeciality services. The hospital is equipped with state-of-the-art operation theatres, modular ICUs, and a dedicated team of highly qualified doctors and paramedical staff. Key specialties include Trauma & Emergency, Cardiology, Neurology, Orthopaedics, Gastroenterology, Oncology, Nephrology, Urology, and more. The hospital is committed to providing quality healthcare with compassion and excellence.
+                        </p>
+                        <ul class="hospital-details">
+                            <li><strong>Address:</strong> Tudiaganj, Lucknow, Uttar Pradesh, India</li>
+                            <li><strong>No Of Beds:</strong> 300+</li>
+                            <li><strong>Facilities:</strong> NABH Accredited, 24x7 Trauma & Emergency, Modular Operation Theatres, Advanced ICU, Cardiac Care Unit, Dialysis, Cath Lab, Radiology & Imaging, Blood Bank, Pharmacy, Ambulance Services, International Patient Desk</li>
+                        </ul>
+                       </div>
+                </div>
+                </div>
+            </div>
+            <div class="view-all-container">
+                <button class="btn-view-all">View All</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section class="doctors" id="doctors">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Doctors</h2>
+                <p>Meet our team of experienced specialists who provide personalized care and treatment plans.</p>
+            </div>
+            <div class="doctor-grid">
+                <!-- Dr. Sandeep Kapoor: replace placeholders below with real content from drsandeepkapoor.com -->
+                <div class="doctor-card">
+                    <div class="doctor-photo">
+                        <picture>
+                            <source srcset="images/dr-sandeep-kapoor.jpg" type="image/jpeg">
+                            <img src="images/sandeepkapoor.jpg" alt="Dr. Sandeep Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://drsandeepkapoor.com/wp-content/uploads/dr-sandeep-kapoor.jpg'">
+                        </picture>
+                    </div>
+                    <div class="doctor-info">
+                        <h4>Dr. Sandeep Kapoor</h4>
+                        <!-- Replace SPECIALTY with actual specialty (e.g., Orthopaedics, Spine Surgeon, etc.) -->
+                        <span class="doctor-specialty">Orthopaedics</span>
+                        <!-- Replace PROFILE_TEXT with the profile/experience text copied from the website -->
+                        <p>Dr. Sandeep Kapoor, MBBS Honours and a Gold Medalist from KGMU, Lucknow. Awarded the Prof. BN Sinha citation for best Post Graduate in MS Orthopedics at KGMU.</p>
+                        <a href="https://drsandeepkapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
+                    </div>
+                </div>
+
+                <!-- Dr. Darshna Kapoor -->
+                <div class="doctor-card">
+                    <div class="doctor-photo">
+                        <picture>
+                            <source srcset="images/dr-darshna-kapoor.jpg" type="image/jpeg">
+                            <img src="images/darshnakapoor.jpg" alt="Dr. Darshna Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Darshna+Kapoor'">
+                        </picture>
+                    </div>
+                    <div class="doctor-info">
+                        <h4>Dr. Darshna Kapoor</h4>
+                        <span class="doctor-specialty">Gynaecologist</span>
+                        <p>Dr. Darshna Kapoor is an experienced gynaecologist focusing on comprehensive women's health, minimally invasive gynecologic surgery, and fertility-supportive care. She provides patient-centered consultations and evidence-based treatment plans tailored to each patient's needs.</p>
+                        <a href="https://drdarshnakapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Existing example doctors (keep or remove as needed) -->
+                
+               
+            </div>
+        </div>
+    </section>
+
+    <!-- Specializations Section -->8
+
+    <section class="specializations" id="specializations">
+        <div class="container">
+            <div class="section-header">
+                <h2>Specializations</h2>
+                <p>At CareDestinations, we bring together expert medical care and restorative travel experiences. Our medical tourism services cover a wide range of treatments for all body systems, focusing on holistic healing and overall wellness. We’re dedicated to guiding our clients on their journey to recovery and a healthier, more fulfilling life.</p>
+            </div>
+            <div class="specialization-grid">
+                
+                <div class="specialization-card">
+                    <div class="spec-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4>Orthopaedics</h4>
+                    <p>Orthopedics (sometimes spelled orthopaedics) is the branch of medicine that focuses on the musculoskeletal system — which includes your bones, joints, muscles, ligaments, tendons, and nerves.</p>
+                    <a href="#" class="btn-read-more">Read More</a>
+                </div>
+                <div class="specialization-card">
+                    <div class="spec-icon">
+                        <i class="fas fa-procedures"></i>
+                    </div>
+                    <h4>Gynaecology</h4>
+                    <p>Gynaecology (also spelled Gynecology in American English) is the branch of medicine that focuses on the health of the female reproductive system — including the uterus, ovaries, fallopian tubes, cervix, and vagina.</p>
+                    <a href="#" class="btn-read-more">Read More</a>
+                </div>
+                <div class="specialization-card">
+                    <div class="spec-icon">
+                        <i class="fas fa-procedures"></i>
+                    </div>
+                    <h4>Gastroenterology</h4>
+                    <p>Gastroenterology is the branch of medicine that focuses on the digestive system and its related organs. This includes the esophagus, stomach, intestines (small and large), liver, pancreas, gallbladder, and bile ducts.</p>
+                    <a href="#" class="btn-read-more">Read More</a>
+                </div>
+              
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-text">
+                    <h2>We Provide Best Medical Treatment.</h2>
+                    <p>Contact us to get your Quotation</p>
+                </div>
+                <button class="btn-cta">Get an Opinion <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h3>OUR TESTIMONIALS</h3>
+                <h2>What Patients are Saying!</h2>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>My experience with CareDestinations for weight loss surgery was life-changing. From start to finish, they provided outstanding care and made me feel at ease. I've never felt healthier!</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Michael T.</h5>
+                            <span>Happy Client</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>Thanks to CareDestinations, I received top-quality fertility treatments abroad. The team was professional and compassionate, and they guided me throughout the entire process. I'm grateful for their support on this important journey!</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Amanda K.</h5>
+                            <span>Happy Client</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>CareDestinations made my cosmetic surgery journey smooth and stress-free. The doctors were experienced, the care was exceptional, and I am thrilled with my results. I would definitely recommend them to anyone considering medical tourism!</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Emily R.</h5>
+                            <span>Happy Client</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog" id="news">
+        <div class="container">
+            <div class="section-header">
+                <h3>ARTICLES & TIPS</h3>
+                <h2>Latest News & Blogs</h2>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span>Oct 28, 2025</span>
+                    </div>
+                    <h4>Hair Transplantation in India – Cost, Success Rate Updated 2025</h4>
+                    <a href="#" class="btn-read-more">Read More</a>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span>Oct 14, 2025</span>
+                    </div>
+                    <h4>Cost of Kidney Transplantation in India – Price & Surgery 2025</h4>
+                    <a href="#" class="btn-read-more">Read More</a>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span>Sep 25, 2025</span>
+                    </div>
+                    <h4>Cost of Liver Transplant in India – Success Rate & Expenses</h4>
+                    <a href="#" class="btn-read-more">Read More</a>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span>Sep 17, 2025</span>
+                    </div>
+                    <h4>Rhinoplasty (Nose) Surgery in India | Cost, Types & Recovery</h4>
+                    <a href="#" class="btn-read-more">Read More</a>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span>Sep 10, 2025</span>
+                    </div>
+                    <h4>Best Laser Eye Surgery in India 2025– LASIK Cost & Types</h4>
+                    <a href="#" class="btn-read-more">Read More</a>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span>Sep 01, 2025</span>
+                    </div>
+                    <h4>Robotic Surgery in India – Cost, Types & Patient Guide 2025</h4>
+                    <a href="#" class="btn-read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-cta">
+        <div class="container">
+            <div class="contact-cta-content">
+                <h2>Your Journey to Health Starts Here</h2>
+                <p>Reach out to our experts for personalized advice and tailored solutions today.</p>
+                <a href="mailto:info@caredestinations.com" class="btn-contact">Contact Us!</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <img src="logo.png" alt="CareDestinations" class="footer-logo">
+                    <p>CareDestinations connects you with leading hospitals, doctors, experts, and cosmetic specialists. It ensures access to trusted providers for personalized care and treatments.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Top Hospitals</h4>
+                    <ul>
+                        <li><a href="#">Health City Vistaar Lucknow</a></li>
+                        <li><a href="#">Health City Lucknow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> CareDestinations Solutions Pvt Ltd<br>E-1002 Stellar Jeevan<br>Great Noida West<br>Uttar Pradesh-India</li>
+                        <li><i class="fas fa-envelope"></i> info@caredestinations.com</li>
+                        <li><i class="fas fa-phone"></i> +91 9764243404</li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy;2025 CareDestinations Solutions Pvt Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,es,fr,de,it,pt,ru,zh-CN,zh-TW,ja,ko,ar,hi,bn,pa,te,mr,ta,ur,gu,kn,ml,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,20 @@
+📌 IMPORTANT: LOGO FILE NEEDED
+
+Please save your CareDestinations logo as "logo.png" in this directory.
+
+The website is configured to use:
+- logo.png (in the root folder)
+
+Recommended specifications:
+- Format: PNG with transparent background
+- Width: 200-300 pixels
+- File size: Under 100KB for optimal loading
+
+The logo will appear in:
+1. Navigation bar (top of every page)
+2. Footer section
+
+Once you add the logo file, delete this text file.
+
+Thank you!
+
