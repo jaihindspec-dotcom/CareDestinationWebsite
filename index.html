@@ -17,7 +17,7 @@
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home" class="active">Home</a></li>
                 <li class="dropdown">
-                    <a href="#speciality">Speciality <i class="fas fa-chevron-down"></i></a>
+                    <a href="#speciality">Treatments <i class="fas fa-chevron-down"></i></a>
                     <div class="dropdown-content">
                          <a href="#gynaecology">Gynaecology</a>
                          <a href="#orthopaedics">Orthopaedics</a>                        
@@ -26,9 +26,249 @@
                 
                 <li><a href="#hospitals">Hospitals</a></li>
                 <li><a href="#doctors">Doctors</a></li>
-                <li><a href="#contact">Contact Us</a></li>
+                <li>
+                    <a href="#" id="contactOpen">Contact Us</a>
+                    <template id="contactModalTemplate">
+                        <style>
+                            /* Modal styles */
+                            .cd-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:9999}
+                            .cd-modal{background:#fff;border-radius:10px;max-width:900px;width:95%;max-height:90vh;overflow:auto;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.3);font-family:inherit}
+                            .cd-modal .cd-row{display:flex;gap:16px;flex-wrap:wrap}
+                            .cd-modal h3{margin:0 0 8px;font-size:20px}
+                            .cd-field{flex:1 1 220px;display:flex;flex-direction:column;margin-bottom:10px}
+                            .cd-field label{font-size:13px;margin-bottom:6px}
+                            .cd-field input,.cd-field select,.cd-field textarea{padding:8px;border:1px solid #ccc;border-radius:6px;font-size:14px}
+                            .cd-field textarea{min-height:90px;resize:vertical}
+                            .cd-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+                            .cd-btn{padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
+                            .cd-btn-primary{background:#007bff;color:#fff}
+                            .cd-btn-ghost{background:transparent;border:1px solid #ddd}
+                            .cd-close{position:absolute;right:14px;top:10px;background:transparent;border:0;font-size:20px;cursor:pointer}
+                            @media (max-width:520px){.cd-row{flex-direction:column}}
+                        </style>
+
+                        <div class="cd-modal-backdrop" role="dialog" aria-modal="true">
+                            <div class="cd-modal" aria-labelledby="cdModalTitle">
+                                <button class="cd-close" aria-label="Close">&times;</button>
+                                <h3 id="cdModalTitle">Request a Consultation / Quote</h3>
+                                <p style="margin-top:4px;margin-bottom:12px;color:#555;font-size:14px">Fill in details and our team will contact you.</p>
+
+                                <form id="cdContactForm">
+                                    <!-- Replace the action endpoint in JS with your Formspree or server endpoint -->
+                                    <div class="cd-row">
+                                        <div class="cd-field">
+                                            <label for="cd_name">Full Name</label>
+                                            <input id="cd_name" name="name" type="text" required>
+                                        </div>
+                                        <div class="cd-field">
+                                            <label for="cd_email">Email</label>
+                                            <input id="cd_email" name="email" type="email" required>
+                                        </div>
+                                        <div class="cd-field">
+                                            <label for="cd_phone">Phone</label>
+                                            <input id="cd_phone" name="phone" type="tel">
+                                        </div>
+                                        <div class="cd-field">
+                                            <label for="cd_country">Country</label>
+                                            <input id="cd_country" name="country" type="text">
+                                        </div>
+                                        <div class="cd-field">
+                                            <label for="cd_specialization">Specialization</label>
+                                            <select id="cd_specialization" name="specialization">
+                                                <option value="">Select</option>
+                                                <option>Gynaecology</option>
+                                                <option>Orthopaedics</option>
+                                            </select>
+                                        </div>
+                                        <div class="cd-field">
+                                            <label for="cd_treatment">Treatment / Procedure</label>
+                                            <input id="cd_treatment" name="treatment" type="text">
+                                        </div>
+                                        <div class="cd-field">
+                                            <label for="cd_hospital">Preferred Hospital (optional)</label>
+                                            <input id="cd_hospital" name="preferred_hospital" type="text">
+                                        </div>
+                                        <div class="cd-field">
+                                            <label for="cd_budget">Estimated Budget (optional)</label>
+                                            <input id="cd_budget" name="budget" type="text" placeholder="e.g. USD 2000 - 5000">
+                                        </div>
+                                        <div class="cd-field">
+                                            <label for="cd_travel_date">Preferred Travel Dates (optional)</label>
+                                            <input id="cd_travel_date" name="travel_dates" type="text" placeholder="Approx. dates or month/year">
+                                        </div>
+                                        <div class="cd-field" style="flex-basis:100%">
+                                            <label for="cd_message">Additional Details</label>
+                                            <textarea id="cd_message" name="message"></textarea>
+                                        </div>
+
+                                        <div class="cd-field" style="flex-basis:100%">
+                                            <label style="font-size:13px"><input type="checkbox" id="cd_agree" name="consent" value="yes" required> I consent to be contacted regarding my enquiry.</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="cd-actions">
+                                        <button type="button" class="cd-btn cd-btn-ghost" id="cdCancel">Cancel</button>
+                                        <input type="hidden" name="_replyto" id="cd_replyto">
+                                        <button type="submit" class="cd-btn cd-btn-primary" id="cdSubmit">Send Enquiry</button>
+
+                                        <script>
+                                        /* Populate hidden reply-to and a consolidated full_message field before submit so email contains complete form info */
+                                        (function(){
+                                            const submitBtn = document.getElementById('cdSubmit');
+                                            const form = document.getElementById('cdContactForm');
+
+                                            function buildDetails() {
+                                                const map = [
+                                                    {id: 'cd_name', label: 'Full Name'},
+                                                    {id: 'cd_email', label: 'Email'},
+                                                    {id: 'cd_phone', label: 'Phone'},
+                                                    {id: 'cd_country', label: 'Country'},
+                                                    {id: 'cd_specialization', label: 'Specialization'},
+                                                    {id: 'cd_treatment', label: 'Treatment / Procedure'},
+                                                    {id: 'cd_hospital', label: 'Preferred Hospital'},
+                                                    {id: 'cd_budget', label: 'Estimated Budget'},
+                                                    {id: 'cd_travel_date', label: 'Preferred Travel Dates'},
+                                                    {id: 'cd_message', label: 'Additional Details'}
+                                                ];
+                                                return map.map(m => {
+                                                    const el = document.getElementById(m.id);
+                                                    const val = el ? (el.value || '').trim() : '';
+                                                    return m.label + ': ' + val;
+                                                }).join('\n');
+                                            }
+
+                                            submitBtn.addEventListener('click', function(){
+                                                // set _replyto for Formspree (so sender email is visible)
+                                                const emailEl = document.getElementById('cd_email');
+                                                const replyEl = document.getElementById('cd_replyto');
+                                                if (emailEl && replyEl) replyEl.value = emailEl.value || '';
+
+                                                // ensure consolidated field exists and is updated
+                                                let full = document.getElementById('cdFullMessage');
+                                                if (!full) {
+                                                    full = document.createElement('input');
+                                                    full.type = 'hidden';
+                                                    full.name = 'full_message';
+                                                    full.id = 'cdFullMessage';
+                                                    form.appendChild(full);
+                                                }
+                                                full.value = buildDetails();
+                                            });
+                                        })();
+                                        </script>
+                                    </div>
+
+                                    <!-- Accessible status messages -->
+                                    <div id="cdStatus" role="status" aria-live="polite" style="margin-top:10px;font-size:14px;color:#333;display:none"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </template>
+
+                    <script>
+                        (function(){
+                            const openBtn = document.getElementById('contactOpen');
+                            const tpl = document.getElementById('contactModalTemplate');
+
+                            // Append modal to body on first click (keeps markup valid inside <ul>)
+                            let modalEl = null;
+                            function ensureModal(){
+                                if (modalEl) return modalEl;
+                                modalEl = tpl.content.cloneNode(true);
+                                document.body.appendChild(modalEl);
+                                const backdrop = document.body.querySelector('.cd-modal-backdrop');
+                                const form = document.getElementById('cdContactForm');
+                                const closeBtn = document.querySelector('.cd-close');
+                                const cancelBtn = document.getElementById('cdCancel');
+                                const status = document.getElementById('cdStatus');
+                                const submitBtn = document.getElementById('cdSubmit');
+
+                                function closeModal(){ backDropHide(); }
+                                function backDropHide(){ 
+                                    const b = document.querySelector('.cd-modal-backdrop');
+                                    if (b) b.remove();
+                                }
+
+                                // Close handlers
+                                closeBtn.addEventListener('click', closeModal);
+                                cancelBtn.addEventListener('click', closeModal);
+                                document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+                                // Clicking outside modal closes
+                                document.addEventListener('click', function clickOutside(e){
+                                    const b = document.querySelector('.cd-modal-backdrop');
+                                    if (!b) return;
+                                    const modal = b.querySelector('.cd-modal');
+                                    if (modal && !modal.contains(e.target) && !e.target.matches('#contactOpen')) {
+                                        backDropHide();
+                                        document.removeEventListener('click', clickOutside);
+                                    }
+                                });
+
+                                // Form submission - using Formspree endpoint by default
+                                form.addEventListener('submit', function(evt){
+                                    evt.preventDefault();
+                                    status.style.display = 'none';
+                                    submitBtn.disabled = true;
+                                    submitBtn.textContent = 'Sending...';
+
+                                    const endpoint = 'https://formspree.io/f/cdContactForm'; // <- replace YOUR_FORM_ID with your Formspree form ID or your server endpoint
+
+                                    // Prevent attempting to submit to the placeholder endpoint which returns "form not found".
+                                    if (endpoint.includes('YOUR_FORM_ID')) {
+                                        submitBtn.disabled = false;
+                                        submitBtn.textContent = 'Send Enquiry';
+                                        status.style.color = 'crimson';
+                                        status.textContent = 'Form endpoint not configured. Please replace YOUR_FORM_ID in the script with your Formspree form ID or set your server endpoint.';
+                                        status.style.display = 'block';
+                                        return;
+                                    }
+
+                                    const data = new FormData(form);
+                                    // Optional: add a subject
+                                    data.append('_subject', 'New Consultation Request from CareDestinations');
+
+                                    fetch(endpoint, {
+                                        method: 'POST',
+                                        headers: { 'Accept': 'application/json' },
+                                        body: data
+                                    }).then(async (res) => {
+                                        submitBtn.disabled = false;
+                                        submitBtn.textContent = 'Send Enquiry';
+                                        if (res.ok) {
+                                            status.style.color = 'green';
+                                            status.textContent = 'Thank you! Your enquiry has been sent. We will contact you shortly.';
+                                            status.style.display = 'block';
+                                            form.reset();
+                                            setTimeout(()=>{ const b = document.querySelector('.cd-modal-backdrop'); if(b) b.remove(); }, 2500);
+                                        } else {
+                                            const json = await res.json().catch(()=>null);
+                                            status.style.color = 'crimson';
+                                            status.textContent = (json && json.error) ? json.error : 'Submission failed. Please try again or email info@caredestinations.com.';
+                                            status.style.display = 'block';
+                                        }
+                                    }).catch((err)=>{
+                                        submitBtn.disabled = false;
+                                        submitBtn.textContent = 'Send Enquiry';
+                                        status.style.color = 'crimson';
+                                        status.textContent = 'Network error. Please try again later.';
+                                        status.style.display = 'block';
+                                        console.error(err);
+                                    });
+                                });
+
+                                return document.body.querySelector('.cd-modal-backdrop');
+                            }
+
+                            openBtn.addEventListener('click', function(e){
+                                e.preventDefault();
+                                ensureModal();
+                            });
+                        })();
+                    </script>
+                </li>
                 <li><a href="#news">News</a></li>
-                <li><a href="be-a-partner.html" class="btn-partner">Be a Partner</a></li>
+                <li><a href="be-a-partner.html" class="btn-partner">Partner With Us</a></li>
             </ul>
             <div class="nav-right-actions">
                 <div class="search-dropdown">
@@ -86,10 +326,21 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero" id="home"
+        style="background:
+            linear-gradient(180deg, rgba(135,206,235,0.85), rgba(135,206,235,0.45)),
+            url('images/globe-stethoscope-image5461034.jpg') center/cover no-repeat;
+            color:#fff;
+            min-height:420px;
+            display:flex;
+            align-items:center;
+            ">
         <div class="container">
+                <!-- Hero content (kept empty here to preserve original layout) -->
+        </div>
+    </section><div class="container"></div>
             <div class="hero-content">
-                <h1>Start Your Health Journey With Peace Of Mind Your Health Is Our Priorty </h1>
+                <h1>Start Your Health Journey With Peace Of Mind</h1>
                 <form class="hero-search" id="heroSearchForm" action="treatment-details.html" method="get">
                     <div class="search-group">
                         <label>Specialization</label>
@@ -156,7 +407,7 @@
                 <div class="step-icon">
                 <i class="fas fa-heartbeat"></i>
                 </div>
-                <h4>Recovery</h4>
+                <h4>Treatment & Recovery</h4>
                 <p>Our holistic approach ensures a rejuvenating recovery journey with renewed energy.</p>
             </div>
             <div class="process-step">
@@ -164,7 +415,7 @@
                 <div class="step-icon">
                 <i class="fas fa-user-check"></i>
                 </div>
-                <h4>Post Recovery</h4>
+                <h4>Post Recovery & Follow up</h4>
                 <p>Receive expert support and guidance for a smooth and healthy post-recovery experience.</p>
             </div>
             </div>
@@ -175,20 +426,20 @@
     <section class="treatments" id="treatments">
         <div class="container">
             <div class="section-header">
-                <h3>Treatment Prices</h3>
+                <h3>Treatment Cost</h3>
                 <h2>Our Popular Treatments</h2>
             </div>
             <div class="treatment-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
+                <!--<button class="filter-btn active" data-filter="all">All</button>-->
                 <button class="filter-btn" data-filter="gynaecology">Gynaecology</button>
                 <button class="filter-btn" data-filter="orthopaedics">Orthopaedics</button>                
             </div>
             <div class="treatment-grid" id="treatment-grid">
                 <!-- Treatment cards will be populated by JavaScript -->
             </div>
-            <div class="view-all-container">
+            <!--<div class="view-all-container">
                 <button class="btn-view-all">View All</button>
-            </div>
+            </div>-->
         </div>
     </section>
 
@@ -204,36 +455,81 @@
                     <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Patient traveling to India for medical treatment, globe with stethoscope" style="width:100%;height:auto;object-fit:cover; border-radius:8px;">
                     -->
                     <div class="hospital-info">
-                        <h4> Health City Vistaar - A Multi-speciality Hospital </h4>
+                       <h4>HealthCity Vistaar MultiSeciality Hospital</h4>
                         <p><i class="fas fa-map-marker-alt"></i> India, Lucknow</p>
                         <span class="hospital-type">Multi Speciality</span>
                         <p class="hospital-description">Health City Vistaar is a leading multi-speciality tertiary care hospital in Lucknow offering comprehensive inpatient and outpatient services. Key specialties include Cardiology, Orthopaedics, Gastroenterology, Neurosurgery, Nephrology & Renal Transplant, Oncology, Maternity & IVF, and Emergency & Trauma care. The hospital features modern operation theatres, advanced imaging, ICU & step-down care, and a dedicated international patient services desk.</p>
                         <ul class="hospital-details">
                             <li><strong>Address:</strong>Lucknow, Uttar Pradesh, India</li>
-                            <li><strong>No Of Bed:</strong>800</li>                                
+                            <li><strong>No Of Bed:</strong>150</li>                                
                             <li><strong>Facilities:</strong> ICU, NICU, Cath Lab, Advanced Imaging (CT/MRI), Operation Theatres, Physiotherapy & Rehabilitation</li>
+                        <a> </a>
                         </ul>
+                           
+                        <div class="hospital-video">
+                            <div class="video-wrapper" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">
+                                <iframe src="https://www.youtube.com/embed/qr4bEnSQ3F4" title="HealthCity Vistaar - Hospital Tour" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                            <p><a href="https://www.youtube.com/watch?v=qr4bEnSQ3F4" target="_blank" rel="noopener"></a></p>
+                        </div></div>
                     </div>
                 </div>
+                <style>
+                /* Force hospital cards to stack vertically */
+                .hospital-grid {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 24px;
+                }
+                .hospital-card {
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+                </style>
+
                 <div class="hospital-card">
-                    <!--<div class="hospital-image">
-                        <img src="https://via.placeholder.com/400x250/50C878/ffffff?text=Royal+Care" alt="Royal Care Hospital">
-                    </div> -->
-                    <div class="hospital-info">
-                        <h4>HealthCity Trauma Centre & Superspeciality Hospital</h4>
-                        <p><i class="fas fa-map-marker-alt"></i> India, Lucknow</p>
-                        <span class="hospital-type">Multi Speciality</span>
-                        <p class="hospital-description">
-                            HealthCity Trauma Centre & Superspeciality Hospital is a NABH-accredited, 300+ bedded hospital in Lucknow, offering advanced trauma care and a wide range of superspeciality services. The hospital is equipped with state-of-the-art operation theatres, modular ICUs, and a dedicated team of highly qualified doctors and paramedical staff. Key specialties include Trauma & Emergency, Cardiology, Neurology, Orthopaedics, Gastroenterology, Oncology, Nephrology, Urology, and more. The hospital is committed to providing quality healthcare with compassion and excellence.
-                        </p>
-                        <ul class="hospital-details">
-                            <li><strong>Address:</strong> Tudiaganj, Lucknow, Uttar Pradesh, India</li>
-                            <li><strong>No Of Beds:</strong> 300+</li>
-                            <li><strong>Facilities:</strong> NABH Accredited, 24x7 Trauma & Emergency, Modular Operation Theatres, Advanced ICU, Cardiac Care Unit, Dialysis, Cath Lab, Radiology & Imaging, Blood Bank, Pharmacy, Ambulance Services, International Patient Desk</li>
-                        </ul>
-                       </div>
+                        <!--<div class="hospital-image">
+                                <img src="https://via.placeholder.com/400x250/50C878/ffffff?text=Royal+Care" alt="Royal Care Hospital">
+                        </div> -->
+                        <div class="hospital-info">
+                                <h4>HealthCity Trauma Centre & Superspeciality Hospital</h4>
+                                <p><i class="fas fa-map-marker-alt"></i> India, Lucknow</p>
+                                <span class="hospital-type">Multi Speciality</span>
+                                <p class="hospital-description">
+                                        HealthCity Trauma Centre & Superspeciality Hospital is a NABH-accredited, 300+ bedded hospital in Lucknow, offering advanced trauma care and a wide range of superspeciality services. The hospital is equipped with state-of-the-art operation theatres, modular ICUs, and a dedicated team of highly qualified doctors and paramedical staff. Key specialties include Trauma & Emergency, Cardiology, Neurology, Orthopaedics, Gastroenterology, Oncology, Nephrology, Urology, and more. The hospital is committed to providing quality healthcare with compassion and excellence.
+                                </p>
+                                <ul class="hospital-details">
+                                        <li><strong>Address:</strong>Lucknow, Uttar Pradesh, India</li>
+                                        <li><strong>No Of Beds:</strong> 300+</li>
+                                        <li><strong>Facilities:</strong> NABH Accredited, 24x7 Trauma & Emergency, Modular Operation Theatres, Advanced ICU, Cardiac Care Unit, Dialysis, Cath Lab, Radiology & Imaging, Blood Bank, Pharmacy, Ambulance Services, International Patient Desk</li>
+                                </ul>
+                             </div>
                 </div>
-                </div>
+
+                <style>
+                /* Override earlier rule so hospital cards appear side-by-side on wider screens */
+                .hospital-grid {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    gap: 24px;
+                }
+                .hospital-card {
+                    flex: 1 1 calc(50% - 12px);
+                    box-sizing: border-box;
+                    min-width: 280px;
+                }
+
+                /* Keep stacked layout on small screens */
+                @media (max-width: 800px) {
+                    .hospital-grid {
+                        flex-direction: column;
+                    }
+                    .hospital-card {
+                        flex: 1 1 100%;
+                    }
+                }
+                </style>
             </div>
             <div class="view-all-container">
                 <button class="btn-view-all">View All</button>
@@ -282,7 +578,6 @@
                         <a href="https://drdarshnakapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
                     </div>
                 </div>
-                </div>
 
                 <!-- Existing example doctors (keep or remove as needed) -->
                 
@@ -290,12 +585,11 @@
             </div>
         </div>
     </section>
-
-    <!-- Specializations Section -->8
+    <!-- Specializations Section -->
 
     <section class="specializations" id="specializations">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header"></div>
                 <h2>Specializations</h2>
                 <p>At CareDestinations, we bring together expert medical care and restorative travel experiences. Our medical tourism services cover a wide range of treatments for all body systems, focusing on holistic healing and overall wellness. We’re dedicated to guiding our clients on their journey to recovery and a healthier, more fulfilling life.</p>
             </div>
@@ -317,14 +611,7 @@
                     <p>Gynaecology (also spelled Gynecology in American English) is the branch of medicine that focuses on the health of the female reproductive system — including the uterus, ovaries, fallopian tubes, cervix, and vagina.</p>
                     <a href="#" class="btn-read-more">Read More</a>
                 </div>
-                <div class="specialization-card">
-                    <div class="spec-icon">
-                        <i class="fas fa-procedures"></i>
-                    </div>
-                    <h4>Gastroenterology</h4>
-                    <p>Gastroenterology is the branch of medicine that focuses on the digestive system and its related organs. This includes the esophagus, stomach, intestines (small and large), liver, pancreas, gallbladder, and bile ducts.</p>
-                    <a href="#" class="btn-read-more">Read More</a>
-                </div>
+                
               
                 
             </div>
@@ -339,7 +626,234 @@
                     <h2>We Provide Best Medical Treatment.</h2>
                     <p>Contact us to get your Quotation</p>
                 </div>
-                <button class="btn-cta">Get an Opinion <i class="fas fa-arrow-right"></i></button>
+                <button class="btn-cta" id="bookAppointment">Book Appointment<i class="fas fa-arrow-right"></i></button>
+
+                <template id="appointmentModalTemplate">
+                    <style>
+                        .cd-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:9999}
+                        .cd-modal{background:#fff;border-radius:10px;max-width:800px;width:95%;max-height:90vh;overflow:auto;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.3);font-family:inherit;position:relative}
+                        .cd-modal h3{margin:0 0 8px;font-size:20px}
+                        .cd-row{display:flex;gap:12px;flex-wrap:wrap}
+                        .cd-field{flex:1 1 220px;display:flex;flex-direction:column;margin-bottom:10px}
+                        .cd-field label{font-size:13px;margin-bottom:6px}
+                        .cd-field input,.cd-field textarea,.cd-field select{padding:8px;border:1px solid #ccc;border-radius:6px;font-size:14px}
+                        .cd-field textarea{min-height:90px;resize:vertical}
+                        .cd-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+                        .cd-btn{padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
+                        .cd-btn-primary{background:#007bff;color:#fff}
+                        .cd-btn-ghost{background:transparent;border:1px solid #ddd}
+                        .cd-close{position:absolute;right:14px;top:10px;background:transparent;border:0;font-size:20px;cursor:pointer}
+                        @media (max-width:520px){.cd-row{flex-direction:column}}
+                    </style>
+
+                    <div class="cd-modal-backdrop" role="dialog" aria-modal="true">
+                        <div class="cd-modal" aria-labelledby="apptModalTitle">
+                            <button class="cd-close" aria-label="Close">&times;</button>
+                            <h3 id="apptModalTitle">Book Appointment</h3>
+                            <p style="margin-top:4px;margin-bottom:12px;color:#555;font-size:14px">Provide your details and we will contact you to confirm the appointment.</p>
+
+                            <form id="apptForm">
+                                <div class="cd-row">
+                                    <div class="cd-field">
+                                        <label for="appt_name">Full Name</label>
+                                        <input id="appt_name" name="name" type="text" required>
+                                    </div>
+                                    <div class="cd-field">
+                                        <label for="appt_email">Email</label>
+                                        <input id="appt_email" name="email" type="email" required>
+                                    </div>
+                                    <div class="cd-field">
+                                        <label for="appt_country">Country</label>
+                                        <input id="appt_country" name="country" type="text">
+                                    </div>
+                                    <div class="cd-field">
+                                        <label for="appt_postcode">Postcode</label>
+                                        <input id="appt_postcode" name="postcode" type="text">
+                                    </div>
+                                    <div class="cd-field">
+                                        <label for="appt_phone">Phone</label>
+                                        <input id="appt_phone" name="phone" type="tel" required>
+                                    </div>
+                                    <div class="cd-field" style="flex-basis:100%">
+                                        <label for="appt_message">Additional Details / Preferred Date</label>
+                                        <textarea id="appt_message" name="message"></textarea>
+                                    </div>
+                                    <div class="cd-field" style="flex-basis:100%">
+                                        <label style="font-size:13px"><input type="checkbox" id="appt_agree" name="consent" value="yes" required> I consent to be contacted regarding my appointment.</label>
+                                    </div>
+                                </div>
+
+                                <div class="cd-actions">
+                                    <button type="button" class="cd-btn cd-btn-ghost" id="apptCancel">Cancel</button>
+                                    <input type="hidden" name="_replyto" id="appt_replyto">
+                                    <button type="submit" class="cd-btn cd-btn-primary" id="apptSubmit">Request Appointment</button>
+                                </div>
+
+                                <div id="apptStatus" role="status" aria-live="polite" style="margin-top:10px;font-size:14px;color:#333;display:none"></div>
+                            </form>
+                        </div>
+                    </div>
+                </template>
+
+                <script>
+                (function(){
+                    const openBtn = document.getElementById('bookAppointment');
+                    const tpl = document.getElementById('appointmentModalTemplate');
+
+                    function ensureModal(){
+                        // If modal already exists in DOM, return it
+                        let existing = document.body.querySelector('.cd-modal-backdrop[data-appt]');
+                        if (existing) return existing;
+
+                        const modalFrag = tpl.content.cloneNode(true);
+                        // mark backdrop so subsequent calls find it
+                        const wrapper = modalFrag.querySelector('.cd-modal-backdrop') || modalFrag.firstElementChild;
+                        if (wrapper) wrapper.setAttribute('data-appt','1');
+                        document.body.appendChild(modalFrag);
+
+                        const backdrop = document.body.querySelector('.cd-modal-backdrop[data-appt]');
+                        const form = document.getElementById('apptForm');
+                        const closeBtn = backdrop.querySelector('.cd-close');
+                        const cancelBtn = document.getElementById('apptCancel');
+                        const status = document.getElementById('apptStatus');
+                        const submitBtn = document.getElementById('apptSubmit');
+
+                        function closeModal(){ if (backdrop) backdrop.remove(); }
+
+                        closeBtn.addEventListener('click', closeModal);
+                        cancelBtn.addEventListener('click', closeModal);
+                        document.addEventListener('keydown', function onEsc(e){ if(e.key==='Escape'){ closeModal(); document.removeEventListener('keydown', onEsc); } });
+
+                        document.addEventListener('click', function clickOutside(e){
+                            const b = document.querySelector('.cd-modal-backdrop[data-appt]');
+                            if (!b) return;
+                            const modal = b.querySelector('.cd-modal');
+                            if (modal && !modal.contains(e.target) && !e.target.matches('#bookAppointment')) {
+                                b.remove();
+                                document.removeEventListener('click', clickOutside);
+                            }
+                        });
+
+                        // Prefill logic - try contact modal fields, then localStorage
+                        const map = [
+                            {srcId: 'cd_name', dstId: 'appt_name'},
+                            {srcId: 'cd_email', dstId: 'appt_email'},
+                            {srcId: 'cd_country', dstId: 'appt_country'},
+                            {srcId: 'cd_phone', dstId: 'appt_phone'}
+                        ];
+                        function prefill(){
+                            map.forEach(m=>{
+                                const src = document.getElementById(m.srcId);
+                                const dst = document.getElementById(m.dstId);
+                                if (!dst) return;
+                                if (src && src.value) dst.value = src.value;
+                                else if (localStorage.getItem(m.dstId)) dst.value = localStorage.getItem(m.dstId);
+                            });
+                            // also try to fill postcode from localStorage
+                            const pc = localStorage.getItem('appt_postcode') || '';
+                            const pcEl = document.getElementById('appt_postcode');
+                            if (pcEl && pc) pcEl.value = pc;
+                        }
+                        prefill();
+
+                        // Save inputs to localStorage as user types so values are shared
+                        ['appt_name','appt_email','appt_country','appt_postcode','appt_phone','appt_message'].forEach(id=>{
+                            const el = document.getElementById(id);
+                            if (!el) return;
+                            el.addEventListener('input', ()=> localStorage.setItem(id, el.value));
+                        });
+
+                        // also mirror back to contact modal if it exists
+                        function mirrorToContact(){
+                            const contactMap = [
+                                {dst:'cd_name', src:'appt_name'},
+                                {dst:'cd_email', src:'appt_email'},
+                                {dst:'cd_country', src:'appt_country'},
+                                {dst:'cd_phone', src:'appt_phone'}
+                            ];
+                            contactMap.forEach(m=>{
+                                const s = document.getElementById(m.src);
+                                const d = document.getElementById(m.dst);
+                                if (s && d) d.value = s.value;
+                            });
+                        }
+                        // mirror on submit success or on input
+                        ['appt_name','appt_email','appt_country','appt_phone'].forEach(id=>{
+                            const el = document.getElementById(id);
+                            if (!el) return;
+                            el.addEventListener('input', mirrorToContact);
+                        });
+
+                        // Form submission (Formspree endpoint by default — replace with your endpoint)
+                        form.addEventListener('submit', function(evt){
+                            evt.preventDefault();
+                            status.style.display = 'none';
+                            submitBtn.disabled = true;
+                            submitBtn.textContent = 'Sending...';
+
+                            const endpoint = 'https://formspree.io/f/cdAppointmentForm'; // replace with your Formspree ID or server endpoint
+
+                            if (endpoint.includes('YOUR_FORM_ID')) {
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = 'Request Appointment';
+                                status.style.color = 'crimson';
+                                status.textContent = 'Form endpoint not configured. Please set your endpoint.';
+                                status.style.display = 'block';
+                                return;
+                            }
+
+                            // set _replyto
+                            const emailEl = document.getElementById('appt_email');
+                            const replyEl = document.getElementById('appt_replyto');
+                            if (emailEl && replyEl) replyEl.value = emailEl.value || '';
+
+                            const data = new FormData(form);
+                            data.append('_subject', 'Appointment Request - CareDestinations');
+
+                            fetch(endpoint, {
+                                method: 'POST',
+                                headers: { 'Accept': 'application/json' },
+                                body: data
+                            }).then(async (res) => {
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = 'Request Appointment';
+                                if (res.ok) {
+                                    status.style.color = 'green';
+                                    status.textContent = 'Thank you! Your appointment request has been sent. We will contact you shortly.';
+                                    status.style.display = 'block';
+                                    // persist core details for reuse
+                                    ['appt_name','appt_email','appt_country','appt_postcode','appt_phone'].forEach(id=>{
+                                        const el = document.getElementById(id);
+                                        if (el) localStorage.setItem(id, el.value || '');
+                                    });
+                                    mirrorToContact();
+                                    form.reset();
+                                    setTimeout(()=>{ const b = document.querySelector('.cd-modal-backdrop[data-appt]'); if(b) b.remove(); }, 2200);
+                                } else {
+                                    const json = await res.json().catch(()=>null);
+                                    status.style.color = 'crimson';
+                                    status.textContent = (json && json.error) ? json.error : 'Submission failed. Please try again or email info@caredestinations.com.';
+                                    status.style.display = 'block';
+                                }
+                            }).catch((err)=>{
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = 'Request Appointment';
+                                status.style.color = 'crimson';
+                                status.textContent = 'Network error. Please try again later.';
+                                status.style.display = 'block';
+                                console.error(err);
+                            });
+                        });
+
+                        return backdrop;
+                    }
+
+                    openBtn.addEventListener('click', function(e){
+                        e.preventDefault();
+                        ensureModal();
+                    });
+                })();
+                </script>
             </div>
         </div>
     </section>
@@ -356,10 +870,10 @@
                     <div class="quote-icon">
                         <i class="fas fa-quote-left"></i>
                     </div>
-                    <p>My experience with CareDestinations for weight loss surgery was life-changing. From start to finish, they provided outstanding care and made me feel at ease. I've never felt healthier!</p>
+                    <p>My experience with CareDestinations for Knee transplant was life-changing. From start to finish, they provided outstanding care and made me feel at ease. I've never felt healthier!</p>
                     <div class="testimonial-author">
                         <div class="author-info">
-                            <h5>Michael T.</h5>
+                            <h5>Shobha Seth</h5>
                             <span>Happy Client</span>
                         </div>
                         <div class="rating">
@@ -375,10 +889,10 @@
                     <div class="quote-icon">
                         <i class="fas fa-quote-left"></i>
                     </div>
-                    <p>Thanks to CareDestinations, I received top-quality fertility treatments abroad. The team was professional and compassionate, and they guided me throughout the entire process. I'm grateful for their support on this important journey!</p>
+                    <p>Thanks to CareDestinations, I received top-quality Hip Replacement treatments abroad. The team was professional and compassionate, and they guided me throughout the entire process. I'm grateful for their support on this important journey!</p>
                     <div class="testimonial-author">
                         <div class="author-info">
-                            <h5>Amanda K.</h5>
+                            <h5>Mr Roy</h5>
                             <span>Happy Client</span>
                         </div>
                         <div class="rating">
@@ -390,25 +904,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p>CareDestinations made my cosmetic surgery journey smooth and stress-free. The doctors were experienced, the care was exceptional, and I am thrilled with my results. I would definitely recommend them to anyone considering medical tourism!</p>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h5>Emily R.</h5>
-                            <span>Happy Client</span>
-                        </div>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>
@@ -425,44 +921,10 @@
                     <div class="blog-date">
                         <span>Oct 28, 2025</span>
                     </div>
-                    <h4>Hair Transplantation in India – Cost, Success Rate Updated 2025</h4>
+                    <h4>Knee and Hip Transplant with use of – Cost, Success Rate Updated 2025</h4>
                     <a href="#" class="btn-read-more">Read More</a>
                 </div>
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span>Oct 14, 2025</span>
-                    </div>
-                    <h4>Cost of Kidney Transplantation in India – Price & Surgery 2025</h4>
-                    <a href="#" class="btn-read-more">Read More</a>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span>Sep 25, 2025</span>
-                    </div>
-                    <h4>Cost of Liver Transplant in India – Success Rate & Expenses</h4>
-                    <a href="#" class="btn-read-more">Read More</a>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span>Sep 17, 2025</span>
-                    </div>
-                    <h4>Rhinoplasty (Nose) Surgery in India | Cost, Types & Recovery</h4>
-                    <a href="#" class="btn-read-more">Read More</a>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span>Sep 10, 2025</span>
-                    </div>
-                    <h4>Best Laser Eye Surgery in India 2025– LASIK Cost & Types</h4>
-                    <a href="#" class="btn-read-more">Read More</a>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span>Sep 01, 2025</span>
-                    </div>
-                    <h4>Robotic Surgery in India – Cost, Types & Patient Guide 2025</h4>
-                    <a href="#" class="btn-read-more">Read More</a>
-                </div>
+                
             </div>
         </div>
     </section>
@@ -473,7 +935,7 @@
             <div class="contact-cta-content">
                 <h2>Your Journey to Health Starts Here</h2>
                 <p>Reach out to our experts for personalized advice and tailored solutions today.</p>
-                <a href="mailto:info@caredestinations.com" class="btn-contact">Contact Us!</a>
+                
             </div>
         </div>
     </section>
@@ -483,14 +945,14 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <img src="logo.png" alt="CareDestinations" class="footer-logo">
+                   
                     <p>CareDestinations connects you with leading hospitals, doctors, experts, and cosmetic specialists. It ensures access to trusted providers for personalized care and treatments.</p>
                 </div>
                 <div class="footer-column">
                     <h4>Top Hospitals</h4>
                     <ul>
-                        <li><a href="#">Health City Vistaar Lucknow</a></li>
-                        <li><a href="#">Health City Lucknow</a></li>
+                        <li><a href="#">HealthCity Vistaar MultiSeciality Hospital Lucknow</a></li>
+                        <li><a href="#">HealthCity Trauma Centre & Superspeciality Hospital Lucknow</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -528,6 +990,7 @@
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script src="js/main.js"></script>
+    <script src="//code.tidio.co/your-unique-id.js" async></script>
 </body>
 </html>
 
