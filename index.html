@@ -35,26 +35,35 @@
                 <li><a href="contact-us.html">contact Us</a></li>
                 <li><a href="be-a-partner.html" class="btn-partner">Partner With Us</a></li>
             </ul>
+            <!-- Right side actions in the navbar: search, language selector, and Google Translate -->
             <div class="nav-right-actions">
+                <!-- Search dropdown: button toggles the panel which contains tabs and a search input -->
                 <div class="search-dropdown">
-                    <button class="search-btn" id="searchToggle">
-                        <i class="fas fa-search"></i>
-                    </button>
+                   <!--<button class="search-btn" id="searchToggle">
+                        <i class="fas fa-search"></i> 
+                    </button> -->
+
+                    <!-- Hidden panel that shows search tabs and results -->
                     <div class="search-panel" id="searchPanel">
+                        <!-- Tabs to restrict search scope: treatments, hospitals, doctors -->
                         <div class="search-tabs">
                             <button class="search-tab active" data-tab="treatments">Treatments</button>
                             <button class="search-tab" data-tab="hospitals">Hospitals</button>
                             <button class="search-tab" data-tab="doctors">Doctors</button>
                         </div>
+
+                        <!-- Search content: input, results container, and the inline script that powers search -->
                         <div class="search-content">
                             <input type="text" id="searchInput" placeholder="Search treatments..." class="search-input">
                             <div class="search-results" id="searchResults"></div>
+
                             <script>
                             (function(){
+                                // Cache DOM elements
                                 const searchInput = document.getElementById('searchInput');
                                 const searchResults = document.getElementById('searchResults');
                                 
-                                // Treatment database with details
+                                // Simple in-memory treatments "database" used for demo search results
                                 const treatments = {
                                     'ovarian-cystectomy': {
                                         name: 'Ovarian Cystectomy',
@@ -94,12 +103,15 @@
                                     }
                                 };
                                 
+                                // Listen for input and render matched treatment results
                                 searchInput.addEventListener('input', function(e) {
                                     const query = e.target.value.toLowerCase().trim();
+                                    // Clear previous results
                                     searchResults.innerHTML = '';
                                     
-                                    if (!query) return;
+                                    if (!query) return; // don't show anything for empty query
                                     
+                                    // Simple substring match against name and specialization
                                     Object.keys(treatments).forEach(key => {
                                         const treatment = treatments[key];
                                         if (treatment.name.toLowerCase().includes(query) || 
@@ -111,6 +123,7 @@
                                                 <p>${treatment.specialization}</p>
                                             `;
                                             resultItem.style.cursor = 'pointer';
+                                            // Clicking a result opens a detailed treatment view (generated as a new HTML blob)
                                             resultItem.addEventListener('click', () => {
                                                 openTreatmentDetails(key, treatment);
                                             });
@@ -119,6 +132,7 @@
                                     });
                                 });
                                 
+                                // Build a standalone HTML page for the treatment and open it in a new tab/window
                                 function openTreatmentDetails(treatmentKey, treatment) {
                                     const detailsHTML = `
                                         <!DOCTYPE html>
@@ -204,17 +218,22 @@
                                         </html>
                                     `;
                                     
-                                    // Save as HTML file and open
+                                    // Create a blob URL and open the generated HTML in a new tab
                                     const blob = new Blob([detailsHTML], { type: 'text/html' });
                                     const url = URL.createObjectURL(blob);
                                     window.open(url, '_blank');
                                 }
                             })();
                             </script>
+
+                            <!-- NOTE: There is another .search-results element repeated below in the original code.
+                                 Keeping it here as in the original, but duplicate IDs may cause issues. -->
                             <div class="search-results" id="searchResults"></div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Language selector dropdown for the visible language choice -->
                 <div class="language-selector">
                     <select id="languageSelect" class="language-dropdown">
                         <option value="">Select Language</option>
@@ -242,6 +261,8 @@
                         <option value="ml">മലയാളം (Malayalam)</option>
                         <option value="or">ଓଡ଼ିଆ (Oriya)</option>
                     </select>
+
+                    <!-- Container for Google Translate widget (initialized elsewhere in the page) -->
                     <div id="google_translate_element"></div>
                 </div>
             </div>
@@ -503,7 +524,9 @@
                     <span class="doctor-specialty">Orthopaedics</span>
                     <p>Dr. Sandeep Kapoor, MBBS Honours and a Gold Medalist from KGMU, Lucknow. Awarded the Prof. BN Sinha citation for best Post Graduate in MS Orthopedics at KGMU.</p>
                     <a href="https://drsandeepkapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
+
                     <div style="height:12px;" aria-hidden="true"></div>
+
                     <li><a href="contact-us.html" class="btn-partner">Book Appointment</a></li>
                 </div>
             </div>
@@ -583,77 +606,12 @@
         <div class="container">
             <div class="cta-content">
                 <div class="cta-text">
-                    <h2>We Provide Best Medical Treatment.</h2>
+                    <h2>We Provide Best Medical Treatment</h2>
                     <p>Contact us to get your Quotation</p>
                 </div>
-                <button class="btn-cta" id="bookAppointment">Book Appointment<i class="fas fa-arrow-right"></i></button>
-
-                <template id="appointmentModalTemplate">
-                    <style>
-                        .cd-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:9999}
-                        .cd-modal{background:#fff;border-radius:10px;max-width:800px;width:95%;max-height:90vh;overflow:auto;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.3);font-family:inherit;position:relative}
-                        .cd-modal h3{margin:0 0 8px;font-size:20px}
-                        .cd-row{display:flex;gap:12px;flex-wrap:wrap}
-                        .cd-field{flex:1 1 220px;display:flex;flex-direction:column;margin-bottom:10px}
-                        .cd-field label{font-size:13px;margin-bottom:6px}
-                        .cd-field input,.cd-field textarea,.cd-field select{padding:8px;border:1px solid #ccc;border-radius:6px;font-size:14px}
-                        .cd-field textarea{min-height:90px;resize:vertical}
-                        .cd-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
-                        .cd-btn{padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
-                        .cd-btn-primary{background:#007bff;color:#fff}
-                        .cd-btn-ghost{background:transparent;border:1px solid #ddd}
-                        .cd-close{position:absolute;right:14px;top:10px;background:transparent;border:0;font-size:20px;cursor:pointer}
-                        @media (max-width:520px){.cd-row{flex-direction:column}}
-                    </style>
-
-                    <div class="cd-modal-backdrop" role="dialog" aria-modal="true">
-                        <div class="cd-modal" aria-labelledby="apptModalTitle">
-                            <button class="cd-close" aria-label="Close">&times;</button>
-                            <h3 id="apptModalTitle">Book Appointment</h3>
-                            <p style="margin-top:4px;margin-bottom:12px;color:#555;font-size:14px">Provide your details and we will contact you to confirm the appointment.</p>
-
-                            <form id="apptForm">
-                                <div class="cd-row">
-                                    <div class="cd-field">
-                                        <label for="appt_name">Full Name</label>
-                                        <input id="appt_name" name="name" type="text" required>
-                                    </div>
-                                    <div class="cd-field">
-                                        <label for="appt_email">Email</label>
-                                        <input id="appt_email" name="email" type="email" required>
-                                    </div>
-                                    <div class="cd-field">
-                                        <label for="appt_country">Country</label>
-                                        <input id="appt_country" name="country" type="text">
-                                    </div>
-                                    <div class="cd-field">
-                                        <label for="appt_postcode">Postcode</label>
-                                        <input id="appt_postcode" name="postcode" type="text">
-                                    </div>
-                                    <div class="cd-field">
-                                        <label for="appt_phone">Phone</label>
-                                        <input id="appt_phone" name="phone" type="tel" required>
-                                    </div>
-                                    <div class="cd-field" style="flex-basis:100%">
-                                        <label for="appt_message">Additional Details / Preferred Date</label>
-                                        <textarea id="appt_message" name="message"></textarea>
-                                    </div>
-                                    <div class="cd-field" style="flex-basis:100%">
-                                        <label style="font-size:13px"><input type="checkbox" id="appt_agree" name="consent" value="yes" required> I consent to be contacted regarding my appointment.</label>
-                                    </div>
-                                </div>
-
-                                <div class="cd-actions">
-                                    <button type="button" class="cd-btn cd-btn-ghost" id="apptCancel">Cancel</button>
-                                    <input type="hidden" name="_replyto" id="appt_replyto">
-                                    <button type="submit" class="cd-btn cd-btn-primary" id="apptSubmit">Request Appointment</button>
-                                </div>
-
-                                <div id="apptStatus" role="status" aria-live="polite" style="margin-top:10px;font-size:14px;color:#333;display:none"></div>
-                            </form>
-                        </div>
-                    </div>
-                </template>
+                <li><a href="contact-us.html" class="btn-partner">Book Appointment</a></li>
+               
+                
 
                 <script>
                 (function(){
