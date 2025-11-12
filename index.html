@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE html>Specialization
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,257 +18,21 @@
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home" class="active">Home</a></li>
                 <li class="dropdown">
-                    <a href="#speciality">Treatments <i class="fas fa-chevron-down"></i></a>
+                    <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'});">Specialization <i class="fas fa-chevron-down"></i></a>
                     <div class="dropdown-content">
-                         <a href="#gynaecology">Gynaecology</a>
-                         <a href="#orthopaedics">Orthopaedics</a>                        
+                         <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const btn = document.querySelector('.filter-btn[data-filter=\'gynaecology\']'); if (btn) { btn.click(); }">Gynaecology</a>
+                        <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const btn = document.querySelector('.filter-btn[data-filter=\'orthopaedics\']'); if (btn) { btn.click(); }">Orthopaedics</a>
                     </div>
                 </li>
                 
                 <li><a href="#hospitals">Hospitals</a></li>
-                <li><a href="#doctors">Doctors</a></li>
-                <li>
-                    <a href="#" id="contactOpen">Contact Us</a>
-                    <template id="contactModalTemplate">
-                        <style>
-                            /* Modal styles */
-                            .cd-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:9999}
-                            .cd-modal{background:#fff;border-radius:10px;max-width:900px;width:95%;max-height:90vh;overflow:auto;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.3);font-family:inherit}
-                            .cd-modal .cd-row{display:flex;gap:16px;flex-wrap:wrap}
-                            .cd-modal h3{margin:0 0 8px;font-size:20px}
-                            .cd-field{flex:1 1 220px;display:flex;flex-direction:column;margin-bottom:10px}
-                            .cd-field label{font-size:13px;margin-bottom:6px}
-                            .cd-field input,.cd-field select,.cd-field textarea{padding:8px;border:1px solid #ccc;border-radius:6px;font-size:14px}
-                            .cd-field textarea{min-height:90px;resize:vertical}
-                            .cd-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
-                            .cd-btn{padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
-                            .cd-btn-primary{background:#007bff;color:#fff}
-                            .cd-btn-ghost{background:transparent;border:1px solid #ddd}
-                            .cd-close{position:absolute;right:14px;top:10px;background:transparent;border:0;font-size:20px;cursor:pointer}
-                            @media (max-width:520px){.cd-row{flex-direction:column}}
-                        </style>
+                <li><a href="#doctors" onclick="var t=document.querySelector('.doctor-grid'); if(t){t.scrollIntoView({behavior:'smooth', block:'start'});} else {location.href='#hospitals';} return false;">Doctors</a></li>
+                
 
-                        <div class="cd-modal-backdrop" role="dialog" aria-modal="true">
-                            <div class="cd-modal" aria-labelledby="cdModalTitle">
-                                <button class="cd-close" aria-label="Close">&times;</button>
-                                <h3 id="cdModalTitle">Request a Consultation / Quote</h3>
-                                <p style="margin-top:4px;margin-bottom:12px;color:#555;font-size:14px">Fill in details and our team will contact you.</p>
-
-                                <form id="cdContactForm">
-                                    <!-- Replace the action endpoint in JS with your Formspree or server endpoint -->
-                                    <div class="cd-row">
-                                        <div class="cd-field">
-                                            <label for="cd_name">Full Name</label>
-                                            <input id="cd_name" name="name" type="text" required>
-                                        </div>
-                                        <div class="cd-field">
-                                            <label for="cd_email">Email</label>
-                                            <input id="cd_email" name="email" type="email" required>
-                                        </div>
-                                        <div class="cd-field">
-                                            <label for="cd_phone">Phone</label>
-                                            <input id="cd_phone" name="phone" type="tel">
-                                        </div>
-                                        <div class="cd-field">
-                                            <label for="cd_country">Country</label>
-                                            <input id="cd_country" name="country" type="text">
-                                        </div>
-                                        <div class="cd-field">
-                                            <label for="cd_specialization">Specialization</label>
-                                            <select id="cd_specialization" name="specialization">
-                                                <option value="">Select</option>
-                                                <option>Gynaecology</option>
-                                                <option>Orthopaedics</option>
-                                            </select>
-                                        </div>
-                                        <div class="cd-field">
-                                            <label for="cd_treatment">Treatment / Procedure</label>
-                                            <input id="cd_treatment" name="treatment" type="text">
-                                        </div>
-                                        <div class="cd-field">
-                                            <label for="cd_hospital">Preferred Hospital (optional)</label>
-                                            <input id="cd_hospital" name="preferred_hospital" type="text">
-                                        </div>
-                                        <div class="cd-field">
-                                            <label for="cd_budget">Estimated Budget (optional)</label>
-                                            <input id="cd_budget" name="budget" type="text" placeholder="e.g. USD 2000 - 5000">
-                                        </div>
-                                        <div class="cd-field">
-                                            <label for="cd_travel_date">Preferred Travel Dates (optional)</label>
-                                            <input id="cd_travel_date" name="travel_dates" type="text" placeholder="Approx. dates or month/year">
-                                        </div>
-                                        <div class="cd-field" style="flex-basis:100%">
-                                            <label for="cd_message">Additional Details</label>
-                                            <textarea id="cd_message" name="message"></textarea>
-                                        </div>
-
-                                        <div class="cd-field" style="flex-basis:100%">
-                                            <label style="font-size:13px"><input type="checkbox" id="cd_agree" name="consent" value="yes" required> I consent to be contacted regarding my enquiry.</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="cd-actions">
-                                        <button type="button" class="cd-btn cd-btn-ghost" id="cdCancel">Cancel</button>
-                                        <input type="hidden" name="_replyto" id="cd_replyto">
-                                        <button type="submit" class="cd-btn cd-btn-primary" id="cdSubmit">Send Enquiry</button>
-
-                                        <script>
-                                        /* Populate hidden reply-to and a consolidated full_message field before submit so email contains complete form info */
-                                        (function(){
-                                            const submitBtn = document.getElementById('cdSubmit');
-                                            const form = document.getElementById('cdContactForm');
-
-                                            function buildDetails() {
-                                                const map = [
-                                                    {id: 'cd_name', label: 'Full Name'},
-                                                    {id: 'cd_email', label: 'Email'},
-                                                    {id: 'cd_phone', label: 'Phone'},
-                                                    {id: 'cd_country', label: 'Country'},
-                                                    {id: 'cd_specialization', label: 'Specialization'},
-                                                    {id: 'cd_treatment', label: 'Treatment / Procedure'},
-                                                    {id: 'cd_hospital', label: 'Preferred Hospital'},
-                                                    {id: 'cd_budget', label: 'Estimated Budget'},
-                                                    {id: 'cd_travel_date', label: 'Preferred Travel Dates'},
-                                                    {id: 'cd_message', label: 'Additional Details'}
-                                                ];
-                                                return map.map(m => {
-                                                    const el = document.getElementById(m.id);
-                                                    const val = el ? (el.value || '').trim() : '';
-                                                    return m.label + ': ' + val;
-                                                }).join('\n');
-                                            }
-
-                                            submitBtn.addEventListener('click', function(){
-                                                // set _replyto for Formspree (so sender email is visible)
-                                                const emailEl = document.getElementById('cd_email');
-                                                const replyEl = document.getElementById('cd_replyto');
-                                                if (emailEl && replyEl) replyEl.value = emailEl.value || '';
-
-                                                // ensure consolidated field exists and is updated
-                                                let full = document.getElementById('cdFullMessage');
-                                                if (!full) {
-                                                    full = document.createElement('input');
-                                                    full.type = 'hidden';
-                                                    full.name = 'full_message';
-                                                    full.id = 'cdFullMessage';
-                                                    form.appendChild(full);
-                                                }
-                                                full.value = buildDetails();
-                                            });
-                                        })();
-                                        </script>
-                                    </div>
-
-                                    <!-- Accessible status messages -->
-                                    <div id="cdStatus" role="status" aria-live="polite" style="margin-top:10px;font-size:14px;color:#333;display:none"></div>
-                                </form>
-                            </div>
-                        </div>
-                    </template>
-
-                    <script>
-                        (function(){
-                            const openBtn = document.getElementById('contactOpen');
-                            const tpl = document.getElementById('contactModalTemplate');
-
-                            // Append modal to body on first click (keeps markup valid inside <ul>)
-                            let modalEl = null;
-                            function ensureModal(){
-                                if (modalEl) return modalEl;
-                                modalEl = tpl.content.cloneNode(true);
-                                document.body.appendChild(modalEl);
-                                const backdrop = document.body.querySelector('.cd-modal-backdrop');
-                                const form = document.getElementById('cdContactForm');
-                                const closeBtn = document.querySelector('.cd-close');
-                                const cancelBtn = document.getElementById('cdCancel');
-                                const status = document.getElementById('cdStatus');
-                                const submitBtn = document.getElementById('cdSubmit');
-
-                                function closeModal(){ backDropHide(); }
-                                function backDropHide(){ 
-                                    const b = document.querySelector('.cd-modal-backdrop');
-                                    if (b) b.remove();
-                                }
-
-                                // Close handlers
-                                closeBtn.addEventListener('click', closeModal);
-                                cancelBtn.addEventListener('click', closeModal);
-                                document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
-
-                                // Clicking outside modal closes
-                                document.addEventListener('click', function clickOutside(e){
-                                    const b = document.querySelector('.cd-modal-backdrop');
-                                    if (!b) return;
-                                    const modal = b.querySelector('.cd-modal');
-                                    if (modal && !modal.contains(e.target) && !e.target.matches('#contactOpen')) {
-                                        backDropHide();
-                                        document.removeEventListener('click', clickOutside);
-                                    }
-                                });
-
-                                // Form submission - using Formspree endpoint by default
-                                form.addEventListener('submit', function(evt){
-                                    evt.preventDefault();
-                                    status.style.display = 'none';
-                                    submitBtn.disabled = true;
-                                    submitBtn.textContent = 'Sending...';
-
-                                    const endpoint = 'https://formspree.io/f/cdContactForm'; // <- replace YOUR_FORM_ID with your Formspree form ID or your server endpoint
-
-                                    // Prevent attempting to submit to the placeholder endpoint which returns "form not found".
-                                    if (endpoint.includes('YOUR_FORM_ID')) {
-                                        submitBtn.disabled = false;
-                                        submitBtn.textContent = 'Send Enquiry';
-                                        status.style.color = 'crimson';
-                                        status.textContent = 'Form endpoint not configured. Please replace YOUR_FORM_ID in the script with your Formspree form ID or set your server endpoint.';
-                                        status.style.display = 'block';
-                                        return;
-                                    }
-
-                                    const data = new FormData(form);
-                                    // Optional: add a subject
-                                    data.append('_subject', 'New Consultation Request from CareDestinations');
-
-                                    fetch(endpoint, {
-                                        method: 'POST',
-                                        headers: { 'Accept': 'application/json' },
-                                        body: data
-                                    }).then(async (res) => {
-                                        submitBtn.disabled = false;
-                                        submitBtn.textContent = 'Send Enquiry';
-                                        if (res.ok) {
-                                            status.style.color = 'green';
-                                            status.textContent = 'Thank you! Your enquiry has been sent. We will contact you shortly.';
-                                            status.style.display = 'block';
-                                            form.reset();
-                                            setTimeout(()=>{ const b = document.querySelector('.cd-modal-backdrop'); if(b) b.remove(); }, 2500);
-                                        } else {
-                                            const json = await res.json().catch(()=>null);
-                                            status.style.color = 'crimson';
-                                            status.textContent = (json && json.error) ? json.error : 'Submission failed. Please try again or email info@caredestinations.com.';
-                                            status.style.display = 'block';
-                                        }
-                                    }).catch((err)=>{
-                                        submitBtn.disabled = false;
-                                        submitBtn.textContent = 'Send Enquiry';
-                                        status.style.color = 'crimson';
-                                        status.textContent = 'Network error. Please try again later.';
-                                        status.style.display = 'block';
-                                        console.error(err);
-                                    });
-                                });
-
-                                return document.body.querySelector('.cd-modal-backdrop');
-                            }
-
-                            openBtn.addEventListener('click', function(e){
-                                e.preventDefault();
-                                ensureModal();
-                            });
-                        })();
-                    </script>
+                    
                 </li>
                 <li><a href="#news">News</a></li>
+                <li><a href="contact-us.html">contact Us</a></li>
                 <li><a href="be-a-partner.html" class="btn-partner">Partner With Us</a></li>
             </ul>
             <div class="nav-right-actions">
@@ -283,6 +48,169 @@
                         </div>
                         <div class="search-content">
                             <input type="text" id="searchInput" placeholder="Search treatments..." class="search-input">
+                            <div class="search-results" id="searchResults"></div>
+                            <script>
+                            (function(){
+                                const searchInput = document.getElementById('searchInput');
+                                const searchResults = document.getElementById('searchResults');
+                                
+                                // Treatment database with details
+                                const treatments = {
+                                    'ovarian-cystectomy': {
+                                        name: 'Ovarian Cystectomy',
+                                        specialization: 'Gynaecology',
+                                        description: 'Ovarian cystectomy is a minimally invasive surgical procedure to remove cysts from the ovaries while preserving ovarian tissue and function.',
+                                        overview: 'An ovarian cyst is a fluid-filled sac that develops on or within the ovary. While most ovarian cysts are benign and resolve on their own, some may require surgical removal if they cause pain, discomfort, or affect fertility.',
+                                        benefits: ['Preserves ovarian function', 'Minimally invasive approach', 'Quick recovery', 'Maintains fertility potential'],
+                                        procedure: 'The procedure is performed using laparoscopy, where small incisions are made and a camera guides the surgeon to locate and remove the cyst while preserving healthy ovarian tissue.',
+                                        recovery: '2-4 weeks for full recovery. Most patients can resume normal activities within 1-2 weeks.',
+                                        costRange: 'USD 3,000 - 6,000',
+                                        duration: '30-45 minutes',
+                                        hospital: 'HealthCity Vistaar MultiSeciality Hospital'
+                                    },
+                                    'knee-replacement': {
+                                        name: 'Knee Replacement',
+                                        specialization: 'Orthopaedics',
+                                        description: 'Total knee replacement is a surgical procedure to replace a damaged knee joint with an artificial implant.',
+                                        overview: 'Knee replacement is recommended for patients with severe arthritis or knee damage that limits mobility and causes chronic pain.',
+                                        benefits: ['Pain relief', 'Improved mobility', 'Better quality of life', 'Long-lasting results'],
+                                        procedure: 'Damaged cartilage and bone are removed and replaced with prosthetic components.',
+                                        recovery: '6-12 weeks for initial recovery, full recovery in 3-6 months.',
+                                        costRange: 'USD 12,000 - 20,000',
+                                        duration: '1.5-2 hours',
+                                        hospital: 'HealthCity Trauma Centre & Superspeciality Hospital'
+                                    },
+                                    'hip-replacement': {
+                                        name: 'Hip Replacement',
+                                        specialization: 'Orthopaedics',
+                                        description: 'Hip replacement surgery involves removing a damaged hip joint and replacing it with artificial components.',
+                                        overview: 'Hip replacement is performed to relieve hip pain and improve function in patients with arthritis or hip injury.',
+                                        benefits: ['Pain relief', 'Restored mobility', 'Better lifestyle', 'Proven longevity'],
+                                        procedure: 'The damaged femoral head and acetabulum are replaced with prosthetic implants.',
+                                        recovery: '4-6 weeks initial recovery, full recovery in 3-6 months.',
+                                        costRange: 'USD 13,000 - 22,000',
+                                        duration: '1-2 hours',
+                                        hospital: 'HealthCity Trauma Centre & Superspeciality Hospital'
+                                    }
+                                };
+                                
+                                searchInput.addEventListener('input', function(e) {
+                                    const query = e.target.value.toLowerCase().trim();
+                                    searchResults.innerHTML = '';
+                                    
+                                    if (!query) return;
+                                    
+                                    Object.keys(treatments).forEach(key => {
+                                        const treatment = treatments[key];
+                                        if (treatment.name.toLowerCase().includes(query) || 
+                                            treatment.specialization.toLowerCase().includes(query)) {
+                                            const resultItem = document.createElement('div');
+                                            resultItem.className = 'search-result-item';
+                                            resultItem.innerHTML = `
+                                                <h5>${treatment.name}</h5>
+                                                <p>${treatment.specialization}</p>
+                                            `;
+                                            resultItem.style.cursor = 'pointer';
+                                            resultItem.addEventListener('click', () => {
+                                                openTreatmentDetails(key, treatment);
+                                            });
+                                            searchResults.appendChild(resultItem);
+                                        }
+                                    });
+                                });
+                                
+                                function openTreatmentDetails(treatmentKey, treatment) {
+                                    const detailsHTML = `
+                                        <!DOCTYPE html>
+                                        <html lang="en">
+                                        <head>
+                                            <meta charset="UTF-8">
+                                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                            <title>${treatment.name} - CareDestinations</title>
+                                            <link rel="stylesheet" href="css/style.css">
+                                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                                            <style>
+                                                .treatment-detail { padding: 40px 20px; max-width: 900px; margin: 0 auto; }
+                                                .detail-header { margin-bottom: 30px; }
+                                                .detail-header h1 { color: #333; margin-bottom: 10px; }
+                                                .detail-meta { display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
+                                                .meta-item { display: flex; align-items: center; gap: 8px; }
+                                                .meta-item strong { color: #007bff; }
+                                                .detail-section { margin: 30px 0; padding: 20px; background: #f9f9f9; border-left: 4px solid #007bff; border-radius: 4px; }
+                                                .detail-section h3 { color: #333; margin-top: 0; }
+                                                .benefits-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+                                                .benefit-item { padding: 15px; background: white; border-radius: 4px; border-left: 3px solid #28a745; }
+                                                .cta-button { background: #007bff; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 20px; }
+                                                .cta-button:hover { background: #0056b3; }
+                                                .back-link { color: #007bff; text-decoration: none; margin-bottom: 20px; display: inline-block; }
+                                            </style>
+                                        </head>
+                                        <body>
+                                            <div class="treatment-detail">
+                                                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                                                
+                                                <div class="detail-header">
+                                                    <h1>${treatment.name}</h1>
+                                                    <p style="color: #666; font-size: 16px;">${treatment.description}</p>
+                                                </div>
+                                                
+                                                <div class="detail-meta">
+                                                    <div class="meta-item">
+                                                        <i class="fas fa-stethoscope" style="color: #007bff;"></i>
+                                                        <div><strong>Specialization:</strong> ${treatment.specialization}</div>
+                                                    </div>
+                                                    <div class="meta-item">
+                                                        <i class="fas fa-dollar-sign" style="color: #28a745;"></i>
+                                                        <div><strong>Cost Range:</strong> ${treatment.costRange}</div>
+                                                    </div>
+                                                    <div class="meta-item">
+                                                        <i class="fas fa-clock" style="color: #ffc107;"></i>
+                                                        <div><strong>Duration:</strong> ${treatment.duration}</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="detail-section">
+                                                    <h3>Overview</h3>
+                                                    <p>${treatment.overview}</p>
+                                                </div>
+                                                
+                                                <div class="detail-section">
+                                                    <h3>Benefits</h3>
+                                                    <div class="benefits-list">
+                                                        ${treatment.benefits.map(benefit => `<div class="benefit-item">${benefit}</div>`).join('')}
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="detail-section">
+                                                    <h3>Procedure</h3>
+                                                    <p>${treatment.procedure}</p>
+                                                </div>
+                                                
+                                                <div class="detail-section">
+                                                    <h3>Recovery</h3>
+                                                    <p>${treatment.recovery}</p>
+                                                </div>
+                                                
+                                                <div class="detail-section">
+                                                    <h3>Hospital</h3>
+                                                    <p>${treatment.hospital}</p>
+                                                </div>
+                                                
+                                                <button class="cta-button" onclick="window.location.href='index.html#contactOpen'">
+                                                    <i class="fas fa-envelope"></i> Request Consultation
+                                                </button>
+                                            </div>
+                                        </body>
+                                        </html>
+                                    `;
+                                    
+                                    // Save as HTML file and open
+                                    const blob = new Blob([detailsHTML], { type: 'text/html' });
+                                    const url = URL.createObjectURL(blob);
+                                    window.open(url, '_blank');
+                                }
+                            })();
+                            </script>
                             <div class="search-results" id="searchResults"></div>
                         </div>
                     </div>
@@ -336,9 +264,6 @@
             align-items:center;
             ">
         <div class="container">
-                <!-- Hero content (kept empty here to preserve original layout) -->
-        </div>
-    </section><div class="container"></div>
             <div class="hero-content">
                 <h1>Start Your Health Journey With Peace Of Mind</h1>
                 <form class="hero-search" id="heroSearchForm" action="treatment-details.html" method="get">
@@ -453,7 +378,6 @@
                 <div class="hospital-card">
                     <!--
                     <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Patient traveling to India for medical treatment, globe with stethoscope" style="width:100%;height:auto;object-fit:cover; border-radius:8px;">
-                    -->
                     <div class="hospital-info">
                        <h4>HealthCity Vistaar MultiSeciality Hospital</h4>
                         <p><i class="fas fa-map-marker-alt"></i> India, Lucknow</p>
@@ -463,7 +387,6 @@
                             <li><strong>Address:</strong>Lucknow, Uttar Pradesh, India</li>
                             <li><strong>No Of Bed:</strong>150</li>                                
                             <li><strong>Facilities:</strong> ICU, NICU, Cath Lab, Advanced Imaging (CT/MRI), Operation Theatres, Physiotherapy & Rehabilitation</li>
-                        <a> </a>
                         </ul>
                            
                         <div class="hospital-video">
@@ -471,21 +394,10 @@
                                 <iframe src="https://www.youtube.com/embed/qr4bEnSQ3F4" title="HealthCity Vistaar - Hospital Tour" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                             </div>
                             <p><a href="https://www.youtube.com/watch?v=qr4bEnSQ3F4" target="_blank" rel="noopener"></a></p>
-                        </div></div>
+                        </div>
                     </div>
                 </div>
-                <style>
-                /* Force hospital cards to stack vertically */
-                .hospital-grid {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 24px;
-                }
-                .hospital-card {
-                    width: 100%;
-                    box-sizing: border-box;
-                }
-                </style>
+                </div>
 
                 <div class="hospital-card">
                         <!--<div class="hospital-image">
@@ -501,82 +413,124 @@
                                 <ul class="hospital-details">
                                         <li><strong>Address:</strong>Lucknow, Uttar Pradesh, India</li>
                                         <li><strong>No Of Beds:</strong> 300+</li>
+                                <ul class="hospital-details">
+                                        
+                                        
                                         <li><strong>Facilities:</strong> NABH Accredited, 24x7 Trauma & Emergency, Modular Operation Theatres, Advanced ICU, Cardiac Care Unit, Dialysis, Cath Lab, Radiology & Imaging, Blood Bank, Pharmacy, Ambulance Services, International Patient Desk</li>
                                 </ul>
-                             </div>
+                            </div>
                 </div>
-
-                <style>
-                /* Override earlier rule so hospital cards appear side-by-side on wider screens */
-                .hospital-grid {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    gap: 24px;
-                }
-                .hospital-card {
-                    flex: 1 1 calc(50% - 12px);
-                    box-sizing: border-box;
-                    min-width: 280px;
-                }
-
-                /* Keep stacked layout on small screens */
-                @media (max-width: 800px) {
-                    .hospital-grid {
-                        flex-direction: column;
-                    }
-                    .hospital-card {
-                        flex: 1 1 100%;
-                    }
-                }
-                </style>
-            </div>
-            <div class="view-all-container">
-                <button class="btn-view-all">View All</button>
             </div>
         </div>
     </section>
 
-    <!-- Doctors Section -->
-    <section class="doctors" id="doctors">
+    <style>
+        /* Hospital cards responsive layout */
+        .hospital-grid {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .hospital-card {
+            flex: 1 1 calc(50% - 12px);
+            box-sizing: border-box;
+            min-width: 280px;
+        }
+
+        /* Keep stacked layout on small screens */
+        @media (max-width: 800px) {
+            .hospital-grid {
+                flex-direction: column;
+            }
+            .hospital-card {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
         <div class="container">
             <div class="section-header">
-                <h2>Our Doctors</h2>
-                <p>Meet our team of experienced specialists who provide personalized care and treatment plans.</p>
+            <h2>Our Doctors</h2>
+            <p>Meet our team of experienced specialists who provide personalized care and treatment plans.</p>
             </div>
             <div class="doctor-grid">
-                <!-- Dr. Sandeep Kapoor: replace placeholders below with real content from drsandeepkapoor.com -->
-                <div class="doctor-card">
-                    <div class="doctor-photo">
-                        <picture>
-                            <source srcset="images/dr-sandeep-kapoor.jpg" type="image/jpeg">
-                            <img src="images/sandeepkapoor.jpg" alt="Dr. Sandeep Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://drsandeepkapoor.com/wp-content/uploads/dr-sandeep-kapoor.jpg'">
-                        </picture>
-                    </div>
-                    <div class="doctor-info">
-                        <h4>Dr. Sandeep Kapoor</h4>
-                        <!-- Replace SPECIALTY with actual specialty (e.g., Orthopaedics, Spine Surgeon, etc.) -->
-                        <span class="doctor-specialty">Orthopaedics</span>
-                        <!-- Replace PROFILE_TEXT with the profile/experience text copied from the website -->
-                        <p>Dr. Sandeep Kapoor, MBBS Honours and a Gold Medalist from KGMU, Lucknow. Awarded the Prof. BN Sinha citation for best Post Graduate in MS Orthopedics at KGMU.</p>
-                        <a href="https://drsandeepkapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
-                    </div>
+            <style>
+                /* Add vertical spacing between doctor cards */
+                .doctor-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 28px; /* increased gap between doctors */
+                }
+
+                /* Keep existing per-card styles but ensure some padding so cards don't touch */
+                .doctor-card {
+                padding: 12px 0;
+                box-sizing: border-box;
+                }
+
+                /* Existing float layout for photo + info */
+                .doctor-card .doctor-photo { float: left; margin-right: 20px; }
+                .doctor-card .doctor-photo img { display: block; max-width: 300px; height: auto; }
+                .doctor-card .doctor-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                height: 300px;
+                max-width: 600px;
+                box-sizing: border-box;
+                }
+
+                /* Responsive: stack vertically on small screens */
+                @media (max-width: 700px) {
+                .doctor-card { overflow: visible; }
+                .doctor-card .doctor-photo { float: none; margin: 0 0 12px; text-align: center; }
+                .doctor-card .doctor-info { height: auto; align-items: center; text-align: center; }
+                }
+            </style>
+
+            <!-- Dr. Sandeep Kapoor: replace placeholders below with real content from drsandeepkapoor.com -->
+            <div class="doctor-card">
+                <div class="doctor-photo">
+                <picture>
+                    <source srcset="images/dr-sandeep-kapoor.jpg" type="image/jpeg">
+                    <img src="images/dr-sandeep-kapoor.jpg" alt="Dr. Sandeep Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Sandeep+Kapoor'">
+                </picture>
+                
                 </div>
 
-                <!-- Dr. Darshna Kapoor -->
-                <div class="doctor-card">
-                    <div class="doctor-photo">
-                        <picture>
-                            <source srcset="images/dr-darshna-kapoor.jpg" type="image/jpeg">
-                            <img src="images/darshnakapoor.jpg" alt="Dr. Darshna Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Darshna+Kapoor'">
-                        </picture>
-                    </div>
-                    <div class="doctor-info">
-                        <h4>Dr. Darshna Kapoor</h4>
-                        <span class="doctor-specialty">Gynaecologist</span>
-                        <p>Dr. Darshna Kapoor is an experienced gynaecologist focusing on comprehensive women's health, minimally invasive gynecologic surgery, and fertility-supportive care. She provides patient-centered consultations and evidence-based treatment plans tailored to each patient's needs.</p>
-                        <a href="https://drdarshnakapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
-                    </div>
+                <div class="doctor-info">
+                    <h4>Dr. Sandeep Kapoor</h4>
+                    <span class="doctor-specialty">Orthopaedics</span>
+                    <p>Dr. Sandeep Kapoor, MBBS Honours and a Gold Medalist from KGMU, Lucknow. Awarded the Prof. BN Sinha citation for best Post Graduate in MS Orthopedics at KGMU.</p>
+                    <a href="https://drsandeepkapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
+                </div>
+            </div>
+
+            <!-- Dr. Darshna Kapoor -->
+            <div class="doctor-card">
+                <div class="doctor-photo">
+                    <h4></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4></h4>
+
+                <picture>
+                    <source srcset="images/dr-darshna-kapoor.jpg" type="image/jpeg">
+                    <img src="images/dr-darshna-kapoor.jpg" alt="Dr. Darshna Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Darshna+Kapoor'">
+                </picture>
+                </div>
+                <div class="doctor-info">
+                <h4>Dr. Darshna Kapoor</h4>
+                <span class="doctor-specialty">Gynaecologist</span>
+                <p>Dr. Darshna Kapoor is an experienced gynaecologist focusing on comprehensive women's health, minimally invasive gynecologic surgery, and fertility-supportive care. She provides patient-centered consultations and evidence-based treatment plans tailored to each patient's needs.</p>
+                <a href="https://drdarshnakapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
+                </div>
                 </div>
 
                 <!-- Existing example doctors (keep or remove as needed) -->
@@ -791,9 +745,9 @@
                             submitBtn.disabled = true;
                             submitBtn.textContent = 'Sending...';
 
-                            const endpoint = 'https://formspree.io/f/cdAppointmentForm'; // replace with your Formspree ID or server endpoint
+                            const endpoint = 'https://formspree.io/f/meoqlyqb'; // Replace with your actual Formspree form ID or server endpoint
 
-                            if (endpoint.includes('YOUR_FORM_ID')) {
+                            if (endpoint.includes('meoqlyqb')) {
                                 submitBtn.disabled = false;
                                 submitBtn.textContent = 'Request Appointment';
                                 status.style.color = 'crimson';
@@ -922,7 +876,7 @@
                         <span>Oct 28, 2025</span>
                     </div>
                     <h4>Knee and Hip Transplant with use of – Cost, Success Rate Updated 2025</h4>
-                    <a href="#" class="btn-read-more">Read More</a>
+                    <a href="https://www.youtube.com/shorts/YnVY-Gt8upU" target="_blank" rel="noopener" class="btn-read-more">See Video</a>
                 </div>
                 
             </div>

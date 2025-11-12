@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    
+    <style>
+        :root {
+            --primary-color: #007bff; /* A professional blue */
+            --secondary-color: #28a745; /* Green for success/WhatsApp */
+            --background-light: #f8f9fa;
+            --font-main: 'Helvetica Neue', Arial, sans-serif;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* --- Header & Branding --- */
+        .header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .header p {
+            color: #6c757d;
+            font-size: 1.1em;
+        }
+
+        /* --- Form Card (Left Side) --- */
+        .form-card {
+            flex: 2;
+            min-width: 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        .form-card h3 {
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* --- Form Inputs and Labels --- */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        input:not([type="radio"]), select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensures padding is inside width */
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        /* --- Radio/Checkbox Group --- */
+        .radio-group label {
+            display: inline-block;
+            font-weight: normal;
+            margin-right: 20px;
+        }
+        
+        /* --- Buttons --- */
+        .button-group {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .submit-btn {
+            background-color: var(--primary-color); 
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Info Card (Right Side) --- */
+        .info-card {
+            flex: 1;
+            min-width: 250px;
+            background: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            height: fit-content;
+        }
+        .info-card h4 {
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        .contact-detail {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-detail span {
+            margin-left: 10px;
+        }
+        
+        /* --- WhatsApp Button --- */
+        .whatsapp-btn {
+            background-color: var(--secondary-color); /* Green */
+            color: white;
+            text-decoration: none;
+            display: block; /* Make it full width of the info card */
+            text-align: center;
+            padding: 15px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .whatsapp-btn:hover {
+            background-color: #1e7e34;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin: 20px auto;
+            }
+            .form-card, .info-card {
+                min-width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>Contact US</h1>
+            <p>Your journey to world-class healthcare starts here. Please tell us about your needs.</p>
+        </header>
+
+        <div class="form-card">
+            <h3>Request a Private Consultation</h3>
+            
+            <form 
+                action="https://formspree.io/f/YOUR_FORMSPREE_HASH_ID" 
+                method="POST"
+                target="_blank"
+            >
+
+                <div class="form-group">
+                    <label for="full_name">Full Name *</label>
+                    <input type="text" id="full_name" name="full_name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number (with country code) *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+1 123 456 7890" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sex">Gender *</label>
+                    <select id="sex" name="sex" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        <option value="other">Other</option>
+                        <option value="prefer_not_to_say">Prefer Not to Say</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country & City *</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="country" name="country" placeholder="Country" required>
+                        <input type="text" id="city" name="city" placeholder="City" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="preferred_doctor">Preferred Doctor / Specialist (If known)</label>
+                    <input type="text" id="preferred_doctor" name="preferred_doctor">
+                </div>
+                
+                <div class="form-group">
+                    <label for="preferred_hospital">Preferred Hospital / Clinic (If known)</label>
+                    <input type="text" id="preferred_hospital" name="preferred_hospital">
+                </div>
+
+                <div class="form-group">
+                    <label>Consultation Type *</label>
+                    <div class="radio-group">
+                        <input type="radio" id="first_time" name="consultation_type" value="first_time" required>
+                        <label for="first_time">First Time Consultation</label>
+                        
+                        <input type="radio" id="second_opinion" name="consultation_type" value="second_opinion" required style="margin-left: 20px;">
+                        <label for="second_opinion">Seeking Second Opinion</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Detailed Description of Your Condition or Query *</label>
+                    <textarea id="description" name="description" rows="5" required></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="submit-btn">
+                        Submit My Request
+                    </button>
+                </div>
+            </form>
+        </div> <div class="info-card">
+            <h4>Need Immediate Assistance?</h4>
+            <p>Our dedicated team is available 24/7 to answer your questions and guide you through the process.</p>
+            
+            <div class="contact-detail">
+                <span>&#9993;</span> <span>info@cardestinations.com</span>
+            </div>
+            
+            <div class="contact-detail">
+                <span>&#9742;</span> <span>+1 (800) 555-CARDE</span>
+            </div>
+
+            <hr style="border-color: rgba(255, 255, 255, 0.2);">
+
+            <a 
+                href="https://wa.me/1234567890?text=I%20am%20interested%20in%20a%20consultation%20from%20Cardestinations.com" 
+                class="whatsapp-btn" 
+                target="_blank"
+            >
+                💬 Chat on WhatsApp Now
+            </a>
+            <p style="text-align: center; font-size: 0.85em; margin-top: 15px;">Fastest response time.</p>
+
+        </div> </div> </body>
+</html>
