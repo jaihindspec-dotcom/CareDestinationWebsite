@@ -42,6 +42,14 @@ const treatments = [
         estimatedCost: "$6,500 - $11,000",
         description: "Total or partial knee replacement to relieve pain and restore mobility"
     },
+     {
+        name: "Root canal Treatment",
+        specialty: "Dental",
+        hospitalDays: 3,
+        duration: "2-3 hours",
+        estimatedCost: "$6,500 - $11,000",
+        description: "Total or partial knee replacement to relieve pain and restore mobility"
+    },
     {
         name: "Piles Treatment",
         specialty: "Proctologist",

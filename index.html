@@ -1,4 +1,4 @@
-<!DOCTYPE html>Specialization
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -20,8 +20,9 @@
                 <li class="dropdown">
                     <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'});">Specialization <i class="fas fa-chevron-down"></i></a>
                     <div class="dropdown-content">
-                         <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const btn = document.querySelector('.filter-btn[data-filter=\'gynaecology\']'); if (btn) { btn.click(); }">Gynaecology</a>
-                        <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const btn = document.querySelector('.filter-btn[data-filter=\'orthopaedics\']'); if (btn) { btn.click(); }">Orthopaedics</a>
+                         <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const filterBtn = document.querySelector('.filter-btn[data-filter=\'gynaecology\']'); if (filterBtn) { filterBtn.click(); }">Gynaecology</a>
+                        <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const filterBtn = document.querySelector('.filter-btn[data-filter=\'orthopaedics\']'); if (filterBtn) { filterBtn.click(); }">Orthopaedics</a>
+                        <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const filterBtn = document.querySelector('.filter-btn[data-filter=\'dental\']'); if (filterBtn) { filterBtn.click(); }">Dental</a>
                     </div>
                 </li>
                 
@@ -298,6 +299,7 @@
                             <option value="">Select Specialization</option>
                             <option>Gynaecology</option>
                             <option>Orthopaedics</option>
+                            <option>Dental</option>
                         </select>
                     </div>
                     <div class="search-group">
@@ -372,12 +374,13 @@
         <div class="container">
             <div class="section-header">
                 <h3>Treatment Cost</h3>
-                <h2>Our Popular Treatments</h2>
+                <h2>Premier Treatment Options</h2>
             </div>
             <div class="treatment-filters">
                 <!--<button class="filter-btn active" data-filter="all">All</button>-->
                 <button class="filter-btn" data-filter="gynaecology">Gynaecology</button>
-                <button class="filter-btn" data-filter="orthopaedics">Orthopaedics</button>                
+                <button class="filter-btn" data-filter="orthopaedics">Orthopaedics</button>
+                <button class="filter-btn" data-filter="dental">Dental</button>                
             </div>
             <div class="treatment-grid" id="treatment-grid">
                 <!-- Treatment cards will be populated by JavaScript -->
@@ -559,6 +562,27 @@
 
                 <li><a href="contact-us.html" class="btn-partner">Book Appointment</a></li>
             </div>
+                </div>
+
+                <div class="doctor-card">
+                    <div class="doctor-photo">
+                        <picture>
+                            <source srcset="images/dr-sudhir-kapoor.jpg" type="image/jpeg">
+                            <img src="images/dr-sudhir-kapoor.jpg" alt="Dr. Sudhir Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Sudhir+Kapoor'">
+                        </picture>
+                    </div>
+
+                    <div class="doctor-info">
+                        <h4>Dr. Sudhir Kapoor</h4>
+                        <span class="doctor-specialty">Dentist</span>
+                        <p>Dr. Sudhir Kapoor is a consultant dentist specialising in restorative and cosmetic dentistry, implantology and full‑mouth rehabilitation. He emphasises conservative, evidence‑based care and patient education to deliver long‑term oral health and aesthetic outcomes.44 + years clinical practice in advanced restorative and implant dentistry</p>
+
+                      
+                       
+                        <div style="height:12px;" aria-hidden="true"></div>
+
+                        <li><a href="contact-us.html" class="btn-partner">Book Appointment</a></li>
+                    </div>
                 </div>
 
                 <!-- Existing example doctors (keep or remove as needed) -->
