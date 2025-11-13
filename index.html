@@ -25,13 +25,9 @@
                         <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const filterBtn = document.querySelector('.filter-btn[data-filter=\'dental\']'); if (filterBtn) { filterBtn.click(); }">Dental</a>
                     </div>
                 </li>
+               <li><a href="#doctors" onclick="var t=document.querySelector('.doctor-grid'); if(t){t.scrollIntoView({behavior:'smooth', block:'start'});} else {location.href='#hospitals';} return false;">Doctors</a></li>
                 
-                <li><a href="#hospitals">Hospitals</a></li>
-                <li><a href="#doctors" onclick="var t=document.querySelector('.doctor-grid'); if(t){t.scrollIntoView({behavior:'smooth', block:'start'});} else {location.href='#hospitals';} return false;">Doctors</a></li>
-                
-
-                    
-                </li>
+                            <li><a href="hospitals.html">Hospitals</a></li>
                 <li><a href="#news">News</a></li>
                 <li><a href="contact-us.html">contact Us</a></li>
                 <li><a href="be-a-partner.html" class="btn-partner">Partner With Us</a></li>
@@ -1073,6 +1069,11 @@
                 (function(){
                     const openBtn = document.getElementById('bookAppointment');
                     const tpl = document.getElementById('appointmentModalTemplate');
+
+                    // Guard: if trigger or template is missing, do not initialize the modal script to avoid runtime errors.
+                    if (!openBtn || !tpl) {
+                        return;
+                    }
 
                     function ensureModal(){
                         // If modal already exists in DOM, return it
