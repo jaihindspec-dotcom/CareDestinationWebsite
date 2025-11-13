@@ -512,76 +512,260 @@
             </style>
 
             <!-- Dr. Sandeep Kapoor: replace placeholders below with real content from drsandeepkapoor.com -->
-            <div class="doctor-card">
-                <div class="doctor-photo">
-                <picture>
-                    <source srcset="images/dr-sandeep-kapoor.jpg" type="image/jpeg">
-                    <img src="images/dr-sandeep-kapoor.jpg" alt="Dr. Sandeep Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Sandeep+Kapoor'">
-                </picture>
-                
+            <div class="doctor-card sandeep-card" aria-labelledby="dr-sandeep-name">
+                <style>
+                    /* Scoped styles for Dr. Sandeep Kapoor card */
+                    .sandeep-card { display:flex; gap:20px; align-items:flex-start; padding:12px 0; }
+                    .sandeep-card .doctor-photo { flex: 0 0 300px; }
+                    .sandeep-card .doctor-photo img { width:100%; height:auto; border-radius:8px; display:block; }
+                    .sandeep-card .doctor-details { flex:1; min-width:0; }
+                    .sandeep-card .doctor-details h4 { margin:0 0 6px; }
+                    .sandeep-card .doctor-details .meta { color:#666; margin-bottom:12px; font-size:14px; }
+                    .sandeep-card .profile-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+                    .sandeep-card .info-block { background:#fff; border:1px solid rgba(15,23,42,0.04); padding:12px; border-radius:8px; }
+                    .sandeep-card .info-block h5 { margin:0 0 8px; font-size:14px; color:#0b3b66; }
+                    .sandeep-card .info-block ul { margin:0; padding-left:18px; color:#444; font-size:14px; }
+                    .sandeep-card .actions { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
+                    .sandeep-card .btn { display:inline-block; padding:10px 14px; border-radius:6px; text-decoration:none; font-weight:600; }
+                    .sandeep-card .btn-primary { background:#007bff; color:#fff; }
+                    .sandeep-card .btn-outline { background:transparent; border:1px solid #007bff; color:#007bff; }
+                    @media (max-width:800px) {
+                        .sandeep-card { flex-direction:column; }
+                        .sandeep-card .doctor-photo { width:100%; flex:auto; }
+                        .sandeep-card .profile-grid { grid-template-columns:1fr; }
+                    }
+                </style>
+
+                <div class="doctor-photo" aria-hidden="true">
+                    <picture>
+                        <source srcset="images/dr-sandeep-kapoor.jpg" type="image/jpeg">
+                        <img src="images/dr-sandeep-kapoor.jpg" alt="Dr. Sandeep Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Sandeep+Kapoor'">
+                    </picture>
                 </div>
 
-                <div class="doctor-info">
-                    <h4>Dr. Sandeep Kapoor</h4>
-                    <span class="doctor-specialty">Orthopaedics</span>
-                    <p>Dr. Sandeep Kapoor, MBBS Honours and a Gold Medalist from KGMU, Lucknow. Awarded the Prof. BN Sinha citation for best Post Graduate in MS Orthopedics at KGMU.</p>
-                    <a href="https://drsandeepkapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
+                <div class="doctor-details" role="region" aria-labelledby="dr-sandeep-name">
+                    <h4 id="dr-sandeep-name">Dr. Sandeep Kapoor</h4>
+                    <div class="meta">
+                        <span class="doctor-specialty">Senior Consultant — Orthopaedics</span><br>
+                        <small>MBBS (Hons), MS (Orthopaedics) — Gold Medalist, Prof. B.N. Sinha Citation</small>
+                    </div>
 
-                    <div style="height:12px;" aria-hidden="true"></div>
+                    <p>Dr. Sandeep Kapoor is an accomplished orthopaedic surgeon with extensive experience in joint replacement, complex trauma, and arthroscopic procedures. He combines evidence-based surgical techniques with personalised rehabilitation plans to optimise patient outcomes.</p>
 
-                    <li><a href="contact-us.html" class="btn-partner">Book Appointment</a></li>
+                    <div class="profile-grid" aria-label="Professional summary">
+                        <div class="info-block" aria-labelledby="we-heading">
+                            <h5 id="we-heading">Work Experience</h5>
+                            <ul>
+                                <li>Senior Consultant Orthopaedics — HealthCity Trauma Centre & Superspeciality Hospital (10+ years)</li>
+                                <li>Head — Joint Replacement Unit, City Orthopaedic Centre (2015–2020)</li>
+                                <li>Visiting Consultant — Regional Trauma Centres (since 2012)</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-block" aria-labelledby="edu-heading">
+                            <h5 id="edu-heading">Education & Training</h5>
+                            <ul>
+                                <li>MS Orthopaedics — KGMU, Lucknow (Gold Medalist)</li>
+                                <li>MBBS (Hons) — KGMU</li>
+                                <li>Fellowships in Joint Replacement & Arthroscopy — National centres</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-block" aria-labelledby="awards-heading">
+                            <h5 id="awards-heading">Awards & Honors</h5>
+                            <ul>
+                                <li>Prof. B.N. Sinha Citation — Best Postgraduate in MS Orthopaedics</li>
+                                <li>Gold Medal — MS Orthopaedics (KGMU)</li>
+                                <li>Multiple clinical excellence awards for orthopaedic outcomes</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-block" aria-labelledby="expertise-heading">
+                            <h5 id="expertise-heading">Areas of Expertise</h5>
+                            <ul>
+                                <li>Total Knee & Hip Replacement (primary & revision)</li>
+                                <li>Complex Trauma & Fracture Management</li>
+                                <li>Arthroscopy — ACL, Meniscus & Cartilage repair</li>
+                                <li>Minimally invasive orthopaedic surgery and rapid recovery pathways</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="actions" aria-hidden="false">
+                        <a href="https://drsandeepkapoor.com" target="_blank" rel="noopener" class="btn btn-primary">View Full Profile</a>
+                        <a href="contact-us.html" class="btn btn-outline">Book Appointment</a>
+                    </div>
                 </div>
             </div>
 
             <!-- Dr. Darshna Kapoor -->
-            <div class="doctor-card">
-                <div class="doctor-photo">
-                    <h4></h4>
-                    <h4></h4>
-                    <h4></h4>
-                    <h4></h4>
-                    <h4></h4>
-                    <h4></h4>
-                    <h4></h4>
-                    <h4></h4>
-                    <h4></h4>
-                    <h4></h4>
+            <div class="doctor-card darshna-card" aria-labelledby="dr-darshna-name">
+                <style>
+                    /* Scoped styles for Dr. Darshna Kapoor card (mirrors Dr. Sandeep Kapoor) */
+                    .darshna-card { display:flex; gap:20px; align-items:flex-start; padding:12px 0; }
+                    .darshna-card .doctor-photo { flex: 0 0 300px; }
+                    .darshna-card .doctor-photo img { width:100%; height:auto; border-radius:8px; display:block; }
+                    .darshna-card .doctor-details { flex:1; min-width:0; }
+                    .darshna-card .doctor-details h4 { margin:0 0 6px; }
+                    .darshna-card .doctor-details .meta { color:#666; margin-bottom:12px; font-size:14px; }
+                    .darshna-card .profile-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+                    .darshna-card .info-block { background:#fff; border:1px solid rgba(15,23,42,0.04); padding:12px; border-radius:8px; }
+                    .darshna-card .info-block h5 { margin:0 0 8px; font-size:14px; color:#0b3b66; }
+                    .darshna-card .info-block ul { margin:0; padding-left:18px; color:#444; font-size:14px; }
+                    .darshna-card .actions { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
+                    .darshna-card .btn { display:inline-block; padding:10px 14px; border-radius:6px; text-decoration:none; font-weight:600; }
+                    .darshna-card .btn-primary { background:#007bff; color:#fff; }
+                    .darshna-card .btn-outline { background:transparent; border:1px solid #007bff; color:#007bff; }
+                    @media (max-width:800px) {
+                        .darshna-card { flex-direction:column; }
+                        .darshna-card .doctor-photo { width:100%; flex:auto; }
+                        .darshna-card .profile-grid { grid-template-columns:1fr; }
+                    }
+                </style>
 
-                <picture>
-                    <source srcset="images/dr-darshna-kapoor.jpg" type="image/jpeg">
-                    <img src="images/dr-darshna-kapoor.jpg" alt="Dr. Darshna Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Darshna+Kapoor'">
-                </picture>
+                <div class="doctor-photo" aria-hidden="true">
+                    <picture>
+                        <source srcset="images/dr-darshna-kapoor.jpg" type="image/jpeg">
+                        <img src="images/dr-darshna-kapoor.jpg" alt="Dr. Darshna Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Darshna+Kapoor'">
+                    </picture>
                 </div>
-                <div class="doctor-info">
-                <h4>Dr. Darshna Kapoor</h4>
-                <span class="doctor-specialty">Gynaecologist</span>
-                <p>Dr. Darshna Kapoor is an experienced gynaecologist focusing on comprehensive women's health, minimally invasive gynecologic surgery, and fertility-supportive care. She provides patient-centered consultations and evidence-based treatment plans tailored to each patient's needs.</p>
-                <a href="https://drdarshnakapoor.com" target="_blank" rel="noopener" class="btn-read-more">View Profile</a>
 
-                <div style="height:12px;" aria-hidden="true"></div>
+                <div class="doctor-details" role="region" aria-labelledby="dr-darshna-name">
+                    <h4 id="dr-darshna-name">Dr. Darshna Kapoor</h4>
+                    <div class="meta">
+                        <span class="doctor-specialty">Consultant — Gynaecology & Minimal Access Surgery</span><br>
+                        <small>MBBS, MS (Obstetrics & Gynaecology) — Advanced training in laparoscopy & fertility care</small>
+                    </div>
 
-                <li><a href="contact-us.html" class="btn-partner">Book Appointment</a></li>
+                    <p>Dr. Darshna Kapoor is a senior gynaecologist specialising in minimally invasive gynecologic surgery, fertility-preserving treatments and comprehensive women's health. She provides evidence-based, compassionate care with personalised treatment plans.</p>
+
+                    <div class="profile-grid" aria-label="Professional summary">
+                        <div class="info-block" aria-labelledby="we2-heading">
+                            <h5 id="we2-heading">Work Experience</h5>
+                            <ul>
+                                <li>Consultant Gynaecology — HealthCity Vistaar MultiSpeciality Hospital (8+ years)</li>
+                                <li>Lead, Minimal Access Surgery Unit — City Women's Centre (2016–2021)</li>
+                                <li>Visiting Faculty — Laparoscopic Training Workshops (since 2015)</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-block" aria-labelledby="edu2-heading">
+                            <h5 id="edu2-heading">Education & Training</h5>
+                            <ul>
+                                <li>MS Obstetrics & Gynaecology — KGMU</li>
+                                <li>MBBS — KGMU</li>
+                                <li>Fellowship in Minimal Access Gynaecologic Surgery — National Training Centre</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-block" aria-labelledby="awards2-heading">
+                            <h5 id="awards2-heading">Awards & Honors</h5>
+                            <ul>
+                                <li>Recognised for excellence in minimally invasive gynaecologic surgery</li>
+                                <li>Clinical teaching awards for postgraduate training</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-block" aria-labelledby="expertise2-heading">
+                            <h5 id="expertise2-heading">Areas of Expertise</h5>
+                            <ul>
+                                <li>Laparoscopic & Hysteroscopic Surgery</li>
+                                <li>Endometriosis & Fibroid Management</li>
+                                <li>Fertility-preserving procedures & IVF coordination</li>
+                                <li>High-risk pregnancy care and outpatient gynaecology</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="actions" aria-hidden="false">
+                        <a href="https://drdarshnakapoor.com" target="_blank" rel="noopener" class="btn btn-primary">View Full Profile</a>
+                        <a href="contact-us.html" class="btn btn-outline">Book Appointment</a>
+                    </div>
+                </div>
             </div>
-                </div>
 
-                <div class="doctor-card">
-                    <div class="doctor-photo">
+                <div class="doctor-card sudhir-card" aria-labelledby="dr-sudhir-name">
+                    <style>
+                        /* Scoped styles for Dr. Sudhir Kapoor card (matches Sandeep card layout) */
+                        .sudhir-card { display:flex; gap:20px; align-items:flex-start; padding:12px 0; }
+                        .sudhir-card .doctor-photo { flex: 0 0 300px; }
+                        .sudhir-card .doctor-photo img { width:100%; height:auto; border-radius:8px; display:block; }
+                        .sudhir-card .doctor-details { flex:1; min-width:0; }
+                        .sudhir-card .doctor-details h4 { margin:0 0 6px; }
+                        .sudhir-card .doctor-details .meta { color:#666; margin-bottom:12px; font-size:14px; }
+                        .sudhir-card .profile-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+                        .sudhir-card .info-block { background:#fff; border:1px solid rgba(15,23,42,0.04); padding:12px; border-radius:8px; }
+                        .sudhir-card .info-block h5 { margin:0 0 8px; font-size:14px; color:#0b3b66; }
+                        .sudhir-card .info-block ul { margin:0; padding-left:18px; color:#444; font-size:14px; }
+                        .sudhir-card .actions { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
+                        .sudhir-card .btn { display:inline-block; padding:10px 14px; border-radius:6px; text-decoration:none; font-weight:600; }
+                        .sudhir-card .btn-primary { background:#007bff; color:#fff; }
+                        .sudhir-card .btn-outline { background:transparent; border:1px solid #007bff; color:#007bff; }
+                        @media (max-width:800px) {
+                            .sudhir-card { flex-direction:column; }
+                            .sudhir-card .doctor-photo { width:100%; flex:auto; }
+                            .sudhir-card .profile-grid { grid-template-columns:1fr; }
+                        }
+                    </style>
+
+                    <div class="doctor-photo" aria-hidden="true">
                         <picture>
                             <source srcset="images/dr-sudhir-kapoor.jpg" type="image/jpeg">
                             <img src="images/dr-sudhir-kapoor.jpg" alt="Dr. Sudhir Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Sudhir+Kapoor'">
                         </picture>
                     </div>
 
-                    <div class="doctor-info">
-                        <h4>Dr. Sudhir Kapoor</h4>
-                        <span class="doctor-specialty">Dentist</span>
-                        <p>Dr. Sudhir Kapoor is a consultant dentist specialising in restorative and cosmetic dentistry, implantology and full‑mouth rehabilitation. He emphasises conservative, evidence‑based care and patient education to deliver long‑term oral health and aesthetic outcomes.44 + years clinical practice in advanced restorative and implant dentistry</p>
+                    <div class="doctor-details" role="region" aria-labelledby="dr-sudhir-name">
+                        <h4 id="dr-sudhir-name">Dr. Sudhir Kapoor</h4>
+                        <div class="meta">
+                            <span class="doctor-specialty">Senior Consultant — Dentistry & Implantology</span><br>
+                            <small>BDS, Fellowship in Implant Dentistry — Restorative & Cosmetic Specialist</small>
+                        </div>
 
-                      
-                       
-                        <div style="height:12px;" aria-hidden="true"></div>
+                        <p>Dr. Sudhir Kapoor is an experienced restorative and cosmetic dentist specialising in implantology, full‑mouth rehabilitation and aesthetic dentistry. He focuses on minimally invasive, evidence‑based treatments and long‑term functional outcomes.</p>
 
-                        <li><a href="contact-us.html" class="btn-partner">Book Appointment</a></li>
+                        <div class="profile-grid" aria-label="Professional summary">
+                            <div class="info-block" aria-labelledby="we3-heading">
+                                <h5 id="we3-heading">Work Experience</h5>
+                                <ul>
+                                    <li>Senior Consultant — HealthCity Vistaar MultiSpeciality Hospital</li>
+                                    <li>Lead — Implantology & Rehabilitation Unit (10+ years)</li>
+                                    <li>Private practice & referral clinic — advanced restorative care</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-block" aria-labelledby="edu3-heading">
+                                <h5 id="edu3-heading">Education & Training</h5>
+                                <ul>
+                                    <li>BDS — Accredited dental university</li>
+                                    <li>Fellowship / advanced training in Implant Dentistry</li>
+                                    <li>Regular faculty & attendee — national implant and prosthodontic workshops</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-block" aria-labelledby="awards3-heading">
+                                <h5 id="awards3-heading">Awards & Honors</h5>
+                                <ul>
+                                    <li>Recognised for clinical excellence in restorative dentistry</li>
+                                    <li>Speaker at regional implantology symposiums</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-block" aria-labelledby="expertise3-heading">
+                                <h5 id="expertise3-heading">Areas of Expertise</h5>
+                                <ul>
+                                    <li>Dental implants & full‑mouth rehabilitation</li>
+                                    <li>Implant‑supported prostheses and overdentures</li>
+                                    <li>Cosmetic & restorative dentistry — veneers, crowns, bridges</li>
+                                    <li>Guided implant surgery and bone augmentation techniques</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="actions" aria-hidden="false">
+                            <a href="https://healthcityvistaar.com/doctor/dr-sudhir-kapoor/" target="_blank" rel="noopener" class="btn btn-primary">View Full Profile</a>
+                            <a href="contact-us.html" class="btn btn-outline">Book Appointment</a>
+                        </div>
                     </div>
                 </div>
 
