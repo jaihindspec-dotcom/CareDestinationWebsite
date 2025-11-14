@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Availability</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; 
+            margin: 0; 
+            padding: 0;
+            background-color: #f4f7f6; 
+        }
+
+        /* Blue Top Navigation Pane */
+        .top-nav {
+            background-color: #0056b3; /* Primary blue */
+            padding: 15px 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            color: white;
+        }
+        .top-nav h1 {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+        }
+
+        .result-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .result-header h2 {
+            color: #004a99; /* Darker blue */
+            margin: 0;
+            font-size: 2em;
+        }
+        .result-header p {
+            font-size: 1.1em;
+            color: #555;
+            margin-top: 5px;
+        }
+        
+        /* Two-Column Layout */
+        .result-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        /* Left Column: Treatment Details */
+        .treatment-details {
+            flex: 2; /* Takes up 2/3 of the space */
+            min-width: 300px;
+        }
+        
+        /* Right Column: Doctor Profile */
+        .doctor-profile {
+            flex: 1; /* Takes up 1/3 of the space */
+            min-width: 320px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            /* Stick to top when scrolling (optional) */
+            position: sticky;
+            top: 30px;
+        }
+
+        .doctor-profile-header {
+            background-color: #0056b3; /* Primary blue */
+            color: white;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+        
+        .doctor-profile-header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 15px auto;
+            border: 5px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .doctor-profile-header .name {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .doctor-profile-header .specialty {
+            font-size: 1.1em;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .doctor-profile-body {
+            padding: 25px;
+        }
+
+        .profile-section {
+            margin-bottom: 25px;
+        }
+        .profile-section h4 {
+            font-size: 1.2em;
+            color: #0056b3; /* Blue heading */
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .profile-section ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .profile-section li {
+            margin-bottom: 10px;
+            color: #444;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 25px;
+        }
+        /* Adding icons for list items */
+        .profile-section li::before {
+            content: '✔'; /* You can change this */
+            position: absolute;
+            left: 0;
+            color: #28a745; /* Green checkmark */
+            font-weight: bold;
+        }
+        /* Specific icon for hospital */
+        .profile-section.hospital li::before {
+            content: '🏥';
+            color: inherit;
+        }
+
+        /* Treatment Details Styling */
+        .treatment-details h3 {
+            font-size: 1.9em;
+            color: #0056b3;
+            margin-top: 0;
+        }
+        
+        .treatment-details h4 {
+            font-size: 1.4em;
+            color: #333;
+            margin-top: 30px;
+            border-left: 4px solid #0056b3;
+            padding-left: 10px;
+        }
+        .treatment-details p, .treatment-details li {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #333;
+        }
+        .treatment-details ul {
+            list-style-type: disc;
+            padding-left: 30px;
+        }
+
+        .treatment-image {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 15px 0 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        a.back-link {
+            display: inline-block;
+            margin-top: 30px;
+            background-color: #6c757d;
+            color: white;
+            padding: 12px 22px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        a.back-link:hover {
+            background-color: #5a6268;
+        }
+
+        /* Google-style rating display */
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            font-size: 0.98em;
+        }
+        .rating .stars {
+            display: inline-flex;
+            gap: 2px;
+            line-height: 1;
+        }
+        .rating .star {
+            font-size: 1.05em;
+            color: #e0e0e0; /* default (empty) star) */
+            text-shadow: 0 1px 0 rgba(0,0,0,0.05);
+        }
+        /* Filled star color */
+        .rating-5 .star:nth-child(-n+5),
+        .rating-4 .star:nth-child(-n+4),
+        .rating-3 .star:nth-child(-n+3),
+        .rating-2 .star:nth-child(-n+2),
+        .rating-1 .star:nth-child(-n+1) {
+            color: #ffc107; /* golden */
+        }
+        /* Color variants for lower ratings (optional visual cue) */
+        .rating-3 .star:nth-child(-n+3){ color: #ffb020; } 
+        .rating-2 .star:nth-child(-n+2){ color: #ff9800; } 
+        .rating-1 .star:nth-child(-n+1){ color: #ff6b6b; }
+
+        .rating .value {
+            font-weight: 700;
+            color: #0b3d91;
+            background: #eaf4ff;
+            padding: 4px 8px;
+            border-radius: 8px;
+            margin-left: 6px;
+        }
+        .rating small {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        /* Action buttons: Book Appointment (links to contact-us.html) and WhatsApp */
+        .doctor-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.98em;
+            box-shadow: 0 6px 14px rgba(3, 64, 159, 0.06);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+        .btn:active { transform: translateY(1px); }
+
+        .btn-book {
+            background: linear-gradient(180deg, #0066d6, #0056b3);
+            color: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .btn-book:hover {
+            box-shadow: 0 10px 20px rgba(5, 85, 170, 0.12);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(180deg,#2ecc71,#25D366);
+            color: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .btn-whatsapp:hover {
+            box-shadow: 0 10px 20px rgba(37,211,102,0.12);
+        }
+
+        /* Small-screen: make buttons full width for better touch targets */
+        @media (max-width: 520px) {
+            .doctor-actions { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+            .doctor-profile { position: static; } /* sticky may conflict on small screens */
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <h1>CareDestinations</h1>
+    </header>
+
+    <div class="container">
+        <div id="resultWrapper">
+            <p>Loading doctor information...</p>
+        </div>
+        
+        <a href="index.html" class="back-link">&laquo; Go Back and Search Again</a>
+    </div>
+
+    <script>
+        // --- DATA STRUCTURES ---
+
+        // 1. Map: Finds the DOCTOR'S NAME from the selection
+        const treatmentToDoctorMap = {
+            "Orthopaedics": {
+                "Knee Transplant": "Dr. Sandeep Kapoor",
+                "Hip Transplant": "Dr. Sandeep Kapoor"
+            },
+            "Gynecology": {
+                "Fertility & IVF Services": "Dr. Darshana Kapoor",
+                "Normal & Caesarean Delivery": "Dr. Darshana Kapoor",
+                "High-Risk Pregnancy Care": "Dr. Darshana Kapoor",
+                "Laparoscopic Gynaecological Surgeries": "Dr. Darshana Kapoor",
+                "Menopause Management": "Dr. Darshana Kapoor"
+            },
+            "Dental": {
+                "Dental Implant": "Dr. Sudhir Kapoor",
+                "Full Mouth Rehabilitation": "Dr. Sudhir Kapoor"
+            }
+        };
+
+        // 2. Database: Detailed Doctor Profiles (Updated)
+        const doctorProfiles = {
+            "Dr. Sandeep Kapoor": {
+                name: "Dr. Sandeep Kapoor",
+                specialty: "Orthopaedic & Joint Replacement Surgeon",
+                imageSrc: "images/dr-sandeep-kapoor.jpg",
+                experience: "35+ Years of Experience",
+                education: [
+                    "MS (Orthopaedics) - King George's Medical University (Gold Medalist)",
+                    "MBBS - King George's Medical University (Gold Medalist)",
+                    "AO Fellowship (Trauma) - Frankfurt, Germany",
+                    "Fellowship in Joint Replacement - USA & Australia"
+                ],
+                awards: [
+                    "Gold Medalist in MBBS & MS",
+                    "Pioneer of Computer Navigated Surgery in Uttar Pradesh",
+                    "Honored for Excellence in Orthopaedics, 2023",
+                    "ET Leadership Excellence Award 2024"
+                ],
+                memberships: [
+                    "Indian Orthopaedic Association (IOA)",
+                    "AO Trauma International Member",
+                    "Indo-German Orthopaedic Foundation (IGOF)"
+                ],
+                hospital: "Health City Vistaar, Lucknow (Co-Founder & MD)"
+            },
+            "Dr. Darshana Kapoor": {
+                name: "Dr. Darshana Kapoor",
+                specialty: "Gynaecologist & IVF Specialist",
+                imageSrc: "images/dr-darshna-kapoor.jpg",
+                experience: "30+ Years of Experience",
+                education: [
+                    "MD (Obstetrics & Gynaecology) - King George's Medical College",
+                    "MBBS - King George's Medical College",
+                    "Fellowship in Infertility & IVF - Germany",
+                    "Certified in Advanced Laparoscopic Surgery"
+                ],
+                awards: [
+                    "Leading Gynaecologist of the Year, 2022",
+                    "Excellence in Women's Healthcare Award",
+                    "Top IVF Specialist (North India)"
+                ],
+                memberships: [
+                    "Federation of Obstetric & Gynaecological Societies of India (FOGSI)",
+                    "Indian Society for Assisted Reproduction (ISAR)",
+                    "World Association of Laparoscopic Surgeons (WALS)"
+                ],
+                hospital: "Health City Vistaar, Lucknow (Sr. Consultant)"
+            },
+            "Dr. Sudhir Kapoor": {
+                name: "Dr. Sudhir Kapoor",
+                specialty: "Prosthodontist & Implantologist",
+                imageSrc: "images/dr-sudhir-kapoor.jpg",
+                experience: "40+ Years of Experience",
+                education: [
+                    "MDS (Prosthodontics) - King George's Medical College",
+                    "BDS - King George's Medical College",
+                    "Advanced Certification in Implantology, South Korea"
+                ],
+                awards: [
+                    "Lifetime Achievement in Dentistry, 2024",
+                    "Excellence in Prosthodontics Award",
+                    "Top Dental Surgeon (Lucknow)"
+                ],
+                memberships: [
+                    "Indian Dental Association (IDA)",
+                    "Indian Prosthodontic Society (IPS)",
+                    "International Congress of Oral Implantologists (ICOI)"
+                ],
+                hospital: "Health City Vistaar, Lucknow (Sr. Dental Surgeon)"
+            }
+        };
+
+        // 3. Database: Detailed Treatment Descriptions (Updated with images)
+        const treatmentDetails = {
+            "Knee Transplant": {
+                title: "Knee Transplant (Arthroplasty)",
+                imageSrc: "im",
+                description: "Knee transplant, or knee arthroplasty, is a surgical procedure to resurface a knee damaged by arthritis. Metal and plastic parts are used to cap the ends of the bones that form the knee joint, along with the kneecap.",
+                procedure: [
+                    "The patient is given general or spinal anesthesia.",
+                    "The surgeon makes an incision over the kneecap to access the damaged joint.",
+                    "The damaged cartilage and bone surfaces are removed.",
+                    "The new metal and plastic implants are precisely fitted and cemented into place.",
+                    "The incision is closed, and a drain may be placed to remove fluid."
+                ]
+            },
+            "Hip Transplant": {
+                title: "Hip Transplant (Arthroplasty)",
+                imageSrc: "https://via.placeholder.com/600x300/e6f7f0/000000?text=Hip+Transplant+Procedure",
+                description: "A hip transplant, or total hip arthroplasty, is a surgical procedure in which a damaged hip joint is replaced with a prosthetic implant. This is a highly effective procedure for relieving pain and restoring function from advanced hip arthritis.",
+                procedure: [
+                    "The procedure is performed under anesthesia.",
+                    "The surgeon makes an incision over the hip to expose the joint.",
+                    "The damaged femoral head (ball) is removed and replaced with a metal stem and ball.",
+                    "The damaged acetabulum (socket) is resurfaced and a new plastic or ceramic liner is implanted.",
+                    "The new joint is tested for motion before the incision is closed."
+                ]
+            },
+            "Fertility & IVF Services": {
+                title: "Fertility & IVF Services",
+                imageSrc: "https://via.placeholder.com/600x300/e6f7f0/000000?text=IVF+Procedure",
+                description: "In Vitro Fertilization (IVF) is a complex series of procedures used to help with fertility or prevent genetic problems and assist with the conception of a child. It involves retrieving eggs from a woman's ovaries and fertilizing them with sperm in a lab.",
+                procedure: [
+                    "Ovarian Stimulation: Fertility medications are used to stimulate egg production.",
+                    "Egg Retrieval: A minor surgical procedure to collect the eggs from the ovaries.",
+                    "Fertilization: The eggs are mixed with sperm in a laboratory dish to allow fertilization.",
+                    "Embryo Culture: The fertilized eggs (embryos) are monitored and allowed to grow for several days.",
+                    "Embryo Transfer: One or more healthy embryos are transferred into the woman's uterus."
+                ]
+            },
+            "Normal & Caesarean Delivery": { 
+                title: "Normal & Caesarean Delivery", 
+                imageSrc: "https://via.placeholder.com/600x300/e6f7f0/000000?text=Maternity+Care",
+                description: "Comprehensive maternity care for both normal (vaginal) and caesarean section deliveries, ensuring the safety of both mother and child.", 
+                procedure: ["Monitoring labor", "Pain management options", "Assisted delivery if needed", "Surgical (C-section) delivery when medically necessary."] 
+            },
+            "High-Risk Pregnancy Care": { 
+                title: "High-Risk Pregnancy Care", 
+                imageSrc: "https://via.placeholder.com/600x300/e6f7f0/000000?text=High-Risk+Pregnancy",
+                description: "Specialized care for pregnancies with complications such as gestational diabetes, preeclampsia, or other pre-existing conditions.", 
+                procedure: ["Advanced fetal monitoring", "Specialist consultations", "Customized delivery planning."] 
+            },
+            "Laparoscopic Gynaecological Surgeries": { 
+                title: "Laparoscopic Gynaecological Surgeries", 
+                imageSrc: "https://via.placeholder.com/600x300/e6f7f0/000000?text=Laparoscopic+Surgery",
+                description: "Minimally invasive surgical techniques to treat conditions like endometriosis, ovarian cysts, and fibroids, resulting in faster recovery.", 
+                procedure: ["Small incisions are made in the abdomen.", "A laparoscope (a thin tube with a camera) is inserted.", "Specialized surgical tools are used to perform the procedure."] 
+            },
+            "Menopause Management": { 
+                title: "Menopause Management", 
+                imageSrc: "https://via.placeholder.com/600x300/e6f7f0/000000?text=Menopause+Management",
+                description: "Personalized care plans to manage symptoms of menopause, including hormone replacement therapy (HRT), lifestyle counseling, and bone density screening.", 
+                procedure: ["Comprehensive symptom assessment", "Hormonal and non-hormonal treatment options", "Long-term health monitoring."] 
+            },
+            "Dental Implant": { 
+                title: "Dental Implant", 
+                imageSrc: "https://via.placeholder.com/600x300/e6f7f0/000000?text=Dental+Implant",
+                description: "A surgical procedure that replaces tooth roots with metal, screwlike posts and replaces damaged or missing teeth with artificial teeth that look and function much like real ones.", 
+                procedure: ["Implant Placement: A titanium post is surgically placed into the jawbone.", "Osseointegration: The implant fuses with the jawbone over several months.", "Abutment Placement: A connector post is attached to the implant.", "Crown Placement: The final custom-made artificial tooth (crown) is attached."] 
+            },
+            "Full Mouth Rehabilitation": { 
+                title: "Full Mouth Rehabilitation", 
+                imageSrc: "https://via.placeholder.com/600x300/e6f7f0/000000?text=Full+Mouth+Rehabilitation",
+                description: "A comprehensive and customized treatment plan to rebuild or restore all of the teeth in both the upper and lower jaws.", 
+                procedure: ["Involves multiple procedures, such as crowns, bridges, veneers, implants, and orthodontics.", "Each treatment is phased to systematically restore oral health, function, and aesthetics."] 
+            }
+        };
+
+        // --- PAGE LOGIC ---
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const resultWrapper = document.getElementById('resultWrapper');
+            
+            const params = new URLSearchParams(window.location.search);
+            const spec = params.get('spec');
+            const treat = params.get('treat');
+
+            if (!spec || !treat) {
+                resultWrapper.innerHTML = `
+                    <div class="result-header">
+                        <h2>Error</h2>
+                        <p>No selection was made. Please go back and select a specialization and treatment.</p>
+                    </div>`;
+                return;
+            }
+
+            const doctorName = (treatmentToDoctorMap[spec] && treatmentToDoctorMap[spec][treat]) ? treatmentToDoctorMap[spec][treat] : null;
+            const doctor = doctorProfiles[doctorName];
+            const treatment = treatmentDetails[treat];
+
+            if (doctor && treatment) {
+                // Build HTML lists from data arrays
+                const educationHtml = doctor.education.map(item => `<li>${item}</li>`).join('');
+                const awardsHtml = doctor.awards.map(item => `<li>${item}</li>`).join('');
+                const membershipsHtml = doctor.memberships.map(item => `<li>${item}</li>`).join('');
+                const procedureHtml = treatment.procedure.map(item => `<li>${item}</li>`).join('');
+
+                const finalHtml = `
+                    <div class="result-header">
+                        <h2>Doctor Found for ${treat}</h2>
+                        <p>Below are the details for your selected treatment and the recommended specialist.</p>
+                    </div>
+
+                    <div class="result-container">
+                        <div class="treatment-details">
+                            <h3>About: ${treatment.title}</h3>
+                            <img src="${treatment.imageSrc}" alt="${treatment.title}" class="treatment-image">
+                            <p>${treatment.description}</p>
+                            
+                            <h4>Typical Procedure</h4>
+                            <ul>
+                                ${procedureHtml}
+                            </ul>
+                        </div>
+                        
+                        <div class="doctor-profile">
+                            <div class="doctor-profile-header">
+                                <img src="${doctor.imageSrc}" alt="${doctor.name}">
+                                <div class="name">${doctor.name}</div>
+                                <div class="specialty">${doctor.specialty}</div>
+                            </div>
+                            <div class="doctor-profile-body">
+                                <div class="profile-section">
+                                    <h4>Experience</h4>
+                                    <ul><li>${doctor.experience}</li></ul>
+                                </div>
+                                
+                                <div class="profile-section">
+                                    <h4>Education & Credentials</h4>
+                                    <ul>${educationHtml}</ul>
+                                </div>
+
+                                <div class="profile-section">
+                                    <h4>Awards & Recognitions</h4>
+                                    <ul>${awardsHtml}</ul>
+                                </div>
+
+                                <div class="profile-section">
+                                    <h4>Professional Memberships</h4>
+                                    <ul>${membershipsHtml}</ul>
+                                </div>
+                                
+                                <div class="profile-section hospital">
+                                    <h4>Affiliated Hospital</h4>
+                                    <ul><li>${doctor.hospital}</li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                resultWrapper.innerHTML = finalHtml;
+
+            } else {
+                resultWrapper.innerHTML = `
+                    <div class="result-header">
+                        <h2>Information Not Found</h2>
+                        <p>We're sorry, detailed information for the selected doctor or treatment is not available at this time.</p>
+                    </div>`;
+            }
+        });
+    </script>
+
+</body>
+</html>
