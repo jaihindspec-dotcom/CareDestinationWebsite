@@ -552,6 +552,19 @@
                                     <h4>Affiliated Hospital</h4>
                                     <ul><li>${doctor.hospital}</li></ul>
                                 </div>
+                                <div class="doctor-actions">
+                                    <a class="btn btn-book"
+                                       href="contact-us.html?spec=${encodeURIComponent(spec)}&treat=${encodeURIComponent(treat)}"
+                                       title="Book an appointment">
+                                        📅 Book Appointment
+                                    </a>
+
+                                    <a class="btn btn-whatsapp"
+                                       href="https://wa.me/919900112233?text=${encodeURIComponent('Hello, I would like to book an appointment with ' + doctor.name + ' for ' + treatment.title + '.')} "
+                                       target="_blank" rel="noopener noreferrer" title="Message on WhatsApp">
+                                        💬 WhatsApp
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
