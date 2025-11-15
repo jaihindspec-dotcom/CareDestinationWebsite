@@ -3,421 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be a Partner - CareDestinations</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/partner-form.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Partner With Us - Care Destinations</title>
+    
+    <style>
+        :root {
+            --primary-color: #007bff; /* A professional blue */
+            --secondary-color: #28a745; /* Green for success/WhatsApp */
+            --background-light: #f8f9fa;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* --- Header Banner (Full-Width Blue) --- */
+        .header-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header-banner h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+        }
+        .header-banner p {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+
+        /* --- Main Content Container --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto 40px auto; 
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+
+        /* --- Form Card (Left Side) --- */
+        .form-card {
+            flex: 2;
+            min-width: 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        .form-card h3 {
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* --- Form Inputs and Labels --- */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        input:not([type="radio"]), select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+            transition: border-color 0.3s, box-shadow 0.3s; 
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); 
+        }
+        
+        /* --- Buttons --- */
+        .button-group {
+            margin-top: 30px;
+        }
+        .submit-btn {
+            background-color: var(--primary-color); 
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Info Card (Right Side) --- */
+        .info-card {
+            flex: 1;
+            min-width: 250px;
+            background: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            height: fit-content;
+        }
+        .info-card h4 {
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        /* --- New "Benefits List" for Partner Page --- */
+        .benefits-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0 0 25px 0;
+        }
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        .benefits-list li::before {
+            content: '✔'; /* Checkmark */
+            color: var(--secondary-color); /* Green check */
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .contact-detail {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-detail span {
+            margin-left: 10px;
+        }
+        
+        /* --- WhatsApp Button --- */
+        .whatsapp-btn {
+            background-color: var(--secondary-color); /* Green */
+            color: white;
+            text-decoration: none;
+            display: block; 
+            text-align: center;
+            padding: 15px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .whatsapp-btn:hover {
+            background-color: #1e7e34;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin: 0 auto 20px auto;
+            }
+            .form-card, .info-card {
+                min-width: 100%;
+                box-sizing: border-box; 
+            }
+            .header-banner {
+                padding: 30px 15px;
+                margin-bottom: 20px;
+            }
+            .header-banner h1 {
+                font-size: 2em;
+            }
+        }
+
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="logo.png" alt="CareDestinations Logo">
-                </a>
-            </div>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#speciality">Speciality</a></li>
-                <li><a href="index.html#wellness">Wellness & Ayurvedic</a></li>
-                <li><a href="index.html#hospitals">Hospitals</a></li>
-                <li><a href="index.html#doctors">Doctors</a></li>
-                <li><a href="index.html#contact">Contact Us</a></li>
-                <li><a href="index.html#news">News</a></li>
-                <li><a href="be-a-partner.html" class="btn-partner active">Be a Partner</a></li>
-            </ul>
-            <div class="nav-right-actions">
-                <div class="search-dropdown">
-                    <button class="search-btn" id="searchToggle">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <div class="search-panel" id="searchPanel">
-                        <div class="search-tabs">
-                            <button class="search-tab active" data-tab="treatments">Treatments</button>
-                            <button class="search-tab" data-tab="hospitals">Hospitals</button>
-                            <button class="search-tab" data-tab="doctors">Doctors</button>
-                        </div>
-                        <div class="search-content">
-                            <input type="text" id="searchInput" placeholder="Search treatments..." class="search-input">
-                            <div class="search-results" id="searchResults"></div>
-                        </div>
-                    </div>
+
+    <header class="header-banner">
+        <div class="header-content">
+            <h1>Partner With Us</h1>
+            <p>Join our network of trusted providers to offer world-class hospitality and services to international patients.</p>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="form-card">
+            <h3>Become a Valued Partner</h3>
+            
+            <form 
+                action="https://formspree.io/f/YOUR_FORMSPREE_HASH_ID" 
+                method="POST"
+                target="_blank"
+            >
+
+                <div class="form-group">
+                    <label for="business_name">Business Name *</label>
+                    <input type="text" id="business_name" name="business_name" required>
                 </div>
-                <div class="language-selector">
-                    <select id="languageSelect" class="language-dropdown">
-                        <option value="">Select Language</option>
-                        <option value="en">English</option>
-                        <option value="es">Español (Spanish)</option>
-                        <option value="fr">Français (French)</option>
-                        <option value="de">Deutsch (German)</option>
-                        <option value="it">Italiano (Italian)</option>
-                        <option value="pt">Português (Portuguese)</option>
-                        <option value="ru">Русский (Russian)</option>
-                        <option value="zh-CN">简体中文 (Chinese Simplified)</option>
-                        <option value="zh-TW">繁體中文 (Chinese Traditional)</option>
-                        <option value="ja">日本語 (Japanese)</option>
-                        <option value="ko">한국어 (Korean)</option>
-                        <option value="ar">العربية (Arabic)</option>
-                        <option value="hi">हिन्दी (Hindi)</option>
-                        <option value="bn">বাংলা (Bengali)</option>
-                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
-                        <option value="te">తెలుగు (Telugu)</option>
-                        <option value="mr">मराठी (Marathi)</option>
-                        <option value="ta">தமிழ் (Tamil)</option>
-                        <option value="ur">اردو (Urdu)</option>
-                        <option value="gu">ગુજરાતી (Gujarati)</option>
-                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
-                        <option value="ml">മലയാളം (Malayalam)</option>
-                        <option value="or">ଓଡ଼ିଆ (Oriya)</option>
+                
+                <div class="form-group">
+                    <label for="service_type">Type of Service Offered *</label>
+                    <select id="service_type" name="service_type" required>
+                        <option value="" disabled selected>Select a Service</option>
+                        <option value="accommodation">Accommodation (Hotels, Apartments)</option>
+                        <option value="transportation">Transportation (Airport, Local)</option>
+                        <option value="translation">Translation & Interpretation</option>
+                        <option value="tours">Tour & Travel Services</option>
+                        <option value="wellness">Wellness & Spa</option>
+                        <option value="other">Other</option>
                     </select>
-                    <div id="google_translate_element"></div>
                 </div>
+                
+                <div class="form-group">
+                    <label for="location">Country & City of Operation *</label>
+                    <input type="text" id="location" name="location" placeholder="e.g., Dubai, UAE" required>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+
+                <div class="form-group">
+                    <label for="contact_name">Contact Person Name *</label>
+                    <input type="text" id="contact_name" name="contact_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="business_email">Business Email Address *</label>
+                    <input type="email" id="business_email" name="business_email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="business_phone">Business Phone Number *</label>
+                    <input type="tel" id="business_phone" name="business_phone" placeholder="+1 123 456 7890" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Tell us more about your business</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Briefly describe your services and why you'd be a great fit..."></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="submit-btn">
+                        Submit Partnership Application
+                    </button>
+                </div>
+            </form>
+        </div> 
+
+        <div class="info-card">
+            <h4>Why Partner With Us?</h4>
+            
+            <ul class="benefits-list">
+                <li>Access a global stream of medical tourists.</li>
+                <li>Increase your visibility in the healthcare market.</li>
+                <li>Be part of a trusted, curated network of providers.</li>
+                <li>Receive direct bookings and patient referrals.</li>
+                <li>Grow your business with a reliable partner.</li>
+            </ul>
+
+            <hr style="border-color: rgba(255, 255, 255, 0.2);">
+            <h4 style="font-size: 1.2em; margin-bottom: 20px;">Have Questions?</h4>
+            
+            <div class="contact-detail">
+                <span>&#9993;</span> <span>partners@cardestinations.com</span>
             </div>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            
+            <div class="contact-detail">
+                <span>&#9742;</span> <span>+1 (800) 555-PARTNER</span>
             </div>
-        </div>
-    </nav>
 
-    <!-- Partner Form Hero -->
-    <section class="partner-hero">
-        <div class="container">
-            <div class="partner-hero-content">
-                <h1>Become a Partner</h1>
-                <p>Join CareDestinations network and expand your reach to international patients seeking quality healthcare services</p>
-            </div>
-        </div>
-    </section>
+            <a 
+                href="https://wa.me/1234567890?text=I%20am%20interested%20in%20partnering%20with%20Cardestinations.com" 
+                class="whatsapp-btn" 
+                target="_blank"
+            >
+                💬 Chat with our Partnerships Team
+            </a>
 
-    <!-- Partner Form Section -->
-    <section class="partner-form-section">
-        <div class="container">
-            <div class="partner-content">
-                <div class="partner-info">
-                    <h2>Why Partner With Us?</h2>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <div class="benefit-text">
-                            <h4>Global Reach</h4>
-                            <p>Connect with international patients from around the world seeking quality healthcare</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="benefit-text">
-                            <h4>Qualified Leads</h4>
-                            <p>Receive pre-screened patient inquiries matched to your specialties</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="benefit-text">
-                            <h4>Growth Opportunities</h4>
-                            <p>Expand your patient base and increase revenue through medical tourism</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <div class="benefit-text">
-                            <h4>Dedicated Support</h4>
-                            <p>Our team provides continuous support in patient coordination and communication</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fas fa-certificate"></i>
-                        </div>
-                        <div class="benefit-text">
-                            <h4>Brand Visibility</h4>
-                            <p>Featured placement on our platform with detailed profile and services</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="partner-form-container">
-                    <div class="form-header">
-                        <h3>Partner Registration Form</h3>
-                        <p>Fill out the form below and our team will contact you within 24-48 hours</p>
-                    </div>
-
-                    <form id="partnerForm" class="partner-form">
-                        <!-- Organization Information -->
-                        <div class="form-section">
-                            <h4><i class="fas fa-building"></i> Organization Information</h4>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="orgType">Organization Type <span class="required">*</span></label>
-                                    <select id="orgType" name="orgType" required>
-                                        <option value="">Select Type</option>
-                                        <option value="hospital">Hospital</option>
-                                        <option value="clinic">Clinic</option>
-                                        <option value="doctor">Individual Doctor</option>
-                                        <option value="diagnostic">Diagnostic Center</option>
-                                        <option value="wellness">Wellness Center</option>
-                                        <option value="agency">Medical Tourism Agency</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="orgName">Organization Name <span class="required">*</span></label>
-                                    <input type="text" id="orgName" name="orgName" placeholder="Enter organization name" required>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="website">Website</label>
-                                    <input type="url" id="website" name="website" placeholder="https://www.example.com">
-                                </div>
-                                <div class="form-group">
-                                    <label for="yearEstablished">Year Established</label>
-                                    <input type="number" id="yearEstablished" name="yearEstablished" placeholder="e.g., 2010" min="1900" max="2025">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="specialties">Specialties/Services Offered <span class="required">*</span></label>
-                                <textarea id="specialties" name="specialties" rows="3" placeholder="List your main specialties or services (e.g., Cardiology, Orthopedics, Cancer Treatment)" required></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="accreditations">Accreditations & Certifications</label>
-                                <input type="text" id="accreditations" name="accreditations" placeholder="e.g., JCI, NABH, ISO">
-                            </div>
-                        </div>
-
-                        <!-- Contact Information -->
-                        <div class="form-section">
-                            <h4><i class="fas fa-user"></i> Contact Person Details</h4>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="contactName">Full Name <span class="required">*</span></label>
-                                    <input type="text" id="contactName" name="contactName" placeholder="Enter full name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="designation">Designation <span class="required">*</span></label>
-                                    <input type="text" id="designation" name="designation" placeholder="e.g., Director, Manager" required>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="email">Email Address <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" placeholder="email@example.com" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Phone Number <span class="required">*</span></label>
-                                    <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="altPhone">Alternative Phone Number</label>
-                                <input type="tel" id="altPhone" name="altPhone" placeholder="+1 234 567 8901">
-                            </div>
-                        </div>
-
-                        <!-- Location Information -->
-                        <div class="form-section">
-                            <h4><i class="fas fa-map-marker-alt"></i> Location Information</h4>
-                            
-                            <div class="form-group">
-                                <label for="address">Complete Address <span class="required">*</span></label>
-                                <textarea id="address" name="address" rows="2" placeholder="Street address" required></textarea>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="city">City <span class="required">*</span></label>
-                                    <input type="text" id="city" name="city" placeholder="City" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="state">State/Province <span class="required">*</span></label>
-                                    <input type="text" id="state" name="state" placeholder="State" required>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="country">Country <span class="required">*</span></label>
-                                    <select id="country" name="country" required>
-                                        <option value="">Select Country</option>
-                                        <option value="India">India</option>
-                                        <option value="USA">United States</option>
-                                        <option value="UK">United Kingdom</option>
-                                        <option value="UAE">United Arab Emirates</option>
-                                        <option value="Thailand">Thailand</option>
-                                        <option value="Singapore">Singapore</option>
-                                        <option value="Malaysia">Malaysia</option>
-                                        <option value="Turkey">Turkey</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="zipcode">Postal/ZIP Code</label>
-                                    <input type="text" id="zipcode" name="zipcode" placeholder="Postal code">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Additional Information -->
-                        <div class="form-section">
-                            <h4><i class="fas fa-info-circle"></i> Additional Information</h4>
-                            
-                            <div class="form-group">
-                                <label for="patientCapacity">Average Monthly Patient Capacity</label>
-                                <select id="patientCapacity" name="patientCapacity">
-                                    <option value="">Select Range</option>
-                                    <option value="0-50">0-50 patients</option>
-                                    <option value="51-100">51-100 patients</option>
-                                    <option value="101-500">101-500 patients</option>
-                                    <option value="500+">500+ patients</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="internationalExp">Experience with International Patients</label>
-                                <select id="internationalExp" name="internationalExp">
-                                    <option value="">Select Experience Level</option>
-                                    <option value="none">No experience</option>
-                                    <option value="limited">Limited (< 1 year)</option>
-                                    <option value="moderate">Moderate (1-3 years)</option>
-                                    <option value="extensive">Extensive (3+ years)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="languages">Languages Spoken</label>
-                                <input type="text" id="languages" name="languages" placeholder="e.g., English, Hindi, Arabic">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="message">Additional Information / Message</label>
-                                <textarea id="message" name="message" rows="4" placeholder="Tell us more about your organization, services, or any specific requirements..."></textarea>
-                            </div>
-
-                            <div class="form-group checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="terms" name="terms" required>
-                                    <span>I agree to the <a href="#" target="_blank">Terms & Conditions</a> and <a href="#" target="_blank">Privacy Policy</a> <span class="required">*</span></span>
-                                </label>
-                            </div>
-
-                            <div class="form-group checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="newsletter" name="newsletter">
-                                    <span>I would like to receive updates and newsletters from CareDestinations</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="form-actions">
-                            <button type="submit" class="btn-submit">
-                                <i class="fas fa-paper-plane"></i> Submit Partnership Request
-                            </button>
-                            <button type="reset" class="btn-reset">
-                                <i class="fas fa-redo"></i> Reset Form
-                            </button>
-                        </div>
-
-                        <!-- Success/Error Messages -->
-                        <div id="formMessage" class="form-message" style="display: none;"></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact CTA -->
-    <section class="contact-section">
-        <div class="container">
-            <div class="contact-content">
-                <div class="contact-icon">
-                    <i class="fas fa-headset"></i>
-                </div>
-                <div class="contact-text">
-                    <h3>Have Questions?</h3>
-                    <p>Our partnership team is here to help. Contact us for more information.</p>
-                </div>
-                <div class="contact-buttons">
-                    <a href="mailto:partnerships@caredestinations.com" class="btn-contact-primary">
-                        <i class="fas fa-envelope"></i> partnerships@caredestinations.com
-                    </a>
-                    <a href="tel:+919281111724" class="btn-contact-secondary">
-                        <i class="fas fa-phone"></i> +91 92811 11724
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <img src="logo.png" alt="CareDestinations" class="footer-logo">
-                    <p>CareDestinations connects you with leading hospitals, doctors, experts, and cosmetic specialists. It ensures access to trusted providers for personalized care and treatments.</p>
-                </div>
-                <div class="footer-column">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#hospitals">Hospitals</a></li>
-                        <li><a href="index.html#doctors">Doctors</a></li>
-                        <li><a href="index.html#treatments">Treatments</a></li>
-                        <li><a href="be-a-partner.html">Be a Partner</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Contact Us</h4>
-                    <ul class="contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> CareDestinations Solutions Pvt Ltd<br>805B, Manjeera Majestic Commercial<br>JNTU Rd, Kukatpally Housing Board Colony<br>Hyderabad, Telangana - 500072, India</li>
-                        <li><i class="fas fa-envelope"></i> info@caredestinations.com</li>
-                        <li><i class="fas fa-phone"></i> +91 92811 11724</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy;2025 CareDestinations Solutions Pvt Ltd. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,es,fr,de,it,pt,ru,zh-CN,zh-TW,ja,ko,ar,hi,bn,pa,te,mr,ta,ur,gu,kn,ml,or',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-    <script src="js/main.js"></script>
-    <script src="js/partner-form.js"></script>
+        </div> 
+    </div> 
 </body>
 </html>
-
