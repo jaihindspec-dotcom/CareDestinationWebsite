@@ -3,121 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Specialist Doctors | Cardestinations</title>
+    <title>Find Top Specialist Doctors | Cardestinations</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
             --primary-color: #007bff; /* Cardestinations Blue */
+            --primary-hover: #0056b3;
+            --green-cta: #28a745;
+            --green-cta-hover: #218838;
+            --whatsapp-green: #25D366;
             --background-light: #f8f9fa;
-            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 6px 20px rgba(0, 86, 179, 0.1);
+            --border-color: #e9ecef;
+            --text-dark: #343a40;
+            --text-light: #6c757d;
+            --font-primary: 'Roboto', Arial, sans-serif;
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: var(--font-primary);
             background-color: var(--background-light);
             margin: 0;
             padding: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
-            margin: 50px auto;
+            max-width: 960px;
+            margin: 30px auto;
             padding: 20px;
         }
+
+        /* --- Hero Header --- */
+        .hero-header {
+            text-align: center;
+            padding: 40px 20px 30px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f8ff 100%);
+        }
+        .hero-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 0;
+        }
+        .hero-header p {
+            font-size: 1.2em;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
         
-        /* Search Card */
+        /* --- Search Card --- */
         .search-finder {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
+            padding: 30px 35px;
+            border-radius: 12px;
             box-shadow: var(--card-shadow);
             margin-bottom: 30px;
         }
         .search-finder h2 {
-            color: var(--primary-color);
+            color: var(--text-dark);
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 2em;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: 500;
         }
 
-        /* Dropdown Layout */
+        /* --- Dropdown Layout & Styling --- */
         .dropdown-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 25px;
             margin-bottom: 30px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+        
+        /* Custom Arrow Icon */
+        .select-wrapper::after {
+            content: '\f078'; /* Font Awesome Chevron Down */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            pointer-events: none;
+            font-size: 0.9em;
         }
 
         .dropdown-grid select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: white;
+            padding: 14px 40px 14px 15px; /* Room for arrow */
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
             appearance: none; 
             cursor: pointer;
             font-size: 1em;
+            color: var(--text-dark);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .dropdown-grid select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+        }
+        .dropdown-grid select:disabled {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
         }
         
         .search-btn {
             display: block;
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            font-weight: bold;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.2);
+        }
+        .search-btn i {
+            margin-right: 10px;
+        }
+        .search-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,123,255,0.3);
         }
 
-        /* Results & Item Styling */
+        /* --- Results Area & Doctor Item Card --- */
         #doctorResults { 
-            margin-top: 40px;
-            padding: 10px 0;
-            border-top: 2px solid var(--primary-color);
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid var(--border-color);
+        }
+        #doctorResults h3 {
+            font-size: 1.5em;
+            color: var(--text-dark);
+            margin-bottom: 20px;
         }
 
         .doctor-item { 
-            background: #f7f9fc;
-            border: 1px solid #e0e0e0;
-            margin-bottom: 12px;
-            padding: 15px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 20px;
             align-items: center;
+            transition: box-shadow 0.3s, border-color 0.3s;
         }
-        .doctor-item h4 { margin: 0; font-size: 1.2em; }
-        .doctor-item p { color: #6c757d; margin: 5px 0 0 0; font-size: 0.9em; }
+        .doctor-item:hover {
+            box-shadow: var(--card-shadow);
+            border-color: #fff;
+        }
+        
+        .doctor-photo-thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+        
+        .doctor-info h4 { 
+            margin: 0 0 5px 0; 
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .doctor-info p { 
+            color: var(--text-light); 
+            margin: 0; 
+            font-size: 0.95em; 
+            line-height: 1.5;
+        }
+        .doctor-info p .fa-hospital {
+            margin-right: 5px;
+        }
 
-        .view-details-btn {
-            background-color: var(--primary-color);
+        .doctor-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: stretch; /* Make buttons same width */
+        }
+
+        .view-details-btn,
+        .book-btn,
+        .whatsapp-btn {
             color: white;
-            padding: 8px 15px;
-            border-radius: 4px;
+            padding: 10px 15px;
+            border-radius: 6px;
             text-decoration: none;
             font-size: 0.9em;
             font-weight: 600;
             border: none;
             cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .view-details-btn i,
+        .book-btn i,
+        .whatsapp-btn i {
+            margin-right: 8px;
         }
 
-        /* Profile Display Styling */
+        .view-details-btn {
+            background-color: var(--primary-color);
+        }
+        .view-details-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .book-btn {
+            background-color: var(--green-cta);
+        }
+        .book-btn:hover {
+            background-color: var(--green-cta-hover);
+            transform: translateY(-1px);
+        }
+        
+        .whatsapp-btn {
+            background-color: var(--whatsapp-green);
+        }
+        .whatsapp-btn:hover {
+            background-color: #1EAE51;
+            transform: translateY(-1px);
+        }
+
+
+        /* --- Profile Display Styling --- */
         #profileDisplay {
-            padding: 40px;
+            padding: 30px 35px;
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: var(--card-shadow);
             margin-top: 30px;
         }
@@ -132,69 +283,285 @@
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid var(--primary-color);
+            border: 6px solid var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .profile-content h2 { margin-top: 0; }
+        .profile-content h2 { 
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .profile-content .specialty-tag {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            display: block;
+        }
         .profile-content h3 {
             color: var(--primary-color);
-            border-bottom: 2px solid #eee;
-            padding-bottom: 5px;
-            margin-top: 20px;
-            font-size: 1.1em;
-            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 700;
         }
-        .profile-content ul { list-style: none; padding: 0; }
+        .profile-content .bio {
+            font-size: 1em;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
         
+        .key-details-list { 
+            list-style: none; 
+            padding: 0;
+            font-size: 1em;
+        }
+        .key-details-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .key-details-list .fas {
+            color: var(--primary-color);
+            margin-right: 12px;
+            font-size: 1.1em;
+            width: 20px;
+            text-align: center;
+            padding-top: 4px; /* Align icon with first line */
+        }
+        .key-details-list ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 5px 0 0 0;
+            color: var(--text-light);
+        }
+
+        .profile-cta-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .profile-cta-buttons .book-btn,
+        .profile-cta-buttons .whatsapp-btn {
+            font-size: 1.1em;
+            padding: 12px 25px;
+            font-weight: 700;
+        }
+
+        /* --- Evaluation Form Card (NEW) --- */
+        .evaluation-form-card {
+            background: white;
+            padding: 30px 35px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-top: 40px; /* Space it from the search card */
+            margin-bottom: 30px;
+        }
+        .evaluation-form-card h2 {
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+            font-weight: 500;
+        }
+        .evaluation-form-card .form-subtext {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .evaluation-form-card .form-group {
+            margin-bottom: 20px;
+        }
+        /* Uses the .form-group label style already defined */
+        
+        .evaluation-form-card input[type="text"],
+        .evaluation-form-card input[type="email"],
+        .evaluation-form-card input[type="tel"] {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+            font-size: 1em;
+            color: var(--text-dark);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box; /* Important for 100% width + padding */
+        }
+        .evaluation-form-card input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+        }
+        .evaluation-form-card .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: var(--green-cta); /* Green CTA color */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(40,167,69,0.2);
+        }
+        .evaluation-form-card .submit-btn i {
+            margin-right: 10px;
+        }
+        .evaluation-form-card .submit-btn:hover {
+            background-color: var(--green-cta-hover); /* Darker green */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(40,167,69,0.3);
+        }
+
+
+        /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            .dropdown-grid { grid-template-columns: 1fr; }
-            .profile-card { flex-direction: column; align-items: center; text-align: center; }
-            .profile-photo { margin-bottom: 20px; }
-            .doctor-item { flex-direction: column; align-items: flex-start; }
-            .view-details-btn { margin-top: 10px; }
+            .dropdown-grid { 
+                grid-template-columns: 1fr; 
+            }
+            .hero-header h1 {
+                font-size: 2em;
+            }
+            
+            .doctor-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .doctor-photo-thumb {
+                margin: 0 auto 15px auto;
+            }
+            .doctor-actions {
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
+            .profile-card { 
+                flex-direction: column; 
+                align-items: center; 
+                text-align: center; 
+            }
+            .profile-photo { 
+                margin-bottom: 20px; 
+                width: 180px;
+                height: 180px;
+            }
+            .profile-content h3 {
+                text-align: left;
+            }
+            .key-details-list li {
+                text-align: left;
+            }
+            .profile-cta-buttons {
+                justify-content: center;
+            }
+
+            /* (NEW) Responsive for eval form */
+            .evaluation-form-card {
+                margin-top: 30px;
+                padding: 25px;
+            }
+            .evaluation-form-card h2 {
+                font-size: 1.6em;
+            }
+            .evaluation-form-card .form-subtext {
+                font-size: 1em;
+            }
+        }
+        @media (max-width: 480px) {
+            .doctor-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
 
+    <header class="hero-header">
+        <h1>Find Your Perfect Doctor</h1>
+        <p>Access world-class specialists for your treatment abroad.</p>
+    </header>
+
     <div class="container">
+        
         <div class="search-finder">
-            <h2>Find Specialist Doctors by Location and Treatment</h2>
+            <h2><i class="fas fa-search" style="color: var(--primary-color); margin-right: 10px;"></i>Start Your Search</h2>
 
             <div class="dropdown-grid">
                 
                 <div class="form-group">
                     <label for="countrySelect">1. Select Country</label>
-                    <select id="countrySelect" onchange="updateCities()">
-                        <option value="">Choose Country</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <select id="countrySelect" onchange="updateCities()">
+                            <option value="">Choose Country</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="citySelect">2. Select City</label>
-                    <select id="citySelect" onchange="updateTreatments()" disabled>
-                        <option value="">Choose City First</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <select id="citySelect" onchange="updateTreatments()" disabled>
+                            <option value="">Choose City First</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="treatmentSelect">3. Select Specialty</label>
-                    <select id="treatmentSelect" disabled>
-                        <option value="">Choose Specialty</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <select id="treatmentSelect" disabled>
+                            <option value="">Choose Specialty</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
             <button class="search-btn" onclick="searchDoctors()">
-                <i class="fas fa-search"></i> Search Doctors
+                <i class="fas fa-user-md"></i> Find Doctors
             </button>
             
             <div id="doctorResults">
-                <p style="text-align: center; color: #6c757d;">Select your preferences above to see matching doctors.</p>
+                <p style="text-align: center; color: var(--text-light); margin-top: 25px;">Select your preferences above to see matching doctors.</p>
             </div>
         </div>
 
+        <div class="evaluation-form-card">
+            <h2><i class="fas fa-clipboard-check" style="color: var(--green-cta); margin-right: 10px;"></i>Get a FREE Evaluation</h2>
+            <p class="form-subtext">Fill out the form below and our team will get in touch to assist with your medical journey.</p>
+            
+            <form id="evaluationForm" onsubmit="return handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="evalName">Your Name</label>
+                    <input type="text" id="evalName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="evalEmail">Your Email</label>
+                    <input type="email" id="evalEmail" placeholder="Enter your email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="evalPhone">Your Phone</label>
+                    <input type="tel" id="evalPhone" placeholder="Enter your phone number (with country code)" required>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Request
+                </button>
+                <div id="formSuccessMessage" style="display: none; color: var(--green-cta); margin-top: 15px; text-align: center; font-weight: 700; font-size: 1.1em;">
+                    Thank you! Your request has been sent. We will contact you soon.
+                </div>
+            </form>
+        </div>
         <div id="profileDisplay" style="display: none;">
             </div>
+
     </div>
 </body>
 <script>
@@ -219,7 +586,7 @@
                     }
                 ],
                 "Gynaecology": [
-                     { 
+                    { 
                         id: 201,
                         name: "Dr. Anjali Verma", 
                         specialty: "Gynaecology & IVF", 
@@ -268,7 +635,7 @@
                         name: "Dr. Sandeep Kapoor", 
                         specialty: "Orthopaedic & Joint Replacement Surgeon", 
                         hospital: "Healthcity Hospital",
-                        photoUrl: "images/dr-sandeep-kapoor.jpg", 
+                        photoUrl: "images/dr-sandeep-kapoor.jpg", // Use your placeholder or real URL
                         experience: "25+ Years",
                         bio: "Dr. Sandeep Kapoor is a globally recognized expert in Knee and Hip Replacement surgery, pioneering advanced techniques for minimal recovery time. He has performed over 10,000 successful joint surgeries and is highly recommended for medical tourists.", 
                         qualifications: ["MBBS", "MS (Ortho)", "Fellowship in Joint Reconstruction (Germany)", "MCh Orthopaedics (UK)"],
@@ -281,8 +648,7 @@
                         name: "Dr. Darshna Kapoor", 
                         specialty: "IVF, Infertility & High-Risk Pregnancy", 
                         hospital: "Healthcity Hospital",
-                        // NOTE: Use your internal photo URL here.
-                        photoUrl: "images/dr-darshna-kapoor.jpg", 
+                        photoUrl: "images/dr-darshna-kapoor.jpg", // Use your placeholder or real URL
                         experience: "20+ Years",
                         bio: "A leading fertility specialist known for achieving high success rates in complex IVF cases. Dr. Kapoor is highly respected for her compassionate care and expertise in reproductive medicine. ",
                         qualifications: ["MBBS", "MD (Obs/Gyn)", "Diploma in Reproductive Medicine (UK)"],
@@ -295,10 +661,9 @@
                         name: "Dr. Sudhir Kapoor", 
                         specialty: "Cosmetic & Implant Dentistry", 
                         hospital: "Healthcity Hospital",
-                        // NOTE: Use your internal photo URL here.
-                        photoUrl: "images/dr-sudhir-kapoor.jpg", 
+                        photoUrl: "images/dr-sudhir-kapoor.jpg", // Use your placeholder or real URL
                         experience: "15 Years",
-                        bio: "Dr. Sudhir Kapoor specializes in state-of-the-art **full mouth rehabilitation** and aesthetic dentistry, helping international patients achieve perfect smiles.",
+                        bio: "Dr. Sudhir Kapoor specializes in state-of-the-art <strong>full mouth rehabilitation</strong> and aesthetic dentistry, helping international patients achieve perfect smiles.",
                         qualifications: ["BDS", "MDS (Prosthodontics)", "Fellowship in Aesthetic Dentistry"],
                         website: "#" // Assuming no external website provided
                     }
@@ -307,7 +672,7 @@
         }
     };
     
-    // --- CORE LOGIC ---
+    // --- CORE LOGIC (UNCHANGED, except for HTML generation) ---
     const countrySelect = document.getElementById('countrySelect');
     const citySelect = document.getElementById('citySelect');
     const treatmentSelect = document.getElementById('treatmentSelect');
@@ -330,7 +695,7 @@
         treatmentSelect.innerHTML = '<option value="">Choose Specialty</option>';
         citySelect.disabled = true;
         treatmentSelect.disabled = true;
-        doctorResults.innerHTML = '<p style="text-align: center; color: #6c757d;">Select your preferences above to see matching doctors.</p>';
+        doctorResults.innerHTML = '<p style="text-align: center; color: var(--text-light); margin-top: 25px;">Select your preferences above to see matching doctors.</p>';
         profileDisplay.style.display = 'none'; 
 
         if (selectedCountry && doctorData[selectedCountry]) {
@@ -349,7 +714,7 @@
         const selectedCity = citySelect.value;
         treatmentSelect.innerHTML = '<option value="">Choose Specialty</option>';
         treatmentSelect.disabled = true;
-        doctorResults.innerHTML = '<p style="text-align: center; color: #6c757d;">Select your preferences above to see matching doctors.</p>';
+        doctorResults.innerHTML = '<p style="text-align: center; color: var(--text-light); margin-top: 25px;">Select your preferences above to see matching doctors.</p>';
         profileDisplay.style.display = 'none'; 
 
         if (selectedCountry && selectedCity && doctorData[selectedCountry][selectedCity]) {
@@ -383,23 +748,30 @@
         if (filteredDoctors.length > 0) {
             let htmlContent = `<h3>Top ${treatment} Specialists in ${city}</h3>`;
             
+            // *** MODIFIED HTML STRING FOR NEW CARD LAYOUT ***
             filteredDoctors.forEach((doctor, index) => {
-                // Pass the index to the showDoctorProfile function
+                const whatsappMsg = encodeURIComponent(`Hello, I would like to book an appointment with ${doctor.name} - ${doctor.specialty}`);
+                const photo = doctor.photoUrl || 'https://via.placeholder.com/200?text=Photo';
+
                 htmlContent += `
                     <div class="doctor-item">
-                        <div>
+                        <img src="${photo}" alt="Photo of ${doctor.name}" class="doctor-photo-thumb">
+                        
+                        <div class="doctor-info">
                             <h4>${doctor.name}</h4>
-                            <p>${doctor.specialty} | Affiliated with: ${doctor.hospital}</p>
+                            <p>${doctor.specialty}</p>
+                            <p><i class="fas fa-hospital"></i> ${doctor.hospital}</p>
                         </div>
-                        <button class="view-details-btn" onclick="showDoctorProfile(${index})" style="margin-right:16px;">
-                            View Full Profile
-                        </button>
-                        <div style="display:flex; gap:8px; align-items:center;">
-                            <a class="view-details-btn" href="contact-us.html" title="Book Appointment">
-                                <i class="fas fa-calendar-check" style="margin-right:6px;"></i> Book Appointment
+                        
+                        <div class="doctor-actions">
+                            <button class="view-details-btn" onclick="showDoctorProfile(${index})">
+                                <i class="fas fa-user-circle"></i> View Profile
+                            </button>
+                            <a class="book-btn" href="contact-us.html" title="Book Appointment">
+                                <i class="fas fa-calendar-check"></i> Book Now
                             </a>
-                            <a class="view-details-btn" style="background-color: #25D366; color: #ffffff; border-color: #25D366;" href="https://wa.me/?text=${encodeURIComponent(`Hello, I would like to book an appointment with ${doctor.name} - ${doctor.specialty}`)}" target="_blank" rel="noopener noreferrer" title="Message on WhatsApp">
-                                <i class="fab fa-whatsapp" style="margin-right:6px;"></i> WhatsApp
+                            <a class="whatsapp-btn" href="https://wa.me/?text=${whatsappMsg}" target="_blank" rel="noopener noreferrer" title="Message on WhatsApp">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
                         </div>
                     </div>
@@ -428,32 +800,59 @@
                 qualificationsHtml += `<li>${q}</li>`;
             });
         } else {
-             qualificationsHtml = `<li>Qualifications coming soon.</li>`;
+            qualificationsHtml = `<li>Qualifications coming soon.</li>`;
         }
+        
+        const whatsappMsg = encodeURIComponent(`Hello, I would like to book an appointment with ${doctor.name} - ${doctor.specialty}`);
 
-
-        // Build the full profile card HTML
+        // *** MODIFIED HTML STRING FOR NEW PROFILE LAYOUT ***
         const profileHtml = `
             <div class="profile-card">
                 <img src="${doctor.photoUrl || 'https://via.placeholder.com/200?text=Photo+Missing'}" alt="Photo of ${doctor.name}" class="profile-photo">
                 
                 <div class="profile-content">
                     <h2>${doctor.name}</h2>
-                    <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2em;">${doctor.specialty}</p>
+                    <span class="specialty-tag">${doctor.specialty}</span>
                     
                     <h3>About the Doctor</h3>
-                    <p>${doctor.bio || 'Detailed biography coming soon.'}</p>
+                    <p class="bio">${doctor.bio || 'Detailed biography coming soon.'}</p>
                     
                     <h3>Key Details</h3>
-                    <ul>
-                        <li><i class="fas fa-hospital" style="margin-right: 8px;"></i> **Primary Hospital:** ${doctor.hospital}</li>
-                        <li><i class="fas fa-briefcase" style="margin-right: 8px;"></i> **Experience:** ${doctor.experience || 'N/A'}</li>
-                        <li><i class="fas fa-graduation-cap" style="margin-right: 8px;"></i> **Qualifications:**
-                            <ul style="margin-top: 5px; margin-left: 20px;">
-                                ${qualificationsHtml}
-                            </ul>
+                    <ul class="key-details-list">
+                        <li>
+                            <i class="fas fa-hospital"></i>
+                            <div>
+                                <strong>Primary Hospital:</strong><br>
+                                ${doctor.hospital}
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-briefcase"></i>
+                            <div>
+                                <strong>Experience:</strong><br>
+                                ${doctor.experience || 'N/A'}
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <strong>Qualifications:</strong>
+                                <ul>
+                                    ${qualificationsHtml}
+                                </ul>
+                            </div>
                         </li>
                     </ul>
+
+                    <h3>Request an Appointment</h3>
+                    <div class="profile-cta-buttons">
+                        <a href="contact-us.html" class="book-btn">
+                            <i class="fas fa-calendar-check"></i> Book Appointment
+                        </a>
+                        <a class="whatsapp-btn" href="https://wa.me/?text=${whatsappMsg}" target="_blank" rel="noopener noreferrer" title="Message on WhatsApp">
+                            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                        </a>
+                    </div>
                     
                 </div>
             </div>
@@ -462,7 +861,24 @@
         profileDisplay.innerHTML = profileHtml;
         profileDisplay.style.display = 'block';
         
-        profileDisplay.scrollIntoView({ behavior: 'smooth' });
+        // Scroll to the profile card
+        profileDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // --- (NEW) FORM SUBMISSION HANDLER ---
+    function handleFormSubmit(event) {
+        event.preventDefault(); // Stop the form from reloading the page
+        
+        const form = document.getElementById('evaluationForm');
+        const successMessage = document.getElementById('formSuccessMessage');
+        
+        // In a real application, you would send data to a server here.
+        // For this demo, we'll just hide the form and show a success message.
+        
+        form.style.display = 'none'; // Hide the form
+        successMessage.style.display = 'block'; // Show the success message
+
+        return false; // Prevent submission
     }
 </script>
 </html>
