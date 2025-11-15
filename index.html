@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <div class="logo" role="banner">
@@ -19,107 +17,131 @@
                 </a>
 
                 <style>
-                /* Nav background, elevation and responsive polish (scoped to #navbar) */
-                #navbar {
-                    background: linear-gradient(135deg, #0b62a8 0%, #2bb7da 50%, #e6f9ff 100%);
-                    color: #fff;
-                    padding: 12px 0;
-                    box-shadow: 0 8px 30px rgba(11,98,168,0.14);
-                    position: sticky;
-                    top: 0;
-                    z-index: 60;
-                }
+                    :root {
+                        --primary-color: #007bff; /* The professional blue from previous style */
+                        --secondary-color: #28a745; /* Green for WhatsApp */
+                    }
+                
+                    /* Nav background, elevation and responsive polish (scoped to #navbar) */
+                    #navbar {
+                        /* UPDATED: Changed from gradient to the solid primary blue */
+                        background: var(--primary-color); 
+                        color: #fff;
+                        padding: 12px 0;
+                        box-shadow: 0 8px 30px rgba(11,98,168,0.14);
+                        position: sticky;
+                        top: 0;
+                        z-index: 60;
+                    }
 
-                /* Align logo to left and move menu to the right within the navbar */
-                /* Scope to navbar to avoid global side-effects */
-                #navbar .nav-container {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between; /* logo left, menu/right actions to the right */
-                    gap: 16px;
-                    width: 100%;
-                }
+                    /* Align logo to left and move menu to the right within the navbar */
+                    /* Scope to navbar to avoid global side-effects */
+                    #navbar .nav-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between; /* logo left, menu/right actions to the right */
+                        gap: 16px;
+                        width: 100%;
+                    }
 
-                /* Logo block stays compact on the left */
-                #navbar .logo { display:flex; align-items:center; gap:10px; flex:0 0 auto; }
-                #navbar .brand-link { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
-                #navbar .brand-logo { display:block; width:48px; height:48px; object-fit:contain; }
+                    /* Logo block stays compact on the left */
+                    #navbar .logo { display:flex; align-items:center; gap:10px; flex:0 0 auto; }
+                    #navbar .brand-link { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
+                    #navbar .brand-logo { display:block; width:48px; height:48px; object-fit:contain; }
 
-                /* Brand text styling */
-                .brand-text {
-                    color: #ffffff;
-                    font-weight: 700;
-                    font-size: 20px;
-                    font-family: inherit;
-                    line-height: 1;
-                    white-space: nowrap;
-                    text-shadow: 0 1px 2px rgba(0,0,0,0.18);
-                }
+                    /* Brand text styling */
+                    .brand-text {
+                        color: #ffffff;
+                        font-weight: 700;
+                        font-size: 20px;
+                        font-family: inherit;
+                        line-height: 1;
+                        white-space: nowrap;
+                        text-shadow: 0 1px 2px rgba(0,0,0,0.18);
+                    }
 
-                /* Ensure the main menu flows to the right */
-                #navbar .nav-menu {
-                    margin: 0 0 0 auto; /* push to right */
-                    display: flex;
-                    gap: 12px;
-                    align-items: center;
-                }
-                #navbar .nav-menu li { list-style: none; }
+                    /* Ensure the main menu flows to the right */
+                    #navbar .nav-menu {
+                        margin: 0 0 0 auto; /* push to right */
+                        display: flex;
+                        gap: 12px;
+                        align-items: center;
+                    }
+                    #navbar .nav-menu li { list-style: none; }
 
-                /* Nav links contrast on colorful bg */
-                #navbar .nav-menu a {
-                    color: rgba(255,255,255,0.95);
-                    text-decoration: none;
-                    padding: 8px 10px;
-                    border-radius: 8px;
-                    font-weight: 600;
-                }
-                #navbar .nav-menu a:hover {
-                    background: rgba(255,255,255,0.08);
-                    color: #fff;
-                }
-                #navbar .nav-menu a.active {
-                    background: rgba(255,255,255,0.12);
-                    box-shadow: inset 0 -2px 0 rgba(255,255,255,0.06);
-                }
+                    /* Nav links contrast on colorful bg */
+                    #navbar .nav-menu a {
+                        color: rgba(255,255,255,0.95);
+                        text-decoration: none;
+                        padding: 8px 10px;
+                        border-radius: 8px;
+                        font-weight: 600;
+                    }
+                    #navbar .nav-menu a:hover {
+                        background: rgba(255,255,255,0.08);
+                        color: #fff;
+                    }
+                    #navbar .nav-menu a.active {
+                        background: rgba(255,255,255,0.12);
+                        box-shadow: inset 0 -2px 0 rgba(255,255,255,0.06);
+                    }
+                    
+                    /* NEW: Style for the "Partner With Us" button */
+                    #navbar .nav-menu a.btn-partner {
+                        background: #fff;
+                        color: var(--primary-color);
+                        font-weight: 700;
+                        padding: 8px 14px;
+                        border-radius: 6px;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                        transition: all 0.2s;
+                    }
+                    #navbar .nav-menu a.btn-partner:hover {
+                        background: #f0f0f0;
+                        color: #0056b3;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+                        transform: translateY(-1px);
+                    }
 
-                /* Dropdown content adjustments for visibility */
-                #navbar .dropdown-content {
-                    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.94));
-                    color: #0b3b66;
-                    border-radius: 8px;
-                    box-shadow: 0 8px 20px rgba(3,102,214,0.12);
-                    padding: 8px;
-                    min-width: 180px;
-                }
-                #navbar .dropdown-content a {
-                    display:block;
-                    color:#0b3b66;
-                    padding:8px 10px;
-                    border-radius:6px;
-                }
-                #navbar .dropdown-content a:hover { background: #f1f7fb; }
 
-                /* Keep right-side actions grouped and aligned */
-                #navbar .nav-right-actions { margin-left: 18px; display:flex; align-items:center; gap:12px; }
+                    /* Dropdown content adjustments for visibility */
+                    #navbar .dropdown-content {
+                        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.94));
+                        color: #0b3b66;
+                        border-radius: 8px;
+                        box-shadow: 0 8px 20px rgba(3,102,214,0.12);
+                        padding: 8px;
+                        min-width: 180px;
+                    }
+                    #navbar .dropdown-content a {
+                        display:block;
+                        color:#0b3b66;
+                        padding:8px 10px;
+                        border-radius:6px;
+                    }
+                    #navbar .dropdown-content a:hover { background: #f1f7fb; }
 
-                /* Make language select and google translate more visible on colored background */
-                #navbar .language-selector select,
-                #navbar .language-selector #google_translate_element {
-                    background: rgba(255,255,255,0.92);
-                    border-radius: 6px;
-                    padding: 6px 8px;
-                }
+                    /* Keep right-side actions grouped and aligned */
+                    #navbar .nav-right-actions { margin-left: 18px; display:flex; align-items:center; gap:12px; }
 
-                /* Responsive tweaks */
-                @media (max-width: 900px) {
-                    .brand-text { font-size: 18px; }
-                    #navbar .brand-logo { width:44px; height:44px; }
-                }
-                @media (max-width: 640px) {
-                    /* compact brand on very small screens */
-                    .brand-text { font-size: 16px; display:inline-block; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-                    #navbar .nav-menu { display: none; } /* hamburger will be used */
-                }
+                    /* Make language select and google translate more visible on colored background */
+                    #navbar .language-selector select,
+                    #navbar .language-selector #google_translate_element {
+                        background: rgba(255,255,255,0.92);
+                        border-radius: 6px;
+                        padding: 6px 8px;
+                    }
+
+                    /* Responsive tweaks */
+                    @media (max-width: 900px) {
+                        .brand-text { font-size: 18px; }
+                        #navbar .brand-logo { width:44px; height:44px; }
+                    }
+                    @media (max-width: 640px) {
+                        /* compact brand on very small screens */
+                        .brand-text { font-size: 16px; display:inline-block; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+                        #navbar .nav-menu { display: none; } /* hamburger will be used */
+                    }
                 </style>
             </div>
             <ul class="nav-menu" id="nav-menu">
@@ -134,30 +156,21 @@
                 </li>
                 <li><a href="doctors.html">Doctors</a></li>
                 <li><a href="hospitals.html">Hospitals</a></li>
-                <li><a href="services.html">Our Services</a></li>
+                <li><a href="services.html">Services</a></li>
                 <li><a href="#news">News</a></li>
-                <li><a href="contact-us.html">contact Us</a></li>
-                <li><a href="be-a-partner.html" class="btn-partner">Partner With Us</a></li>
+                <li><a href="contact-us.html">contactUs</a></li>
+                <li><a href="be-a-partner.html">PartnerWithUs</a></li>
                 
             </ul>
-            <!-- Right side actions in the navbar: search, language selector, and Google Translate -->
             <div class="nav-right-actions">
-                <!-- Search dropdown: button toggles the panel which contains tabs and a search input -->
                 <div class="search-dropdown">
-                   <!--<button class="search-btn" id="searchToggle">
-                        <i class="fas fa-search"></i> 
-                    </button> -->
-
-                    <!-- Hidden panel that shows search tabs and results -->
-                    <div class="search-panel" id="searchPanel">
-                        <!-- Tabs to restrict search scope: treatments, hospitals, doctors -->
+                   <div class="search-panel" id="searchPanel">
                         <div class="search-tabs">
                             <button class="search-tab active" data-tab="treatments">Treatments</button>
                             <button class="search-tab" data-tab="hospitals">Hospitals</button>
                             <button class="search-tab" data-tab="doctors">Doctors</button>
                         </div>
 
-                        <!-- Search content: input, results container, and the inline script that powers search -->
                         <div class="search-content">
                             <input type="text" id="searchInput" placeholder="Search treatments..." class="search-input">
                             <div class="search-results" id="searchResults"></div>
@@ -331,14 +344,11 @@
                             })();
                             </script>
 
-                            <!-- NOTE: There is another .search-results element repeated below in the original code.
-                                 Keeping it here as in the original, but duplicate IDs may cause issues. -->
                             <div class="search-results" id="searchResults"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Language selector dropdown for the visible language choice -->
                 <div class="language-selector">
                     <select id="languageSelect" class="language-dropdown">
                         <option value="">Select Language</option>
@@ -367,7 +377,6 @@
                         <option value="or">ଓଡ଼ିଆ (Oriya)</option>
                     </select>
 
-                    <!-- Container for Google Translate widget (initialized elsewhere in the page) -->
                     <div id="google_translate_element"></div>
                 </div>
             </div>
@@ -376,13 +385,8 @@
                 <span></span>
                 <span></span>
             </div>
-            <!-- Moved to the top-right of the navbar -->
-            
-        
+            </nav>
 
-    </nav>
-
-    <!-- Hero Section -->
     <section class="hero" id="home"
         style="background:
             linear-gradient(180deg, rgba(135,206,235,0.85), rgba(135,206,235,0.45)),
@@ -417,14 +421,13 @@
         </div>
     </section>
 
-    <!-- Work Process Section -->
     <section class="work-process">
         <div class="container">
             <div class="section-header">
             <h3>WORK PROCESS</h3>
             <h2>Let's take a look at how we operate</h2>
             </div>
-          
+            
             <div class="process-steps">
             <div class="process-step">
                 <div class="step-number">01</div>
@@ -457,7 +460,7 @@
                 </div>
 
  
-                 <h4>Treatment & Recovery</h4>
+                <h4>Treatment & Recovery</h4>
                 <p>We ensure proper, high-quality hospital treatment, leading into a carefully managed recovery journey focused on boosting your long-term energy and wellness..</p>
             </div>
             <div class="process-step">
@@ -472,7 +475,6 @@
         </div>
     </section>
 
-    <!-- Treatments Section -->
     <section class="treatments" id="treatments">
         <div class="container">
             <div class="section-header">
@@ -480,23 +482,16 @@
                 <h2>Premier Treatment Options</h2>
             </div>
             <div class="treatment-filters">
-                <!--<button class="filter-btn active" data-filter="all">All</button>-->
                 <button class="filter-btn" data-filter="gynaecology">Gynaecology</button>
                 <button class="filter-btn" data-filter="orthopaedics">Orthopaedics</button>
                 <button class="filter-btn" data-filter="dental">Dental</button>                
             </div>
             <div class="treatment-grid" id="treatment-grid">
-                <!-- Treatment cards will be populated by JavaScript -->
+                </div>
             </div>
-            <!--<div class="view-all-container">
-                <button class="btn-view-all">View All</button>
-            </div>-->
-        </div>
     </section>
 
-    <!-- Hospitals Section -->
-    <!-- Hospitals Section -->
-   </div>
+    </div>
 
     <style>
         /* Hospital cards responsive layout */
@@ -522,344 +517,7 @@
             }
         }
     </style>
-       <!-- <div class="container">
-            <div class="section-header">
-            <h2>Our Doctors</h2>
-            <p>Meet our team of experienced specialists who provide personalized care and treatment plans.</p>
-            </div>
-            <div class="doctor-grid">
-            <style>
-                /* Add vertical spacing between doctor cards */
-                .doctor-grid {
-                display: flex;
-                flex-direction: column;
-                gap: 28px; /* increased gap between doctors */
-                }
-
-                /* Keep existing per-card styles but ensure some padding so cards don't touch */
-                .doctor-card {
-                padding: 12px 0;
-                box-sizing: border-box;
-                }
-
-                /* Existing float layout for photo + info */
-                .doctor-card .doctor-photo { float: left; margin-right: 20px; }
-                .doctor-card .doctor-photo img { display: block; max-width: 300px; height: auto; }
-                .doctor-card .doctor-info {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                height: 300px;
-                max-width: 600px;
-                box-sizing: border-box;
-                }
-
-                /* Responsive: stack vertically on small screens */
-                @media (max-width: 700px) {
-                .doctor-card { overflow: visible; }
-                .doctor-card .doctor-photo { float: none; margin: 0 0 12px; text-align: center; }
-                .doctor-card .doctor-info { height: auto; align-items: center; text-align: center; }
-                }
-            </style>
-        -->
-          <!--  <div class="doctor-card sandeep-card" aria-labelledby="dr-sandeep-name">
-                <style>
-                    /* Scoped styles for Dr. Sandeep Kapoor card */
-                    .sandeep-card { display:flex; gap:20px; align-items:flex-start; padding:12px 0; }
-                    .sandeep-card .doctor-photo { flex: 0 0 300px; }
-                    .sandeep-card .doctor-photo img { width:100%; height:auto; border-radius:8px; display:block; }
-                    .sandeep-card .doctor-details { flex:1; min-width:0; }
-                    .sandeep-card .doctor-details h4 { margin:0 0 6px; }
-                    .sandeep-card .doctor-details .meta { color:#666; margin-bottom:12px; font-size:14px; }
-                    .sandeep-card .profile-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
-                    .sandeep-card .info-block { background:#fff; border:1px solid rgba(15,23,42,0.04); padding:12px; border-radius:8px; }
-                    .sandeep-card .info-block h5 { margin:0 0 8px; font-size:14px; color:#0b3b66; }
-                    .sandeep-card .info-block ul { margin:0; padding-left:18px; color:#444; font-size:14px; }
-                    .sandeep-card .actions { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
-                    .sandeep-card .btn { display:inline-block; padding:10px 14px; border-radius:6px; text-decoration:none; font-weight:600; }
-                    .sandeep-card .btn-primary { background:#007bff; color:#fff; }
-                    .sandeep-card .btn-outline { background:transparent; border:1px solid #007bff; color:#007bff; }
-                    @media (max-width:800px) {
-                        .sandeep-card { flex-direction:column; }
-                        .sandeep-card .doctor-photo { width:100%; flex:auto; }
-                        .sandeep-card .profile-grid { grid-template-columns:1fr; }
-                    }
-                </style>
-
-                <div class="doctor-photo" aria-hidden="true">
-                    <picture>
-                        <source srcset="images/dr-sandeep-kapoor.jpg" type="image/jpeg">
-                        <img src="images/dr-sandeep-kapoor.jpg" alt="Dr. Sandeep Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Sandeep+Kapoor'">
-                    </picture>
-                </div>
-
-                <div class="doctor-details" role="region" aria-labelledby="dr-sandeep-name">
-                    <h4 id="dr-sandeep-name">Dr. Sandeep Kapoor</h4>
-                    <div class="meta">
-                        <span class="doctor-specialty">Senior Consultant — Orthopaedics</span><br>
-                        <small>MBBS (Hons), MS (Orthopaedics) — Gold Medalist, Prof. B.N. Sinha Citation</small>
-                    </div>
-
-                    <p>Dr. Sandeep Kapoor is an accomplished orthopaedic surgeon with extensive experience in joint replacement, complex trauma, and arthroscopic procedures. He combines evidence-based surgical techniques with personalised rehabilitation plans to optimise patient outcomes.</p>
-
-                    <div class="profile-grid" aria-label="Professional summary">
-                        <div class="info-block" aria-labelledby="we-heading">
-                            <h5 id="we-heading">Work Experience</h5>
-                            <ul>
-                                <li>Senior Consultant Orthopaedics — HealthCity Trauma Centre & Superspeciality Hospital (10+ years)</li>
-                                <li>Head — Joint Replacement Unit, City Orthopaedic Centre (2015–2020)</li>
-                                <li>Visiting Consultant — Regional Trauma Centres (since 2012)</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-block" aria-labelledby="edu-heading">
-                            <h5 id="edu-heading">Education & Training</h5>
-                            <ul>
-                                <li>MS Orthopaedics — KGMU, Lucknow (Gold Medalist)</li>
-                                <li>MBBS (Hons) — KGMU</li>
-                                <li>Fellowships in Joint Replacement & Arthroscopy — National centres</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-block" aria-labelledby="awards-heading">
-                            <h5 id="awards-heading">Awards & Honors</h5>
-                            <ul>
-                                <li>Prof. B.N. Sinha Citation — Best Postgraduate in MS Orthopaedics</li>
-                                <li>Gold Medal — MS Orthopaedics (KGMU)</li>
-                                <li>Multiple clinical excellence awards for orthopaedic outcomes</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-block" aria-labelledby="expertise-heading">
-                            <h5 id="expertise-heading">Areas of Expertise</h5>
-                            <ul>
-                                <li>Total Knee & Hip Replacement (primary & revision)</li>
-                                <li>Complex Trauma & Fracture Management</li>
-                                <li>Arthroscopy — ACL, Meniscus & Cartilage repair</li>
-                                <li>Minimally invasive orthopaedic surgery and rapid recovery pathways</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="actions" aria-hidden="false">
-                        <a href="https://drsandeepkapoor.com" target="_blank" rel="noopener" class="btn btn-primary">View Full Profile</a>
-                        <a href="contact-us.html" class="btn btn-outline">Book Appointment</a>
-                         WhatsApp button (green like Contact Us page)
-                        <a href="https://wa.me/919764243404?text=Hello%20CareDestinations%2C%20I%20would%20like%20to%20book%20an%20appointment" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="Chat on WhatsApp">
-                            <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp
-                        </a>
-
-                        <style>
-                        /* Scoped WhatsApp button styles to match contact page green */
-                        .sandeep-card .btn-whatsapp,
-                        .doctor-card .btn-whatsapp {
-                            background: #25D366;
-                            color: #fff !important;
-                            border: 0;
-                            padding: 10px 14px;
-                            border-radius: 6px;
-                            text-decoration: none;
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 8px;
-                            font-weight: 600;
-                        }
-                        .sandeep-card .btn-whatsapp:hover,
-                        .doctor-card .btn-whatsapp:hover {
-                            background: #1ebe5a;
-                            text-decoration: none;
-                        }
-                        </style>
-                    </div>
-                </div>
-            </div>
-        -->
-            <!-- Dr. Darshna Kapoor 
-            <div class="doctor-card darshna-card" aria-labelledby="dr-darshna-name">
-                <style>
-                    /* Scoped styles for Dr. Darshna Kapoor card (mirrors Dr. Sandeep Kapoor) */
-                    .darshna-card { display:flex; gap:20px; align-items:flex-start; padding:12px 0; }
-                    .darshna-card .doctor-photo { flex: 0 0 300px; }
-                    .darshna-card .doctor-photo img { width:100%; height:auto; border-radius:8px; display:block; }
-                    .darshna-card .doctor-details { flex:1; min-width:0; }
-                    .darshna-card .doctor-details h4 { margin:0 0 6px; }
-                    .darshna-card .doctor-details .meta { color:#666; margin-bottom:12px; font-size:14px; }
-                    .darshna-card .profile-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
-                    .darshna-card .info-block { background:#fff; border:1px solid rgba(15,23,42,0.04); padding:12px; border-radius:8px; }
-                    .darshna-card .info-block h5 { margin:0 0 8px; font-size:14px; color:#0b3b66; }
-                    .darshna-card .info-block ul { margin:0; padding-left:18px; color:#444; font-size:14px; }
-                    .darshna-card .actions { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
-                    .darshna-card .btn { display:inline-block; padding:10px 14px; border-radius:6px; text-decoration:none; font-weight:600; }
-                    .darshna-card .btn-primary { background:#007bff; color:#fff; }
-                    .darshna-card .btn-outline { background:transparent; border:1px solid #007bff; color:#007bff; }
-                    @media (max-width:800px) {
-                        .darshna-card { flex-direction:column; }
-                        .darshna-card .doctor-photo { width:100%; flex:auto; }
-                        .darshna-card .profile-grid { grid-template-columns:1fr; }
-                    }
-                </style>
-
-                <div class="doctor-photo" aria-hidden="true">
-                    <picture>
-                        <source srcset="images/dr-darshna-kapoor.jpg" type="image/jpeg">
-                        <img src="images/dr-darshna-kapoor.jpg" alt="Dr. Darshna Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Darshna+Kapoor'">
-                    </picture>
-                </div>
-
-                <div class="doctor-details" role="region" aria-labelledby="dr-darshna-name">
-                    <h4 id="dr-darshna-name">Dr. Darshna Kapoor</h4>
-                    <div class="meta">
-                        <span class="doctor-specialty">Consultant — Gynaecology & Minimal Access Surgery</span><br>
-                        <small>MBBS, MS (Obstetrics & Gynaecology) — Advanced training in laparoscopy & fertility care</small>
-                    </div>
-
-                    <p>Dr. Darshna Kapoor is a senior gynaecologist specialising in minimally invasive gynecologic surgery, fertility-preserving treatments and comprehensive women's health. She provides evidence-based, compassionate care with personalised treatment plans.</p>
-
-                    <div class="profile-grid" aria-label="Professional summary">
-                        <div class="info-block" aria-labelledby="we2-heading">
-                            <h5 id="we2-heading">Work Experience</h5>
-                            <ul>
-                                <li>Consultant Gynaecology — HealthCity Vistaar MultiSpeciality Hospital (8+ years)</li>
-                                <li>Lead, Minimal Access Surgery Unit — City Women's Centre (2016–2021)</li>
-                                <li>Visiting Faculty — Laparoscopic Training Workshops (since 2015)</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-block" aria-labelledby="edu2-heading">
-                            <h5 id="edu2-heading">Education & Training</h5>
-                            <ul>
-                                <li>MS Obstetrics & Gynaecology — KGMU</li>
-                                <li>MBBS — KGMU</li>
-                                <li>Fellowship in Minimal Access Gynaecologic Surgery — National Training Centre</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-block" aria-labelledby="awards2-heading">
-                            <h5 id="awards2-heading">Awards & Honors</h5>
-                            <ul>
-                                <li>Recognised for excellence in minimally invasive gynaecologic surgery</li>
-                                <li>Clinical teaching awards for postgraduate training</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-block" aria-labelledby="expertise2-heading">
-                            <h5 id="expertise2-heading">Areas of Expertise</h5>
-                            <ul>
-                                <li>Laparoscopic & Hysteroscopic Surgery</li>
-                                <li>Endometriosis & Fibroid Management</li>
-                                <li>Fertility-preserving procedures & IVF coordination</li>
-                                <li>High-risk pregnancy care and outpatient gynaecology</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="actions" aria-hidden="false">
-                        <a href="https://drdarshnakapoor.com" target="_blank" rel="noopener" class="btn btn-primary">View Full Profile</a>
-                        <a href="contact-us.html" class="btn btn-outline">Book Appointment</a>
-                        WhatsApp button (green like Contact Us page) 
-                        <a href="https://wa.me/919764243404?text=Hello%20CareDestinations%2C%20I%20would%20like%20to%20book%20an%20appointment" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="Chat on WhatsApp">
-                            <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-                <div class="doctor-card sudhir-card" aria-labelledby="dr-sudhir-name">
-                    <style>
-                        /* Scoped styles for Dr. Sudhir Kapoor card (matches Sandeep card layout) */
-                        .sudhir-card { display:flex; gap:20px; align-items:flex-start; padding:12px 0; }
-                        .sudhir-card .doctor-photo { flex: 0 0 300px; }
-                        .sudhir-card .doctor-photo img { width:100%; height:auto; border-radius:8px; display:block; }
-                        .sudhir-card .doctor-details { flex:1; min-width:0; }
-                        .sudhir-card .doctor-details h4 { margin:0 0 6px; }
-                        .sudhir-card .doctor-details .meta { color:#666; margin-bottom:12px; font-size:14px; }
-                        .sudhir-card .profile-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
-                        .sudhir-card .info-block { background:#fff; border:1px solid rgba(15,23,42,0.04); padding:12px; border-radius:8px; }
-                        .sudhir-card .info-block h5 { margin:0 0 8px; font-size:14px; color:#0b3b66; }
-                        .sudhir-card .info-block ul { margin:0; padding-left:18px; color:#444; font-size:14px; }
-                        .sudhir-card .actions { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
-                        .sudhir-card .btn { display:inline-block; padding:10px 14px; border-radius:6px; text-decoration:none; font-weight:600; }
-                        .sudhir-card .btn-primary { background:#007bff; color:#fff; }
-                        .sudhir-card .btn-outline { background:transparent; border:1px solid #007bff; color:#007bff; }
-                        @media (max-width:800px) {
-                            .sudhir-card { flex-direction:column; }
-                            .sudhir-card .doctor-photo { width:100%; flex:auto; }
-                            .sudhir-card .profile-grid { grid-template-columns:1fr; }
-                        }
-                    </style>
-
-                    <div class="doctor-photo" aria-hidden="true">
-                        <picture>
-                            <source srcset="images/dr-sudhir-kapoor.jpg" type="image/jpeg">
-                            <img src="images/dr-sudhir-kapoor.jpg" alt="Dr. Sudhir Kapoor" loading="lazy" width="300" height="300" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Dr+Sudhir+Kapoor'">
-                        </picture>
-                    </div>
-
-                    <div class="doctor-details" role="region" aria-labelledby="dr-sudhir-name">
-                        <h4 id="dr-sudhir-name">Dr. Sudhir Kapoor</h4>
-                        <div class="meta">
-                            <span class="doctor-specialty">Senior Consultant — Dentistry & Implantology</span><br>
-                            <small>BDS, Fellowship in Implant Dentistry — Restorative & Cosmetic Specialist</small>
-                        </div>
-
-                        <p>Dr. Sudhir Kapoor is an experienced restorative and cosmetic dentist specialising in implantology, full‑mouth rehabilitation and aesthetic dentistry. He focuses on minimally invasive, evidence‑based treatments and long‑term functional outcomes.</p>
-
-                        <div class="profile-grid" aria-label="Professional summary">
-                            <div class="info-block" aria-labelledby="we3-heading">
-                                <h5 id="we3-heading">Work Experience</h5>
-                                <ul>
-                                    <li>Senior Consultant — HealthCity Vistaar MultiSpeciality Hospital</li>
-                                    <li>Lead — Implantology & Rehabilitation Unit (10+ years)</li>
-                                    <li>Private practice & referral clinic — advanced restorative care</li>
-                                </ul>
-                            </div>
-
-                            <div class="info-block" aria-labelledby="edu3-heading">
-                                <h5 id="edu3-heading">Education & Training</h5>
-                                <ul>
-                                    <li>BDS — Accredited dental university</li>
-                                    <li>Fellowship / advanced training in Implant Dentistry</li>
-                                    <li>Regular faculty & attendee — national implant and prosthodontic workshops</li>
-                                </ul>
-                            </div>
-
-                            <div class="info-block" aria-labelledby="awards3-heading">
-                                <h5 id="awards3-heading">Awards & Honors</h5>
-                                <ul>
-                                    <li>Recognised for clinical excellence in restorative dentistry</li>
-                                    <li>Speaker at regional implantology symposiums</li>
-                                </ul>
-                            </div>
-
-                            <div class="info-block" aria-labelledby="expertise3-heading">
-                                <h5 id="expertise3-heading">Areas of Expertise</h5>
-                                <ul>
-                                    <li>Dental implants & full‑mouth rehabilitation</li>
-                                    <li>Implant‑supported prostheses and overdentures</li>
-                                    <li>Cosmetic & restorative dentistry — veneers, crowns, bridges</li>
-                                    <li>Guided implant surgery and bone augmentation techniques</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="actions" aria-hidden="false">
-                            <a href="https://healthcityvistaar.com/doctor/dr-sudhir-kapoor/" target="_blank" rel="noopener" class="btn btn-primary">View Full Profile</a>
-                            <a href="contact-us.html" class="btn btn-outline">Book Appointment</a>
-                        <a href="https://wa.me/919764243404?text=Hello%20CareDestinations%2C%20I%20would%20like%20to%20book%20an%20appointment" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="Chat on WhatsApp">
-                            <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp
-                        </a>
-                        </div>
-                    </div>
-                </div>
-
-                 Existing example doctors (keep or remove as needed) 
-                
-            
-            </div>
-        </div>    </section>
-     Specializations Section -->
-
-    <section class="specializations" id="specializations">
+        <section class="specializations" id="specializations">
         <div class="container">
             <div class="section-header" style="display:flex;flex-direction:column;align-items:center;text-align:center;max-width:900px;margin:0 auto;padding:8px 16px;">
                 <h2 style="margin:0 0 8px;">Specializations</h2>
@@ -869,7 +527,6 @@
             </div>
 
             <div class="specialization-grid" aria-live="polite">
-                <!-- Orthopaedics first (as requested) -->
                 <article class="specialization-card">
                     <div class="spec-icon" aria-hidden="true">
                         <i class="fas fa-bone"></i>
@@ -888,8 +545,7 @@
                     <a href="#" class="btn-read-more" aria-label="Read more about Gynaecology">Read More</a>
                 </article>
 
-                <!-- add more specialization cards as needed -->
-            </div>
+                </div>
         </div>
 
         <style>
@@ -950,7 +606,6 @@
         </style>
     </section>
 
-    <!-- Our Services Section (replaces $PLACEHOLDER$) -->
     <section id="services" class="services-section">
         <div class="container">
             <div class="section-header">
@@ -1167,7 +822,6 @@
     </section>
   
 
-    <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
@@ -1176,7 +830,7 @@
                     <p>Contact us to get your Quotation</p>
                 </div>
                 <li><a href="contact-us.html" class="btn-partner">Book Appointment</a></li>
-               
+                
                 
 
                 <script>
@@ -1347,7 +1001,6 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
     <section class="testimonials">
         <div class="container">
             <div class="section-header">
@@ -1398,7 +1051,6 @@
         </div>
     </section>
 
-    <!-- Blog Section -->
     <section class="blog" id="news">
         <div class="container">
             <div class="section-header">
@@ -1418,7 +1070,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="contact-cta">
         <div class="container">
             <div class="contact-cta-content">
@@ -1428,7 +1079,6 @@
             </div>
         </div>
     </section>
-    <!-- FAQ Section -->
     <section class="faq-section" id="faq" aria-label="Frequently Asked Questions">
         <div class="container">
             <div class="section-header">
@@ -1644,12 +1294,11 @@
         })();
         </script>
     </section>
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                   
+                    
                     <p>CareDestinations connects you with leading hospitals, doctors, experts, and cosmetic specialists. It ensures access to trusted providers for personalized care and treatments.</p>
                 </div>
                 <div class="footer-column">
@@ -1675,12 +1324,10 @@
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
     <button class="scroll-top" id="scrollTop">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Google Translate Script -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -1758,4 +1405,3 @@
     </script>
 </body>
 </html>
-
