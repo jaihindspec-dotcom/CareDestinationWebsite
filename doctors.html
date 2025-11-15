@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Top Specialist Doctors | Cardestinations</title>
+    <title>Find Doctors & Services | Cardestinations</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,9 +18,12 @@
             --green-cta: #28a745;
             --green-cta-hover: #218838;
             --whatsapp-green: #25D366;
+            --accent-color: var(--green-cta); /* Alias for services section */
+            --secondary-color: #6c757d; /* For services section */
             --background-light: #f8f9fa;
+            --background-dark: #e9ecef; /* For services section */
             --card-shadow: 0 6px 20px rgba(0, 86, 179, 0.1);
-            --border-color: #e9ecef;
+            --border-color: #e9ecef; /* Main border color */
             --text-dark: #343a40;
             --text-light: #6c757d;
             --font-primary: 'Roboto', Arial, sans-serif;
@@ -40,25 +43,67 @@
             margin: 30px auto;
             padding: 20px;
         }
+        
+        /* NEW: Wide container for the services grid */
+        .container-wide {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.7; /* Restore line-height for this section */
+        }
 
-        /* --- Hero Header --- */
-        .hero-header {
+        /* --- NEW Hero Section (from Services Page) --- */
+        .hero {
+            background: linear-gradient(rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.6)), url('https://via.placeholder.com/1500x500/007bff/ffffff?text=World-Class+Patient+Support') no-repeat center center/cover;
+            color: white;
             text-align: center;
-            padding: 40px 20px 30px 20px;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, #ffffff 0%, #f1f8ff 100%);
+            padding: 80px 20px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
         }
-        .hero-header h1 {
-            color: var(--primary-color);
-            font-size: 2.5em;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
             font-weight: 700;
-            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        .hero-header p {
+        .hero p {
+            font-size: 1.4em;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            font-weight: 300;
+        }
+        .hero .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
             font-size: 1.2em;
-            color: var(--text-light);
-            margin-top: 10px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .hero .cta-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
         
         /* --- Search Card --- */
@@ -353,7 +398,7 @@
             font-weight: 700;
         }
 
-        /* --- Evaluation Form Card (NEW) --- */
+        /* --- Evaluation Form Card --- */
         .evaluation-form-card {
             background: white;
             padding: 30px 35px;
@@ -378,7 +423,6 @@
         .evaluation-form-card .form-group {
             margin-bottom: 20px;
         }
-        /* Uses the .form-group label style already defined */
         
         .evaluation-form-card input[type="text"],
         .evaluation-form-card input[type="email"],
@@ -421,14 +465,146 @@
             box-shadow: 0 6px 16px rgba(40,167,69,0.3);
         }
 
+        /* --- NEW: Section Styling (from Services) --- */
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-heading h2 {
+            font-size: 2.8em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .section-heading p {
+            font-size: 1.2em;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .section-heading::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 20px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* --- NEW: Services Grid (from Services) --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 86, 179, 0.2);
+        }
+
+        .service-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .service-card-content h3 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .service-card-content p {
+            font-size: 1em;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+        .service-card-content .icon {
+            font-size: 2.5em;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+        .service-card:hover .icon {
+            color: var(--primary-color);
+        }
+
+        /* --- NEW: Footer CTA (from Services) --- */
+        .footer-cta {
+            text-align: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 20px;
+            margin-top: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+        }
+        .footer-cta h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .footer-cta p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+        .footer-cta .cta-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .footer-cta .cta-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
 
         /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            /* Service Hero */
+            .hero h1 { font-size: 3em; }
+            .hero p { font-size: 1.2em; }
+            /* Service Grid */
+            .section-heading h2 { font-size: 2.4em; }
+            .services-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        }
+        
         @media (max-width: 768px) {
             .dropdown-grid { 
                 grid-template-columns: 1fr; 
-            }
-            .hero-header h1 {
-                font-size: 2em;
             }
             
             .doctor-item {
@@ -464,7 +640,7 @@
                 justify-content: center;
             }
 
-            /* (NEW) Responsive for eval form */
+            /* Responsive for eval form */
             .evaluation-form-card {
                 margin-top: 30px;
                 padding: 25px;
@@ -475,22 +651,54 @@
             .evaluation-form-card .form-subtext {
                 font-size: 1em;
             }
+            
+            /* Service Hero */
+            .hero { padding: 60px 15px; }
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.1em; }
+            /* Service Grid */
+            .section-heading { margin-bottom: 40px; }
+            .section-heading h2 { font-size: 2em; }
+            .section-heading p { font-size: 1em; }
+            .services-grid { gap: 20px; }
+            .service-card-content h3 { font-size: 1.6em; }
+            /* Service CTA */
+            .footer-cta { padding: 40px 15px; margin-top: 40px; }
+            .footer-cta h2 { font-size: 2em; }
+            .footer-cta p { font-size: 1.1em; }
+            .footer-cta .cta-button { padding: 12px 25px; font-size: 1.1em; }
         }
         @media (max-width: 480px) {
             .doctor-actions {
                 flex-direction: column;
             }
+            
+            /* Service Hero */
+            .hero h1 { font-size: 2em; }
+            .hero p { font-size: 0.95em; }
+            .hero .cta-button { font-size: 1em; padding: 12px 25px; }
+            /* Service Grid */
+            .section-heading h2 { font-size: 1.8em; }
+            .service-card { margin: 0 auto; max-width: 350px; }
+            .service-card-image { height: 180px; }
+            .service-card-content h3 { font-size: 1.4em; }
+            /* Service CTA */
+            .footer-cta h2 { font-size: 1.8em; }
+            .footer-cta p { font-size: 1em; }
         }
     </style>
 </head>
 <body>
 
-    <header class="hero-header">
-        <h1>Find Your Perfect Doctor</h1>
-        <p>Access world-class specialists for your treatment abroad.</p>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Your Complete Medical Journey</h1>
+            <p>Find world-class specialists and get comprehensive support for your accommodation, visa, and travel needs. Cardestinations is with you every step of the way.</p>
+            <a href="#doctor-search-section" class="cta-button">Find Your Doctor Now <i class="fas fa-arrow-down"></i></a>
+        </div>
     </header>
 
-    <div class="container">
+    <div class="container" id="doctor-search-section">
         
         <div class="search-finder">
             <h2><i class="fas fa-search" style="color: var(--primary-color); margin-right: 10px;"></i>Start Your Search</h2>
@@ -559,10 +767,14 @@
                 </div>
             </form>
         </div>
+        
         <div id="profileDisplay" style="display: none;">
             </div>
 
     </div>
+    
+   
+    
 </body>
 <script>
     // GLOBAL array to hold the currently filtered list of doctors
@@ -672,7 +884,7 @@
         }
     };
     
-    // --- CORE LOGIC (UNCHANGED, except for HTML generation) ---
+    // --- CORE LOGIC (UNCHANGED) ---
     const countrySelect = document.getElementById('countrySelect');
     const citySelect = document.getElementById('citySelect');
     const treatmentSelect = document.getElementById('treatmentSelect');
@@ -748,7 +960,6 @@
         if (filteredDoctors.length > 0) {
             let htmlContent = `<h3>Top ${treatment} Specialists in ${city}</h3>`;
             
-            // *** MODIFIED HTML STRING FOR NEW CARD LAYOUT ***
             filteredDoctors.forEach((doctor, index) => {
                 const whatsappMsg = encodeURIComponent(`Hello, I would like to book an appointment with ${doctor.name} - ${doctor.specialty}`);
                 const photo = doctor.photoUrl || 'https://via.placeholder.com/200?text=Photo';
@@ -805,7 +1016,6 @@
         
         const whatsappMsg = encodeURIComponent(`Hello, I would like to book an appointment with ${doctor.name} - ${doctor.specialty}`);
 
-        // *** MODIFIED HTML STRING FOR NEW PROFILE LAYOUT ***
         const profileHtml = `
             <div class="profile-card">
                 <img src="${doctor.photoUrl || 'https://via.placeholder.com/200?text=Photo+Missing'}" alt="Photo of ${doctor.name}" class="profile-photo">
@@ -865,7 +1075,7 @@
         profileDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // --- (NEW) FORM SUBMISSION HANDLER ---
+    // --- FORM SUBMISSION HANDLER ---
     function handleFormSubmit(event) {
         event.preventDefault(); // Stop the form from reloading the page
         

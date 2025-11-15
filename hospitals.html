@@ -4,187 +4,582 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Find Hospitals & Treatments | Cardestinations</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        :root{
-            --primary: #0d6efd;
-            --muted: #6c757d;
-            --bg: #f5f8ff;
-            --card-shadow: 0 8px 24px rgba(13,110,253,0.08);
-            --glass: rgba(255,255,255,0.75);
+        :root {
+            --primary-color: #007bff; /* Cardestinations Blue */
+            --primary-hover: #0056b3;
+            --green-cta: #28a745;
+            --green-cta-hover: #218838;
+            --whatsapp-green: #25D366;
+            --accent-color: var(--green-cta);
+            --background-light: #f8f9fa;
+            --card-shadow: 0 6px 20px rgba(0, 86, 179, 0.1);
+            --border-color: #e9ecef;
+            --text-dark: #343a40;
+            --text-light: #6c757d;
+            --font-primary: 'Roboto', Arial, sans-serif;
         }
+
         *{box-sizing:border-box}
+        
         body{
             margin:0;
-            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 100%);
-            color:#222;
+            font-family: var(--font-primary);
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
             -webkit-font-smoothing:antialiased;
         }
 
         .container{
-            max-width: 1000px;
-            margin: 48px auto;
-            padding: 24px;
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 20px;
         }
 
-        .card{
-            background: var(--glass);
-            backdrop-filter: blur(6px);
-            border-radius: 14px;
-            padding: 22px;
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.6)), url('https://via.placeholder.com/1500x500/007bff/ffffff?text=Find+World-Class+Hospitals') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero p {
+            font-size: 1.4em;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            font-weight: 300;
+        }
+        .hero .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .hero .cta-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        /* --- Search Card (Replaces .card) --- */
+        .search-finder {
+            background: white;
+            padding: 30px 35px;
+            border-radius: 12px;
             box-shadow: var(--card-shadow);
-            border: 1px solid rgba(13,110,253,0.06);
+            margin-bottom: 30px;
         }
-
-        header.top {
-            display:flex;
-            align-items:center;
-            gap:16px;
-            margin-bottom:18px;
-        }
-        .logo {
-            background: linear-gradient(135deg,#0d6efd,#6610f2);
-            width:56px;height:56px;border-radius:12px;
-            display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;
-            box-shadow: 0 6px 20px rgba(13,110,253,0.12);
-            font-size:18px;
-        }
-        .title {
-            display:flex;flex-direction:column;
-        }
-        .title h1{
-            margin:0;font-size:18px;color:var(--primary);
-        }
-        .title p{
-            margin:0;color:var(--muted);font-size:13px;
+        .search-finder h2 {
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: 500;
         }
 
         .search-grid{
             display:grid;
             grid-template-columns: repeat(3,1fr);
-            gap:18px;
-            margin-top:18px;
+            gap: 25px;
+            margin-bottom: 30px;
         }
 
         .form-group label{
-            display:block;margin-bottom:8px;font-weight:600;color:#333;font-size:13px;
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper::after {
+            content: '\f078'; /* Font Awesome Chevron Down */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            pointer-events: none;
+            font-size: 0.9em;
         }
 
-        select, .search-btn{
-            width:100%;
-            padding:12px 14px;
-            border-radius:10px;
-            border:1px solid rgba(33,37,41,0.08);
-            font-size:14px;
-            background:#fff;
+        .search-grid select {
+            width: 100%;
+            padding: 14px 40px 14px 15px; /* Room for arrow */
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+            appearance: none; 
+            cursor: pointer;
+            font-size: 1em;
+            color: var(--text-dark);
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        select:focus, .search-btn:focus{
-            outline:2px solid rgba(13,110,253,0.15);
+        .search-grid select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
         }
-        .search-btn{
-            background: linear-gradient(90deg,var(--primary), #0056d6);
-            color:white;
-            border:none;
-            font-weight:700;
-            cursor:pointer;
+        .search-grid select:disabled {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
+        }
+        
+        .search-btn, .reset-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
             display:flex;
             align-items:center;
             justify-content:center;
             gap:10px;
-            transition: transform .12s ease, box-shadow .12s ease;
         }
-        .search-btn:hover{ transform: translateY(-2px); box-shadow: 0 10px 30px rgba(13,110,253,0.12); }
-
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.2);
+        }
+        .search-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,123,255,0.3);
+        }
+        
+        .reset-btn {
+            background-color: var(--background-light);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            box-shadow: none;
+        }
+        .reset-btn:hover {
+            background-color: var(--border-color);
+            transform: translateY(-2px);
+        }
+        
+        /* --- Results Area --- */
         .results{
-            margin-top:26px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid var(--border-color);
         }
         .results h3{
-            margin: 0 0 14px 0;color:var(--primary);
+            font-size: 1.5em;
+            color: var(--text-dark);
+            margin-bottom: 20px;
         }
 
         .hospital-list{
             display:grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap:14px;
+            grid-template-columns: 1fr; /* Changed to 1 column */
+            gap:15px;
         }
 
+        /* Re-styled hospital card to match doctor card */
         .hospital-card{
-            background:#fff;
-            border-radius:12px;
-            padding:14px;
-            border:1px solid rgba(33,37,41,0.04);
-            display:flex;
-            gap:12px;
-            align-items:flex-start;
-            box-shadow: 0 6px 18px rgba(16,24,40,0.04);
-            transition: transform .12s ease;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            margin-bottom: 0;
+            padding: 20px;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 20px;
+            align-items: center;
+            transition: box-shadow 0.3s, border-color 0.3s;
         }
-        .hospital-card:hover{ transform: translateY(-4px); }
+        .hospital-card:hover {
+            box-shadow: var(--card-shadow);
+            border-color: #fff;
+        }
 
         .hospital-avatar{
-            min-width:56px;height:56px;border-radius:10px;
-            background:linear-gradient(135deg,#e9f0ff,#fff);
-            display:flex;align-items:center;justify-content:center;color:var(--primary);
-            font-weight:700;font-size:18px;border:1px solid rgba(13,110,253,0.06);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            background: linear-gradient(135deg,#e9f0ff,#fff);
+            display:flex;align-items:center;justify-content:center;
+            color:var(--primary-color);
+            font-weight:700;
+            font-size: 2em;
+            padding: 0; /* Reset padding */
         }
+        
         .hospital-body{flex:1}
-        .hospital-body h4{margin:0 0 6px 0;font-size:16px}
-        .hospital-body p{margin:0;color:var(--muted);font-size:13px}
-        .hospital-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-        .pill{background:#f1f5ff;color:var(--primary);padding:6px 8px;border-radius:999px;font-weight:600;font-size:12px;border:1px solid rgba(13,110,253,0.06)}
-        .actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-        .view-btn{
-            background:#fff;border:1px solid rgba(13,110,253,0.12);color:var(--primary);
-            padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:700;font-size:13px;
+        .hospital-body h4{
+            margin: 0 0 5px 0; 
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--primary-color);
         }
-        .call-btn{background:linear-gradient(90deg,#28a745,#1e7e34);color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:700;font-size:13px;border:none;}
-        .wa-btn{background:#25D366;color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:700;font-size:13px;border:none;display:inline-block}
+        .hospital-body p{
+            color: var(--text-light); 
+            margin: 0; 
+            font-size: 0.95em; 
+            line-height: 1.5;
+        }
+        .hospital-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+        .pill{
+            background: #f1f5ff;
+            color: var(--primary-color);
+            padding: 4px 10px; /* Adjusted padding */
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.8em; /* Adjusted size */
+            border:1px solid rgba(13,110,253,0.06)
+        }
+        
+        .actions{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+            align-items:stretch; /* Make buttons same width */
+        }
+        
+        /* Re-styled buttons */
+        .view-details-btn, .book-btn, .whatsapp-btn {
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .view-details-btn i, .book-btn i, .whatsapp-btn i {
+            margin-right: 8px;
+        }
+
+        .view-details-btn {
+            background-color: var(--primary-color);
+        }
+        .view-details-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        .book-btn {
+            background-color: var(--green-cta);
+        }
+        .book-btn:hover {
+            background-color: var(--green-cta-hover);
+            transform: translateY(-1px);
+        }
+        .whatsapp-btn {
+            background-color: var(--whatsapp-green);
+        }
+        .whatsapp-btn:hover {
+            background-color: #1EAE51;
+            transform: translateY(-1px);
+        }
+        
 
         .empty{
-            text-align:center;color:var(--muted);padding:28px;background:#fff;border-radius:12px;border:1px dashed rgba(33,37,41,0.04);
+            text-align:center;
+            color:var(--text-light);
+            padding: 25px;
+            background:#fff;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
 
-        /* Modal / profile styles */
+        /* --- Evaluation Form Card (NEW) --- */
+        .evaluation-form-card {
+            background: white;
+            padding: 30px 35px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-top: 40px; 
+            margin-bottom: 30px;
+        }
+        .evaluation-form-card h2 {
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+            font-weight: 500;
+        }
+        .evaluation-form-card .form-subtext {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .evaluation-form-card .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .evaluation-form-card input[type="text"],
+        .evaluation-form-card input[type="email"],
+        .evaluation-form-card input[type="tel"] {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+            font-size: 1em;
+            color: var(--text-dark);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box; 
+        }
+        .evaluation-form-card input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+        }
+        .evaluation-form-card .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: var(--green-cta);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(40,167,69,0.2);
+        }
+        .evaluation-form-card .submit-btn i {
+            margin-right: 10px;
+        }
+        .evaluation-form-card .submit-btn:hover {
+            background-color: var(--green-cta-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(40,167,69,0.3);
+        }
+
+        /* --- Re-styled Modal --- */
         .hd-modal-backdrop{
-            position:fixed;inset:0;background:rgba(12,20,40,0.45);display:none;align-items:center;justify-content:center;z-index:1200;
+            position:fixed;inset:0;
+            background:rgba(12,20,40,0.6); /* Darker backdrop */
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:1200;
         }
         .hd-modal{
             width: min(920px, 96%);
             max-height: 90vh;
-            overflow:auto;
-            background: #ffffff;
+            overflow-y:auto;
+            background: var(--background-light); /* Light BG */
             border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(13,110,253,0.15);
-            border: 1px solid rgba(13,110,253,0.06);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
         }
         .hd-modal .modal-header{
-            display:flex;gap:12px;align-items:center;padding:18px;border-bottom:1px solid #f1f3f5;
+            display:flex;
+            gap: 20px;
+            align-items:center;
+            padding: 24px;
+            border-bottom:1px solid var(--border-color);
+            background: #fff;
+            border-radius: 12px 12px 0 0;
         }
         .hd-modal .modal-header img{
-            width:140px;height:96px;object-fit:cover;border-radius:8px;border:1px solid rgba(0,0,0,0.04);
+            width:150px;
+            height:100px;
+            object-fit:cover;
+            border-radius:8px;
+            border:1px solid var(--border-color);
         }
         .hd-modal .modal-header .meta{
             flex:1;
         }
-        .hd-modal .modal-header h2{margin:0 0 6px 0;font-size:20px;color:var(--primary)}
-        .hd-modal .modal-body{padding:18px;display:grid;grid-template-columns: 1fr 320px;gap:18px}
-        .hd-modal .modal-body .left p{margin:0 0 12px 0;color:#333;line-height:1.45}
-        .hd-modal .modal-body .right{background:#f8fafc;padding:12px;border-radius:8px;border:1px solid rgba(33,37,41,0.03)}
-        .hd-modal .modal-body .right h4{margin:0 0 8px 0}
-        .hd-modal .close-btn{
-            background:transparent;border:none;font-size:20px;padding:8px;color:var(--muted);cursor:pointer;margin-left:8px
+        .hd-modal .modal-header h2{
+            margin:0 0 6px 0;
+            font-size: 1.8em;
+            font-weight: 700;
+            color:var(--primary-color);
         }
-        .hd-modal .stats{display:flex;gap:12px;margin-top:8px}
-        .hd-modal .stat{background:#fff;padding:8px;border-radius:8px;border:1px solid rgba(33,37,41,0.03);font-weight:700}
-        @media (max-width:900px){
-            .hospital-list{grid-template-columns:1fr}
+        .hd-modal .modal-header .sub{
+            color: var(--text-light);
+            font-size: 1em;
+        }
+        .hd-modal .modal-body{
+            padding: 24px;
+            display:grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+            line-height: 1.7;
+        }
+        .hd-modal .modal-body .left h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .hd-modal .modal-body .left p{
+            margin:0 0 15px 0;
+            color: var(--text-dark);
+        }
+        .hd-modal .modal-body .right{
+            background:#fff;
+            padding: 20px;
+            border-radius:8px;
+            border:1px solid var(--border-color)
+        }
+        .hd-modal .modal-body .right h4{
+            margin:0 0 12px 0;
+            color: var(--text-dark);
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+        .hd-modal .modal-body .right .pill { /* Use pill style from cards */
+            background: #f1f5ff;
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.8em;
+            border:1px solid rgba(13,110,253,0.06);
+        }
+        .hd-modal .modal-body .right .contact-item {
+            font-size: 0.95em;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        .hd-modal .modal-body .right .contact-item strong {
+            color: var(--text-light);
+            display: block;
+            font-size: 0.9em;
+            margin-bottom: 2px;
+        }
+        
+        .hd-modal .close-btn{
+            background:transparent;
+            border:none;
+            font-size: 28px;
+            font-weight: 300;
+            padding:0 8px;
+            color:var(--text-light);
+            cursor:pointer;
+            margin-left:8px;
+            line-height: 1;
+        }
+        .hd-modal .close-btn:hover {
+            color: var(--text-dark);
+        }
+        .hd-modal .stats{display:flex;gap:12px;margin-top:12px}
+        .hd-modal .stat{
+            background: var(--background-light);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border:1px solid var(--border-color);
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 0.9em;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 992px) {
+            /* Service Hero */
+            .hero h1 { font-size: 3em; }
+            .hero p { font-size: 1.2em; }
+        }
+        
+        @media (max-width: 768px) {
             .search-grid{grid-template-columns:1fr}
+            
+            .hospital-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hospital-avatar {
+                margin: 0 auto 15px auto;
+            }
+            .actions {
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
             .hd-modal .modal-body{grid-template-columns:1fr}
-            .hd-modal .modal-header img{width:120px;height:84px}
-            .actions{align-items:flex-start}
+            .hd-modal .modal-header{flex-direction: column; align-items: flex-start;}
+            
+            /* Service Hero */
+            .hero { padding: 60px 15px; }
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.1em; }
+
+            /* Responsive for eval form */
+            .evaluation-form-card {
+                margin-top: 30px;
+                padding: 25px;
+            }
+            .evaluation-form-card h2 {
+                font-size: 1.6em;
+            }
+            .evaluation-form-card .form-subtext {
+                font-size: 1em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .actions {
+                flex-direction: column;
+            }
+             /* Service Hero */
+            .hero h1 { font-size: 2em; }
+            .hero p { font-size: 0.95em; }
+            .hero .cta-button { font-size: 1em; padding: 12px 25px; }
         }
     </style>
 
@@ -194,32 +589,34 @@
             document.addEventListener('DOMContentLoaded', () => {
                 const backdrop = document.createElement('div');
                 backdrop.className = 'hd-modal-backdrop';
+                // --- MODIFIED MODAL HTML ---
                 backdrop.innerHTML = `
                     <div class="hd-modal" role="dialog" aria-modal="true">
                         <div class="modal-header">
                             <img src="" alt="Hospital image" id="hd-img">
                             <div class="meta">
-                                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
                                     <div style="flex:1">
                                         <h2 id="hd-title">Hospital Name</h2>
-                                        <div style="color:var(--muted);font-size:13px" id="hd-sub">City · Country</div>
+                                        <div class="sub" id="hd-sub">City · Country</div>
+                                        <div class="stats" id="hd-stats" style="margin-top:10px"></div>
                                     </div>
                                     <button class="close-btn" id="hd-close" title="Close">&times;</button>
                                 </div>
-                                <div class="stats" id="hd-stats" style="margin-top:10px"></div>
                             </div>
                         </div>
                         <div class="modal-body">
                             <div class="left">
-                                <p id="hd-desc" style="color:var(--muted)">Loading description…</p>
+                                <h3>About Hospital</h3>
+                                <p id="hd-desc">Loading description…</p>
                                 <div id="hd-more"></div>
                             </div>
                             <div class="right">
-                                <h4>Contact & Info</h4>
-                                <div id="hd-contact" style="color:var(--muted);font-size:14px"></div>
-                                <hr style="margin:12px 0;border:none;border-top:1px solid #eef2ff">
                                 <h4>Specialities</h4>
-                                <div id="hd-specs" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
+                                <div id="hd-specs" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom: 20px;"></div>
+                                
+                                <h4>Contact & Info</h4>
+                                <div id="hd-contact"></div>
                             </div>
                         </div>
                     </div>
@@ -232,16 +629,9 @@
                 });
                 closeBtn.addEventListener('click', () => { backdrop.style.display = 'none'; });
 
-                // intercept existing inline alert used by template "View details for ..."
-                const originalAlert = window.alert.bind(window);
-                window.alert = function(msg){
-                    if(typeof msg === 'string' && msg.startsWith('View details for ')){
-                        const name = msg.replace('View details for ', '').trim();
-                        showHospitalProfile(name);
-                        return;
-                    }
-                    originalAlert(msg);
-                };
+                // --- NO LONGER NEEDED as button calls showHospitalProfile directly ---
+                // const originalAlert = window.alert.bind(window);
+                // window.alert = function(msg){ ... }
             });
 
             // Utilities
@@ -259,7 +649,7 @@
             }
 
             async function fetchWikiSummary(name){
-                // try REST summary first (no API key)
+                // try REST summary first
                 try{
                     const enc = encodeURIComponent(name);
                     const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${enc}`;
@@ -303,6 +693,7 @@
                 const backdrop = document.querySelector('.hd-modal-backdrop');
                 if(!backdrop) return;
                 backdrop.style.display = 'flex';
+                
                 const img = document.getElementById('hd-img');
                 const title = document.getElementById('hd-title');
                 const sub = document.getElementById('hd-sub');
@@ -312,28 +703,28 @@
                 const stats = document.getElementById('hd-stats');
                 const more = document.getElementById('hd-more');
 
+                // Reset modal content
                 title.textContent = name;
-                sub.textContent = '';
+                sub.textContent = 'Loading details...';
                 desc.textContent = 'Loading description…';
                 contact.innerHTML = '';
                 specs.innerHTML = '';
                 stats.innerHTML = '';
                 more.innerHTML = '';
+                img.src = 'https://via.placeholder.com/150x100/f0f0f0/cccccc?text=...'; // Placeholder
 
-                // local data if any
+                // 1. local data if any
                 const local = findLocalHospitalDetails(name);
                 if(local){
                     sub.textContent = `${local.city} · ${local.country}`;
                     contact.innerHTML = `
-                        <div><strong>Address:</strong> <div style="color:#333;margin-top:6px">${local.address || 'N/A'}</div></div>
-                        <div style="margin-top:8px"><strong>Phone:</strong><div style="color:#333;margin-top:6px">${local.phone || 'N/A'}</div></div>
+                        <div class="contact-item"><strong>Address:</strong> ${local.address || 'N/A'}</div>
+                        <div class="contact-item"><strong>Phone:</strong> ${local.phone || 'N/A'}</div>
                     `;
                     if(Array.isArray(local.treatments)){
                         local.treatments.forEach(t => {
                             const s = document.createElement('span');
                             s.className = 'pill';
-                            s.style.background = '#fff';
-                            s.style.color = 'var(--primary)';
                             s.textContent = t;
                             specs.appendChild(s);
                         });
@@ -341,7 +732,7 @@
                     stats.innerHTML = `<div class="stat">City: ${local.city}</div><div class="stat">${local.treatments ? local.treatments.length + ' Specialities' : ''}</div>`;
                 }
 
-                // try fetching wiki summary and image
+                // 2. try fetching wiki summary and image
                 let wiki = null;
                 try{
                     wiki = await fetchWikiSummary(name);
@@ -353,14 +744,14 @@
                     desc.textContent = local && local.address ? `Profile for ${name}.` : 'No detailed description found.';
                 }
 
-                // choose image: wiki thumbnail -> Unsplash fallback -> placeholder
-                const fallback = `https://source.unsplash.com/800x500/?hospital,${encodeURIComponent(name)}`;
+                // 3. choose image: wiki thumbnail -> Unsplash fallback -> placeholder
+                const fallback = `https://source.unsplash.com/800x500/?hospital,${encodeURIComponent(local ? local.city : 'city')}`;
                 img.src = wiki && wiki.thumbnail ? wiki.thumbnail : fallback;
                 img.alt = name + ' image';
 
-                // additional link to source if available
+                // 4. additional link to source if available
                 if(wiki && wiki.source === 'wikipedia'){
-                    more.innerHTML = `<p style="margin-top:12px;font-size:13px;color:var(--muted)">Source: Wikipedia — <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(wiki.title)}" target="_blank" rel="noopener">Open page</a></p>`;
+                    more.innerHTML = `<p style="margin-top:15px;font-size:13px;color:var(--text-light)">Source: Wikipedia — <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(wiki.title)}" target="_blank" rel="noopener">Open page</a></p>`;
                 }
 
                 // ensure modal scrolled to top of content
@@ -374,44 +765,53 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <header class="top">
-                <div class="logo">CD</div>
-                <div class="title">
-                    <h1>Find Hospitals & Treatments</h1>
-                    <p>Choose a country, city and treatment to view matching hospitals</p>
-                </div>
-            </header>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Find Your Perfect Hospital</h1>
+            <p>Access world-class hospitals and treatments for your journey abroad. We provide complete, end-to-end support.</p>
+            <a href="#hospital-search-section" class="cta-button">Start Your Search <i class="fas fa-arrow-down"></i></a>
+        </div>
+    </header>
+
+
+    <div class="container" id="hospital-search-section">
+        <div class="search-finder">
+            <h2><i class="fas fa-hospital" style="color: var(--primary-color); margin-right: 10px;"></i>Start Your Hospital Search</h2>
 
             <div class="search-grid">
                 <div class="form-group">
                     <label for="countrySelect">1. Select Country</label>
-                    <select id="countrySelect" onchange="updateCities()">
-                        <!-- populated by JS -->
-                    </select>
+                    <div class="select-wrapper">
+                        <select id="countrySelect" onchange="updateCities()">
+                            </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="citySelect">2. Select City</label>
-                    <select id="citySelect" onchange="onCityChange()" disabled>
-                        <option value="">Choose Country First</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <select id="citySelect" onchange="onCityChange()" disabled>
+                            <option value="">Choose Country First</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="treatmentSelect">3. Select Treatment</label>
-                    <select id="treatmentSelect" disabled>
-                        <option value="">All Treatments</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <select id="treatmentSelect" disabled>
+                            <option value="">All Treatments</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <div style="margin-top:18px; display:flex; gap:12px;">
+            <div style="margin-top:18px; display:grid; grid-template-columns: 2fr 1fr; gap:12px;">
                 <button class="search-btn" onclick="searchHospitals()">
                     <i class="fas fa-search"></i> Search Hospitals
                 </button>
-                <button class="search-btn" style="background:transparent;color:var(--primary);border:1px solid rgba(13,110,253,0.12);" onclick="resetFilters()">
+                <button class="reset-btn" onclick="resetFilters()">
                     <i class="fas fa-rotate-left"></i> Reset
                 </button>
             </div>
@@ -420,33 +820,65 @@
                 <h3>Matching Hospitals</h3>
                 <div id="hospitalResults">
                     <div class="empty">
-                        <i class="fas fa-info-circle" style="margin-bottom:8px;display:block;font-size:22px;color:var(--muted)"></i>
+                        <i class="fas fa-info-circle" style="margin-bottom:8px;display:block;font-size:22px;color:var(--text-light)"></i>
                         Select your preferences above to see matching hospitals.
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        
+        <div class="evaluation-form-card">
+            <h2><i class="fas fa-clipboard-check" style="color: var(--green-cta); margin-right: 10px;"></i>Get a FREE Evaluation</h2>
+            <p class="form-subtext">Fill out the form below and our team will get in touch to assist with your medical journey.</p>
+            
+            <form id="evaluationForm" onsubmit="return handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="evalName">Your Name</label>
+                    <input type="text" id="evalName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="evalEmail">Your Email</label>
+                    <input type="email" id="evalEmail" placeholder="Enter your email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="evalPhone">Your Phone</label>
+                    <input type="tel" id="evalPhone" placeholder="Enter your phone number (with country code)" required>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Request
+                </button>
+                <div id="formSuccessMessage" style="display: none; color: var(--green-cta); margin-top: 15px; text-align: center; font-weight: 700; font-size: 1.1em;">
+                    Thank you! Your request has been sent. We will contact you soon.
+                </div>
+            </form>
+        </div>
+        </div>
 
     <script>
         // Data model: countries -> cities -> treatments + hospitals
         const data = {
             "India": {
                 "Delhi": {
-                    treatments: ["Orthopaedic", "Gynacology", "Dental"],
+                    treatments: ["Orthopaedic", "Gynacology", "Dental", "Cardiology"],
                     hospitals: [
                         {
                             name: "MAX Super Speciality Hospital, Delhi",
-                            treatments: ["Orthopaedic", "Gynacology", "Dental"],
-                            address: "Saket, New Delhi",
+                            treatments: ["Orthopaedic", "Gynacology", "Dental", "Cardiology"],
+                            address: "1, 2 Press Enclave Marg, Saket, New Delhi",
                             phone: "+91 11 1234 5678"
+                        },
+                        {
+                            name: "Apollo Hospital, Delhi",
+                            treatments: ["Orthopaedic", "Cardiology"],
+                            address: "Sarita Vihar, New Delhi",
+                            phone: "+91 11 9876 5432"
                         }
                     ]
                 },
                 "Noida": {
                     treatments: ["Orthopaedic", "Gynacology", "Dental"],
                     hospitals: [
-                       
+                        
                         {
                             name: "Yatharth Hospital, Noida",
                             treatments: ["Gynacology", "Orthopaedic", "Dental"],
@@ -461,7 +893,7 @@
                         {
                             name: "Healthcity Vistaar, Lucknow",
                             treatments: ["Gynacology", "Dental","Orthopaedic"],
-                            address: "Lucknow",
+                            address: "Gomti Nagar, Lucknow",
                             phone: "+91 522 1234 000"
                         }
                     ]
@@ -475,51 +907,54 @@
         const hospitalResults = document.getElementById('hospitalResults');
 
         function populateCountries(){
-            countrySelect.innerHTML = '';
+            countrySelect.innerHTML = '<option value="">Choose Country</option>'; // Add placeholder
             const countries = Object.keys(data);
-            countries.forEach((c, idx) => {
+            countries.forEach((c) => {
                 const opt = document.createElement('option');
                 opt.value = c;
                 opt.textContent = c;
-                if(idx === 0) opt.selected = true;
                 countrySelect.appendChild(opt);
             });
-            updateCities();
+            // Don't auto-select first one, let user choose
+            // updateCities(); 
         }
 
         function updateCities(){
             const country = countrySelect.value;
-            citySelect.innerHTML = '';
-            treatmentSelect.innerHTML = '<option value="">All Treatments</option>';
+            citySelect.innerHTML = '<option value="">Choose City</option>';
+            treatmentSelect.innerHTML = '<option value="">Choose Specialty</option>';
+            
             if(!country || !data[country]){
                 citySelect.disabled = true;
                 treatmentSelect.disabled = true;
-                citySelect.innerHTML = '<option value="">Choose Country First</option>';
-                treatmentSelect.innerHTML = '<option value="">Choose Country First</option>';
                 hospitalResults.innerHTML = emptyState();
                 return;
             }
+            
             const cities = Object.keys(data[country]);
             citySelect.disabled = false;
-            cities.forEach((city, idx) => {
+            cities.forEach((city) => {
                 const opt = document.createElement('option');
                 opt.value = city;
                 opt.textContent = city;
-                if(idx === 0) opt.selected = true;
                 citySelect.appendChild(opt);
             });
-            // populate treatments for default (first) city
-            updateTreatments();
-            onCityChange();
+            onCityChange(); // Call this to set initial state for dropdowns
         }
 
         function updateTreatments(){
             const country = countrySelect.value;
             const city = citySelect.value;
             treatmentSelect.innerHTML = '<option value="">All Treatments</option>';
-            if(!country || !city) { treatmentSelect.disabled = true; return; }
+            
+            if(!country || !city || !data[country][city]) { 
+                treatmentSelect.disabled = true; 
+                return; 
+            }
+            
             const treatments = data[country][city].treatments || [];
-            const unique = Array.from(new Set(treatments));
+            const unique = Array.from(new Set(treatments)).sort(); // Sort alphabetically
+            
             unique.forEach(t => {
                 const opt = document.createElement('option');
                 opt.value = t;
@@ -529,16 +964,19 @@
             treatmentSelect.disabled = false;
         }
 
-        function emptyState(){
+        function emptyState(message){
+            const msg = message || "Select your preferences above to see matching hospitals.";
             return `<div class="empty">
-                        <i class="fas fa-info-circle" style="margin-bottom:8px;display:block;font-size:22px;color:var(--muted)"></i>
-                        Select your preferences above to see matching hospitals.
+                        <i class="fas fa-info-circle" style="margin-bottom:8px;display:block;font-size:22px;color:var(--text-light)"></i>
+                        ${msg}
                     </div>`;
         }
 
         function onCityChange(){
             updateTreatments();
-            renderHospitals(); // show hospitals immediately when city changes
+            // Don't auto-search, wait for button click
+            // renderHospitals(); 
+            hospitalResults.innerHTML = emptyState("Press 'Search Hospitals' to see results.");
         }
 
         function searchHospitals(){
@@ -551,56 +989,48 @@
             const treatment = treatmentSelect.value;
 
             if(!country || !city){
-                hospitalResults.innerHTML = emptyState();
+                hospitalResults.innerHTML = emptyState("Please select a Country and City.");
                 return;
             }
 
             const cityData = data[country][city];
             if(!cityData || !cityData.hospitals || cityData.hospitals.length === 0){
-                hospitalResults.innerHTML = `<div class="empty"><strong>No hospitals found for ${city}.</strong></div>`;
+                hospitalResults.innerHTML = emptyState(`No hospitals found for ${city}.`);
                 return;
             }
 
             const list = cityData.hospitals.filter(h => {
-                if(!treatment) return true;
+                if(!treatment) return true; // No treatment selected, show all
                 return h.treatments.map(t => t.toLowerCase()).includes(treatment.toLowerCase());
             });
 
             if(list.length === 0){
-                hospitalResults.innerHTML = `<div class="empty"><strong>No hospitals offering "${treatment}" in ${city}.</strong></div>`;
+                hospitalResults.innerHTML = emptyState(`No hospitals offering "${treatment}" in ${city}.`);
                 return;
             }
 
             const html = list.map(h => {
                 const initials = h.name.split(' ').slice(0,2).map(s=>s[0]).join('').toUpperCase().slice(0,2);
-                const pills = h.treatments.map(t => `<span class="pill">${t}</span>`).join(' ');
+                const pills = h.treatments.slice(0, 3).map(t => `<span class="pill">${t}</span>`).join(' '); // Show max 3 pills
+                const morePills = h.treatments.length > 3 ? `<span class="pill">+${h.treatments.length - 3} more</span>` : '';
 
-                // Build URLs for Book Appointment and WhatsApp
-                const bookUrl = `contact-us.html?hospital=${encodeURIComponent(h.name)}`;
-                // sanitize phone digits for wa.me if available
-                let waUrl;
-                if(h.phone){
-                    const digits = (h.phone || '').replace(/\D/g,'');
-                    if(digits) {
-                        waUrl = `https://wa.me/${digits}?text=${encodeURIComponent('Hello, I would like to book an appointment at ' + h.name + '.')}`;
-                    } else {
-                        waUrl = `https://wa.me/?text=${encodeURIComponent('Hello, I would like to book an appointment at ' + h.name + '.')}`;
-                    }
-                } else {
-                    waUrl = `https://wa.me/?text=${encodeURIComponent('Hello, I would like to book an appointment at ' + h.name + '.')}`;
-                }
-
+                const waMsg = encodeURIComponent(`Hello, I would like to book an appointment at ${h.name}.`);
+                const waUrl = `https://wa.me/?text=${waMsg}`; // Use generic wa.me link
+                
+                // --- MODIFIED HTML STRING FOR NEW CARD ---
                 return `<div class="hospital-card" role="article" aria-label="${h.name}">
                             <div class="hospital-avatar">${initials}</div>
                             <div class="hospital-body">
                                 <h4>${h.name}</h4>
-                                <p>${h.address} · <span style="color:var(--muted)">${h.phone}</span></p>
-                                <div class="hospital-meta">${pills}</div>
+                                <p><i class="fas fa-map-marker-alt" style="margin-right: 5px; color: var(--text-light);"></i> ${h.address || 'Address not listed'}</p>
+                                <div class="hospital-meta">${pills} ${morePills}</div>
                             </div>
                             <div class="actions">
-                                <a class="view-btn" href="${bookUrl}" title="Book Appointment">Book Appointment</a>
-                                <a class="wa-btn" href="${waUrl}" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
-                                    <i class="fab fa-whatsapp" style="margin-right:8px"></i> WhatsApp
+                                <button class="view-details-btn" onclick="showHospitalProfile('${h.name.replace(/'/g, "\\'")}')">
+                                    <i class="fas fa-hospital"></i> View Profile
+                                </button>
+                                <a class="whatsapp-btn" href="${waUrl}" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
                                 </a>
                             </div>
                         </div>`;
@@ -611,9 +1041,25 @@
 
         function resetFilters(){
             populateCountries();
+            citySelect.innerHTML = '<option value="">Choose Country First</option>';
+            treatmentSelect.innerHTML = '<option value="">Choose Specialty</soption>';
             treatmentSelect.disabled = true;
-            citySelect.disabled = false;
+            citySelect.disabled = true;
             hospitalResults.innerHTML = emptyState();
+        }
+        
+        // --- (NEW) FORM SUBMISSION HANDLER ---
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Stop the form from reloading the page
+            
+            const form = document.getElementById('evaluationForm');
+            const successMessage = document.getElementById('formSuccessMessage');
+            
+            // In a real application, you would send data to a server here.
+            form.style.display = 'none'; // Hide the form
+            successMessage.style.display = 'block'; // Show the success message
+
+            return false; // Prevent submission
         }
 
         // initialize
