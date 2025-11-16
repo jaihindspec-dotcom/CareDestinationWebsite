@@ -6,154 +6,175 @@
     <title>CareDestinations - Where Healing Meets Humanity</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+
+    <style>
+        :root {
+            --primary-color: #007bff; /* The professional blue from previous style */
+            --secondary-color: #28a745; /* Green for WhatsApp */
+        }
+
+        /* Make header logo blend better: remove any background, remove shadow and add subtle translucency */
+        #navbar .brand-logo {
+            background: transparent !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            opacity: 0.95;               /* tweak between 0.0 (invisible) and 1.0 (opaque) */
+            border-radius: 8px;         /* optional: soften rectangular edges */
+            display: block;
+            object-fit: contain;
+            mix-blend-mode: normal;     /* try 'multiply' or 'screen' if you want the image to blend with the navbar color */
+        }
+    
+        /* Nav background, elevation and responsive polish (scoped to #navbar) */
+        #navbar {
+            /* UPDATED: Changed from gradient to the solid primary blue */
+            background: var(--primary-color); 
+            color: #fff;
+            padding: 12px 0;
+            box-shadow: 0 8px 30px rgba(11,98,168,0.14);
+            position: sticky;
+            top: 0;
+            z-index: 60;
+        }
+
+        /* Align logo to left and move menu to the right within the navbar */
+        /* Scope to navbar to avoid global side-effects */
+        #navbar .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* logo left, menu/right actions to the right */
+            gap: 16px;
+            width: 100%;
+            padding-left: 0; /* ensure the nav container starts at the very left edge */
+        }
+
+        /* If the container wrapper provides its own side padding, override it here so brand sits flush left */
+        #navbar.container,
+        #navbar > .container,
+        #navbar .container.nav-container {
+            padding-left: 0;
+        }
+
+        /* Logo block stays compact on the left */
+        #navbar .logo { display:flex; align-items:center; gap:10px; flex:0 0 auto; margin-left: 0; }
+        #navbar .brand-link { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; margin-left:0; }
+        #navbar .brand-logo { display:block; width:48px; height:48px; object-fit:contain; }
+
+        /* Brand text styling */
+        .brand-text {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 20px;
+            font-family: inherit;
+            line-height: 1;
+            white-space: nowrap;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.18);
+        }
+
+        /* Ensure the main menu flows to the right */
+        #navbar .nav-menu {
+            margin: 0 0 0 auto; /* push to right */
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        #navbar .nav-menu li { list-style: none; }
+
+        /* Nav links contrast on colorful bg */
+        #navbar .nav-menu a {
+            color: rgba(255,255,255,0.95);
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        #navbar .nav-menu a:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        #navbar .nav-menu a.active {
+            background: rgba(255,255,255,0.12);
+            box-shadow: inset 0 -2px 0 rgba(255,255,255,0.06);
+        }
+        
+        /* NEW: Style for the "Partner With Us" button */
+        #navbar .nav-menu a.btn-partner {
+            background: #fff;
+            color: var(--primary-color);
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+        #navbar .nav-menu a.btn-partner:hover {
+            background: #f0f0f0;
+            color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transform: translateY(-1px);
+        }
+
+
+        /* Dropdown content adjustments for visibility */
+        #navbar .dropdown-content {
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.94));
+            color: #0b3b66;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(3,102,214,0.12);
+            padding: 8px;
+            min-width: 180px;
+        }
+        #navbar .dropdown-content a {
+            display:block;
+            color:#0b3b66;
+            padding:8px 10px;
+            border-radius:6px;
+        }
+        #navbar .dropdown-content a:hover { background: #f1f7fb; }
+
+        /* Keep right-side actions grouped and aligned */
+        #navbar .nav-right-actions { margin-left: 18px; display:flex; align-items:center; gap:12px; }
+
+        /* Make language select and google translate more visible on colored background */
+        #navbar .language-selector select,
+        #navbar .language-selector #google_translate_element {
+            background: rgba(255,255,255,0.92);
+            border-radius: 6px;
+            padding: 6px 8px;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 900px) {
+            .brand-text { font-size: 18px; }
+            #navbar .brand-logo { width:44px; height:44px; }
+        }
+        @media (max-width: 640px) {
+            /* compact brand on very small screens */
+            .brand-text { font-size: 16px; display:inline-block; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+            #navbar .nav-menu { display: none; } /* hamburger will be used */
+        }
+    </style>
+    </head>
 <body>
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <div class="logo" role="banner">
-                <a href="index.html" class="brand-link" aria-label="CareDestinations Home" style="margin-left:-12px;display:flex;align-items:center;gap:12px;">
-                    <img src="images/logo.png" alt="CareDestinations Logo" class="brand-logo" style="width:64px;height:64px;object-fit:contain;" width="64" height="64" />
-                    <span class="brand-text" style="font-size:24px;font-weight:800;letter-spacing:0.2px;">CareDestinations</span>
-                </a>
 
-                <style>
-                    :root {
-                        --primary-color: #007bff; /* The professional blue from previous style */
-                        --secondary-color: #28a745; /* Green for WhatsApp */
-                    }
-                
-                    /* Nav background, elevation and responsive polish (scoped to #navbar) */
-                    #navbar {
-                        /* UPDATED: Changed from gradient to the solid primary blue */
-                        background: var(--primary-color); 
-                        color: #fff;
-                        padding: 12px 0;
-                        box-shadow: 0 8px 30px rgba(11,98,168,0.14);
-                        position: sticky;
-                        top: 0;
-                        z-index: 60;
-                    }
-
-                    /* Align logo to left and move menu to the right within the navbar */
-                    /* Scope to navbar to avoid global side-effects */
-                    #navbar .nav-container {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between; /* logo left, menu/right actions to the right */
-                        gap: 16px;
-                        width: 100%;
-                    }
-
-                    /* Logo block stays compact on the left */
-                    #navbar .logo { display:flex; align-items:center; gap:10px; flex:0 0 auto; }
-                    #navbar .brand-link { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
-                    #navbar .brand-logo { display:block; width:48px; height:48px; object-fit:contain; }
-
-                    /* Brand text styling */
-                    .brand-text {
-                        color: #ffffff;
-                        font-weight: 700;
-                        font-size: 20px;
-                        font-family: inherit;
-                        line-height: 1;
-                        white-space: nowrap;
-                        text-shadow: 0 1px 2px rgba(0,0,0,0.18);
-                    }
-
-                    /* Ensure the main menu flows to the right */
-                    #navbar .nav-menu {
-                        margin: 0 0 0 auto; /* push to right */
-                        display: flex;
-                        gap: 12px;
-                        align-items: center;
-                    }
-                    #navbar .nav-menu li { list-style: none; }
-
-                    /* Nav links contrast on colorful bg */
-                    #navbar .nav-menu a {
-                        color: rgba(255,255,255,0.95);
-                        text-decoration: none;
-                        padding: 8px 10px;
-                        border-radius: 8px;
-                        font-weight: 600;
-                    }
-                    #navbar .nav-menu a:hover {
-                        background: rgba(255,255,255,0.08);
-                        color: #fff;
-                    }
-                    #navbar .nav-menu a.active {
-                        background: rgba(255,255,255,0.12);
-                        box-shadow: inset 0 -2px 0 rgba(255,255,255,0.06);
-                    }
-                    
-                    /* NEW: Style for the "Partner With Us" button */
-                    #navbar .nav-menu a.btn-partner {
-                        background: #fff;
-                        color: var(--primary-color);
-                        font-weight: 700;
-                        padding: 8px 14px;
-                        border-radius: 6px;
-                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                        transition: all 0.2s;
-                    }
-                    #navbar .nav-menu a.btn-partner:hover {
-                        background: #f0f0f0;
-                        color: #0056b3;
-                        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-                        transform: translateY(-1px);
-                    }
-
-
-                    /* Dropdown content adjustments for visibility */
-                    #navbar .dropdown-content {
-                        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.94));
-                        color: #0b3b66;
-                        border-radius: 8px;
-                        box-shadow: 0 8px 20px rgba(3,102,214,0.12);
-                        padding: 8px;
-                        min-width: 180px;
-                    }
-                    #navbar .dropdown-content a {
-                        display:block;
-                        color:#0b3b66;
-                        padding:8px 10px;
-                        border-radius:6px;
-                    }
-                    #navbar .dropdown-content a:hover { background: #f1f7fb; }
-
-                    /* Keep right-side actions grouped and aligned */
-                    #navbar .nav-right-actions { margin-left: 18px; display:flex; align-items:center; gap:12px; }
-
-                    /* Make language select and google translate more visible on colored background */
-                    #navbar .language-selector select,
-                    #navbar .language-selector #google_translate_element {
-                        background: rgba(255,255,255,0.92);
-                        border-radius: 6px;
-                        padding: 6px 8px;
-                    }
-
-                    /* Responsive tweaks */
-                    @media (max-width: 900px) {
-                        .brand-text { font-size: 18px; }
-                        #navbar .brand-logo { width:44px; height:44px; }
-                    }
-                    @media (max-width: 640px) {
-                        /* compact brand on very small screens */
-                        .brand-text { font-size: 16px; display:inline-block; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-                        #navbar .nav-menu { display: none; } /* hamburger will be used */
-                    }
-                </style>
-            </div>
+                <a href="index.html" class="brand-link brand-outside" aria-label="CareDestinations Home">
+        <img src="images/logo.jpg" alt="CareDestinations Logo" class="brand-logo" width="80" height="80" style="width:80px;height:80px;object-fit:contain;" />
+        <span class="brand-text" style="font-size:22px;font-weight:800;color:#fff;">CareDestinations</span>
+    </a>
+                </div>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home" class="active">Home</a></li>
-                <li class="dropdown">
+              <!--  <li class="dropdown">
                     <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'});">Specialization <i class="fas fa-chevron-down"></i></a>
                     <div class="dropdown-content">
                          <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const filterBtn = document.querySelector('.filter-btn[data-filter=\'gynaecology\']'); if (filterBtn) { filterBtn.click(); }">Gynaecology</a>
                         <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const filterBtn = document.querySelector('.filter-btn[data-filter=\'orthopaedics\']'); if (filterBtn) { filterBtn.click(); }">Orthopaedics</a>
                         <a href="#treatments" onclick="event.preventDefault(); document.getElementById('treatments').scrollIntoView({behavior:'smooth'}); const filterBtn = document.querySelector('.filter-btn[data-filter=\'dental\']'); if (filterBtn) { filterBtn.click(); }">Dental</a>
                     </div>
-                </li>
+                </li>-->
             
                 <li><a href="doctors.html">Doctors</a></li>
                 <li><a href="hospitals.html">Hospitals</a></li>
@@ -347,7 +368,7 @@
 
                             <div class="search-results" id="searchResults"></div>
                         </div>
-                    </div>
+                   </div>
                 </div>
 
                 <div class="language-selector">
@@ -386,7 +407,7 @@
                 <span></span>
                 <span></span>
             </div>
-            </nav>
+        </nav>
 
     <section class="hero" id="home"
         style="background:
@@ -476,7 +497,7 @@
         </div>
     </section>
 
-    <section class="treatments" id="treatments">
+    <!--<section class="treatments" id="treatments">
         <div class="container">
             <div class="section-header">
                 <h3>Treatment Cost</h3>
@@ -485,12 +506,12 @@
             <div class="treatment-filters">
                 <button class="filter-btn" data-filter="gynaecology">Gynaecology</button>
                 <button class="filter-btn" data-filter="orthopaedics">Orthopaedics</button>
-                <button class="filter-btn" data-filter="dental">Dental</button>                
+                <button class="filter-btn" data-filter="dental">Dental</button>              
             </div>
             <div class="treatment-grid" id="treatment-grid">
                 </div>
             </div>
-    </section>
+    </section> -->
 
     </div>
 
@@ -821,7 +842,7 @@
             })();
         </script>
     </section>
-  
+ 
 
     <section class="cta-section">
         <div class="container">
